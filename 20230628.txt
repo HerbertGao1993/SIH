@@ -1,0 +1,2 @@
+接收到external caption info时，创建一个extcaptionobj，包含boxid和externalcaption放到extcaptioninfolist里。
+HandleBottomStitchObjectList、BarcodeStitchObjectList、ExtCaptionBoxList、BoxList时，找extcaptioninfolist相应的boxid要extcaptioninfo。

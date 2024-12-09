@@ -1,0 +1,47 @@
+mysqld --initialize --console
+
+mysqld --install mysql
+
+net start mysql
+
+mysql -uroot -p
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY '123456';
+
+变量名：MYSQL_HOME
+变量值：MySQL的解压目录
+PATH中增加%MYSQL_HOME%\bin
+
+CREATE DATABASE dws;
+
+USE dws;
+
+CREATE TABLE info(
+TimeStamp bigint unsigned NOT NULL,
+Expiry datetime NOT NULL,
+Barcode varchar(255),
+Length varchar(10),
+Width varchar(10),
+Height varchar(10),
+Weight varchar(10),
+Volume varchar(30),
+ImageFullName varchar(255),
+ReadStatus tinyint,
+InfoIntact tinyint,
+ParcelID varchar(10),
+Destination varchar(10),
+INDEX _barcode(Barcode),
+PRIMARY KEY(TimeStamp)
+);
+
+GRANT EVENT ON *.* TO 'root'@'localhost';
+
+SET GLOBAL event_scheduler = ON;
+
+CREATE EVENT delete_expired_data
+ON SCHEDULE EVERY 1 DAY
+STARTS CURRENT_TIMESTAMP
+DO
+DELETE FROM info WHERE Expiry < CURRENT_TIMESTAMP;
+
+

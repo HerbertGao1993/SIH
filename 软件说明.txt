@@ -1,0 +1,50 @@
+原始图片命名：
+***存图的命名规则为_0,N0_1,N1_2,N2_3,N3_4,N4_5,N5_6,N6_7,N7_8,N8_9,N9_10,N10_11,N11
+   _n,为第n块信息的标识符；Nn为第n块信息
+   其中N0必须是GroupID，N1必须是读码器名称，N2为读到码的那台读码器的名称（decodeResult.source）；其余信息可随意分配。
+   最多包含12块信息（可以少于12块信息）
+   建议条码放在最后一块信息中
+***信息不全的缺省值用xx表示
+
+主线图片示例：
+主机图片：_0,N0_1,N1_2,N2_3,N3_4,N4_5,N5_6,N6_7,N7_8,N8_9,N9_10,N10_11,N11
+从机图片：_0,N0_1,N1_2,xx_3,xx_4,xx_5,xx_6,xx_7,xx_8,xx_9,xx_10,xx_11,xx
+
+供包台图片示例：
+底扫图片：_0,触发ID_1,读码器名称(DN01-20)_2,时间戳(yyyyMMddHHmmssfff)_3,结果(GR/MR/NR)_4,条码
+
+读码器命名：
+UP01
+LB01
+LF01
+RB01
+RF01
+BT01-06 （DMBS）
+DN01-20 （底扫线扫）
+xxxxMaster或xxxxmaster
+
+存图路径：
+可自定义，使用N0-N11代替主机图片名中的信息，Nn表示第n块信息
+若需要以时间命名，使用yyyy、MM、dd、HH、mm、ss、fff来表示
+
+最终图片命名：
+可自定义，使用N0-N11代替主机图片名中的信息，Nn表示第n块信息
+若需要以时间命名，使用yyyy、MM、dd、HH、mm、ss、fff来表示
+
+A. DWS消息：
+{
+     "TriggerOnTimeStamp" : "20240801123044445",
+     "Barcode" : "SF123",
+     "Length" : 100,
+     "Width" : 100,
+     "Height" : 100,
+     "Weight" : 100,
+     "Volume" : 100000,
+     "ImageFullName" : "D:\\2024\\09\\01\\12\\UP01.jpg",
+     "ReadStatus" : true,
+     "InfoIntact" : true,
+     "ParcelID" : "00001",
+     "Destination" : "01"
+}
+B. 设备状态：
+1111111111111111(十六个值分别是TopFront TopRear LeftFront LeftRear RightFront RightRear BT01-06 UP01 体积测量 称 PLC，其中1为正常，0为异常)

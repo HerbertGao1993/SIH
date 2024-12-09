@@ -1,0 +1,410 @@
+﻿<Window x:Class="DWSInterface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DWSInterface"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:ed ="http://schemas.microsoft.com/expression/2010/drawing"
+        mc:Ignorable="d"
+        x:Name="MainWin"
+        Title="DWSInterfaceHerbert" Height="522.512" Width="867.18" Background="#69839C" Closing="Window_Closing" WindowState="Maximized" WindowStyle="None">
+    <Window.Resources>
+        <sys:Double x:Key="Height">100</sys:Double>
+        <local:GridSizetoImageHeightConverter x:Key="imageHeightConverter"/>
+        <local:GridSizetoImageWidthConverter x:Key="imageWidthConverter"/>
+        <local:GridSizetoDataFontSizeConverter x:Key="dataSizeConverter"/>
+        <local:GridSizetoTitleFontSizeConverter x:Key="titleSizeConverter"/>
+        <local:GridSizetoDataFontSizeConverterForDWS x:Key="dataSizeConverterForDWS"/>
+        <local:GridSizetoTitleFontSizeConverterForDWS x:Key="titleSizeConverterForDWS"/>
+        <local:GridSizetoLabelSizeConverter x:Key="labelSizeConverter"/>
+        <Style x:Key="dataFontStyle" TargetType="TextBlock">
+            <Setter Property="FontSize">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource dataSizeConverter}" Mode="OneWay">
+                        <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualWidth"/>
+                        <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualHeight"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="dataFontStyleForDWS" TargetType="TextBlock">
+            <Setter Property="FontSize">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource dataSizeConverterForDWS}" Mode="OneWay">
+                        <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualWidth"/>
+                        <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualHeight"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="titleFontStyle" TargetType="TextBlock">
+            <Setter Property="FontSize">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource titleSizeConverter}" Mode="OneWay">
+                        <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualWidth"/>
+                        <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualHeight"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="titleFontStyleForDWS" TargetType="TextBlock">
+            <Setter Property="FontSize">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource titleSizeConverterForDWS}" Mode="OneWay">
+                        <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualWidth"/>
+                        <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualHeight"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="labelStyle" TargetType="Label">
+            <Setter Property="Height">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource labelSizeConverter}" Mode="OneWay">
+                        <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualWidth"/>
+                        <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualHeight"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="styleReadRateBar" TargetType="ProgressBar">
+            <Setter Property="Width" Value="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=Border, Mode=FindAncestor, AncestorLevel=1}}"/>
+            <Setter Property="Height" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Border, Mode=FindAncestor, AncestorLevel=1}}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.05*"/>
+                                <RowDefinition Height="0.65*"/>
+                                <RowDefinition Height="0.05*"/>
+                                <RowDefinition Height="0.1*"/>
+                                <RowDefinition Height="0.05*"/>
+                                <RowDefinition Height="0.1*"/>
+                                <RowDefinition Height="0.05*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ed:Arc x:Name="BackArc" Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor, AncestorLevel=1}}" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor, AncestorLevel=1}}" ArcThickness="10" StartAngle="0" Fill="Black" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" EndAngle="360"/>
+                                <ed:Arc x:Name="ForeArc"  Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor, AncestorLevel=1}}" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor, AncestorLevel=1}}" ArcThickness="10" StartAngle="0" Fill="LightGreen" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" EndAngle="{TemplateBinding Value}"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.1*"/>
+                                        <RowDefinition Height="0.4*"/>
+                                        <RowDefinition Height="0.17*"/>
+                                        <RowDefinition Height="0.33*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="1">
+                                        <TextBlock TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding Path=ReadRateBarRate}" Style="{StaticResource dataFontStyle}"/>
+                                    </Grid>
+                                    <Grid Grid.Row="2">
+                                        <TextBlock Grid.Row="1" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" Text="{Binding Path=ReadRateBarTitle}" Style="{StaticResource titleFontStyle}"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid x:Name="GridFore" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.35*"/>
+                                    <ColumnDefinition Width="0.45*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Background="{Binding ElementName=ForeArc, Path=Fill}" Width="{Binding ElementName=GridFore, Path=ActualHeight}" Height="{Binding ElementName=GridFore, Path=ActualHeight}"/>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Path=ReadRateBarForegroundText}" Style="{StaticResource titleFontStyle}"/>
+                                <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Path=ReadRateBarForegroundCount}" Style="{StaticResource titleFontStyle}"/>
+                            </Grid>
+                            <Grid x:Name="GridBack" Grid.Row="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.35*"/>
+                                    <ColumnDefinition Width="0.45*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Background="{Binding ElementName=BackArc, Path=Fill}" Width="{Binding ElementName=GridBack, Path=ActualHeight}" Height="{Binding ElementName=GridBack, Path=ActualHeight}"/>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Path=ReadRateBarBackgroundText}" Style="{StaticResource titleFontStyle}"/>
+                                <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Path=ReadRateBarBackgroundCount}" Style="{StaticResource titleFontStyle}"/>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="styleDWSBar" TargetType="ProgressBar">
+            <Setter Property="Width" Value="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=Border, Mode=FindAncestor, AncestorLevel=1}}"/>
+            <Setter Property="Height" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Border, Mode=FindAncestor, AncestorLevel=1}}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.05*"/>
+                                <RowDefinition Height="0.65*"/>
+                                <RowDefinition Height="0.05*"/>
+                                <RowDefinition Height="0.1*"/>
+                                <RowDefinition Height="0.05*"/>
+                                <RowDefinition Height="0.1*"/>
+                                <RowDefinition Height="0.05*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="1">
+                                <ed:Arc x:Name="BackArc" Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor, AncestorLevel=1}}" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor, AncestorLevel=1}}" ArcThickness="10" StartAngle="0" Fill="Black" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" EndAngle="360"/>
+                                <ed:Arc x:Name="ForeArc"  Height="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor, AncestorLevel=1}}" Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor, AncestorLevel=1}}" ArcThickness="10" StartAngle="0" Fill="LightGreen" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" EndAngle="{TemplateBinding Value}"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.1*"/>
+                                        <RowDefinition Height="0.4*"/>
+                                        <RowDefinition Height="0.17*"/>
+                                        <RowDefinition Height="0.33*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="1">
+                                        <TextBlock TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding Path=DWSBarRate}" Style="{StaticResource dataFontStyle}"/>
+                                    </Grid>
+                                    <Grid Grid.Row="2">
+                                        <TextBlock Grid.Row="1" Foreground="White" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" Text="{Binding Path=DWSBarTitle}" Style="{StaticResource titleFontStyle}"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid x:Name="GridFore" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.35*"/>
+                                    <ColumnDefinition Width="0.45*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Background="{Binding ElementName=ForeArc, Path=Fill}" Width="{Binding ElementName=GridFore, Path=ActualHeight}" Height="{Binding ElementName=GridFore, Path=ActualHeight}"/>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Path=DWSBarForegroundText}" Style="{StaticResource titleFontStyle}"/>
+                                <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Path=DWSBarForegroundCount}" Style="{StaticResource titleFontStyle}"/>
+                            </Grid>
+                            <Grid x:Name="GridBack" Grid.Row="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*"/>
+                                    <ColumnDefinition Width="0.35*"/>
+                                    <ColumnDefinition Width="0.45*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Background="{Binding ElementName=BackArc, Path=Fill}" Width="{Binding ElementName=GridBack, Path=ActualHeight}" Height="{Binding ElementName=GridBack, Path=ActualHeight}"/>
+                                <TextBlock Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Path=DWSBarBackgroundText}" Style="{StaticResource titleFontStyle}"/>
+                                <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding Path=DWSBarBackgroundCount}" Style="{StaticResource titleFontStyle}"/>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#69839C" MouseDown="Grid_MouseDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="44*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="pack://application:,,,/Images/icon2.jpg" Stretch="Uniform" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="2" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20">DWS信息平台</TextBlock>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="29*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="7.0*"/>
+                    <RowDefinition Height="0.9*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="1" Margin="0,0,0,0" Background="#E38FEE" BorderBrush="LightBlue" BorderThickness="0"  CornerRadius="8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="6*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="9.2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Label  HorizontalAlignment="Left" VerticalAlignment="Top" Background="Red" Width="10" Style="{StaticResource labelStyle}" Margin="0,18,0,0"/>
+                        </Grid>
+                        <Grid  Grid.Row="1" Grid.Column="2">
+                            <TextBlock x:Name="BarcodeTextBlock" Foreground="White" Text="{Binding Barcode}"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0" Style="{StaticResource dataFontStyle}"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="4.5*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Margin="0,0,0,0" Background="#5DE4F7 " BorderBrush="LightBlue" BorderThickness="0"  CornerRadius="8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="9.6*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="2*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Row="1" Grid.Column="0"  x:Name="GridTitleD">
+                                    <TextBlock HorizontalAlignment="Left" Foreground="White" VerticalAlignment="Center" Text="{Binding LHWTitle}" Style="{StaticResource titleFontStyleForDWS}"/>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="1"  x:Name="GridTitleID">
+                                    <TextBlock HorizontalAlignment="Left" Foreground="White" VerticalAlignment="Center" Text="{Binding TrackIDTitle}" Style="{StaticResource titleFontStyleForDWS}"/>
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="2"  x:Name="DestinationTitleID">
+                                    <TextBlock HorizontalAlignment="Left" Foreground="White" VerticalAlignment="Center" Text="{Binding ChuteTitle}" Style="{StaticResource titleFontStyleForDWS}"/>
+                                </Grid>
+                                <Grid Grid.Row="2" Grid.Column="0" x:Name="GridDataDim">
+                                    <TextBlock x:Name="DimTextBlock" Text="{Binding DimString}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource dataFontStyleForDWS}" Margin="0,15,0,14.6"/>
+                                </Grid>
+                                <Grid Grid.Row="2" Grid.Column="1" x:Name="GridDataID">
+                                    <TextBlock x:Name="IDTextBlock" Text="{Binding ID}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource dataFontStyleForDWS}"/>
+                                </Grid>
+                                <Grid Grid.Row="2" Grid.Column="2" x:Name="GridDataDestination">
+                                    <TextBlock x:Name="DestinationTextBlock" Text="{Binding Destination}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource dataFontStyleForDWS}"/>
+                                </Grid>
+                                <Grid Grid.Row="4" Grid.Column="1" x:Name="GridTitleW">
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding WeightTitle}" Style="{StaticResource titleFontStyleForDWS}"/>
+                                </Grid>
+                                <Grid Grid.Row="4" Grid.Column="0" x:Name="GridTitleV">
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{Binding VolumeTitle}" Style="{StaticResource titleFontStyleForDWS}"/>
+                                </Grid>
+                                <Grid Grid.Row="5" Grid.Column="1" x:Name="GridDataW">
+                                    <TextBlock x:Name="WeightTextBlock" Text="{Binding WeightString}" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Style="{StaticResource dataFontStyleForDWS}"/>
+                                </Grid>
+                                <Grid Grid.Row="5" Grid.Column="0" x:Name="GridDataV">
+                                    <TextBlock x:Name="VolumeTextBlock" Text="{Binding VolumeString}" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Style="{StaticResource dataFontStyleForDWS}"/>
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4.9*"/>
+                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="4.9*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Background="#99AAB0" BorderBrush="LightBlue" BorderThickness="0"  CornerRadius="8">
+                            <ProgressBar x:Name="ReadRateBar" Minimum="0" Maximum="360" Value="{Binding Path=ReadRateBarValue}" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource styleReadRateBar}"/>
+                        </Border>
+                        <Border Grid.Column="2" Background="#99AAB0" BorderBrush="LightBlue" BorderThickness="0"  CornerRadius="8">
+                            <ProgressBar x:Name="DWSBar" Minimum="0" Maximum="360" Value="{Binding Path=DWSBarValue}" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource styleDWSBar}"/>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" Text="{Binding DWSListCount}" x:Name="DWSListCountBox" HorizontalAlignment="Left" Foreground="#69839C" MouseEnter="DWSListCountBox_MouseEnter" MouseLeave="DWSListCountBox_MouseLeave"/>
+                    <local:CircleControlwithArrow Grid.Row="1" Grid.Column="0" x:Name="BCRStatusControl" Text="{Binding BCRTitle}" Background="{Binding BCRBackground}" BT01Background="{Binding BT01Background}" BT02Background="{Binding BT02Background}" BT03Background="{Binding BT03Background}" BT04Background="{Binding BT04Background}" BT05Background="{Binding BT05Background}" BT06Background="{Binding BT06Background}" TFBackground="{Binding TFBackground}" TRBackground="{Binding TRBackground}" LFBackground="{Binding LFBackground}" LRBackground="{Binding LRBackground}" RFBackground="{Binding RFBackground}" RRBackground="{Binding RRBackground}"/>
+                    <!--<ComboBox Grid.Row="1" Grid.Column="1" x:Name="BCRStatusCombo" Background="#69839C">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Background="#69839C">
+                                    <local:CircleControl Text="{Binding Name}" Background="{Binding Background}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>-->
+                    <Grid x:Name="GridPanoramStatus" Grid.Row="1" Grid.Column="1">
+                        <local:CircleControl Text="{Binding PanoromTitle}" Background="{Binding PanoromBackground}"/>
+                    </Grid>
+                    <Grid x:Name="GridDimStatus" Grid.Row="1" Grid.Column="2">
+                        <local:CircleControl Text="{Binding DimTitle}"  Background="{Binding DIMBackground}"/>
+                    </Grid>
+                    <Grid x:Name="GridWeightStatus" Grid.Row="1" Grid.Column="3">
+                        <local:CircleControl Text="{Binding ScaleTitle}"  Background="{Binding WeightBackground}"/>
+                    </Grid>
+                    <Grid x:Name="GridPLCStatus" Grid.Row="1" Grid.Column="4">
+                        <local:CircleControl Text="PLC"  Background="{Binding PLCBackground}"/>
+                    </Grid>
+                    <TextBlock Grid.Row="1" Grid.Column="6" Text="{Binding HisListCount}" VerticalAlignment="Center" x:Name="HistDWSListCountBox" HorizontalAlignment="Right" Foreground="#69839C" MouseEnter="HistDWSListCountBox_MouseEnter" MouseLeave="HistDWSListCountBox_MouseLeave"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="5.3*"/>
+                    <RowDefinition Height="0.35*"/>
+                    <RowDefinition Height="3.15*"/>
+                    <RowDefinition Height="0.9*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="1" Background="Black" BorderBrush="LightBlue" BorderThickness="0"  CornerRadius="8">
+                    <Image x:Name="ImageBox" Margin="5,5,5,5" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding BMP}"/>
+                </Border>
+                <Grid Grid.Row="3" x:Name="GridHis">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--<Grid Grid.Column="0">
+                        <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="" Style="{StaticResource titleFontStyle}"/>
+                    </Grid>-->
+                    <Grid Grid.Column="0" x:Name="GridLang">
+                        <Button x:Name="LangShift" Foreground="White" Content="{Binding Language}" FontSize="30" Width ="{Binding ElementName=GridLang, Path=ActualWidth}" Height="{Binding ElementName=GridHis, Path=ActualHeight}" BorderBrush="Transparent" Background="#99AAB0"  HorizontalAlignment="Left" VerticalAlignment="Center" Click="LangShift_Click">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="2" x:Name="GridReset">
+                        <Button x:Name="ResetStats" Foreground="White" Content="{Binding ResetTitle}" FontSize="30" Width ="{Binding ElementName=GridReset, Path=ActualWidth}" Height="{Binding ElementName=GridHis, Path=ActualHeight}" BorderBrush="Transparent" Background="#99AAB0"  HorizontalAlignment="Center" VerticalAlignment="Center" Click="ResetStats_Click">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="4" x:Name="GridQuery">
+                        <Button x:Name="ButtonHis" Foreground="White" Content="{Binding QueryTitle}" FontSize="30" Width ="{Binding ElementName=GridQuery, Path=ActualWidth}" Height="{Binding ElementName=GridHis, Path=ActualHeight}" BorderBrush="Transparent" Background="#99AAB0"   HorizontalAlignment="Right" VerticalAlignment="Center" Click="ButtonHis_Click">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,34 @@
+界面
+1. 中英文切换
+2. 相机 体积 称状态
+3. 历史数据查询（条码 时间段）
+4. ID号
+
+读码器通讯：
+1. PLC在触发附近发送包裹号 读码器绑ID 触发前后一段时间发ID号
+2. 读码器绑体积和称的数据
+3. 读码器给PLC发条码+体积+称+时间戳(格式待定)
+4. 主读码器接受从机、体积、称的心跳，定期更新连接状态
+5. 读码器DWS界面发DWS消息及设备状态
+
+
+读码器与DWS界面的通讯，报头\x02,报尾\x03
+A. DWS消息：
+{
+     "TriggerOnTimeStamp" : "20240801123044445",
+     "Barcode" : "SF123",
+     "Length" : 100,
+     "Width" : 100,
+     "Height" : 100,
+     "Weight" : 100,
+     "Volume" : 100000,
+     "ImageFullName" : "D:\\2024\\09\\01\\12\\UP01.jpg",
+     "ReadStatus" : true,
+     "InfoIntact" : true,
+     "ParcelID" : "00001",
+     "Destination" : "01"
+}
+B. 设备状态：
+1111111111111111(十六个值分别是TopFront TopRear LeftFront LeftRear RightFront RightRear BT01-06 UP01 体积测量 称 PLC，其中1为正常，0为异常)
+
+

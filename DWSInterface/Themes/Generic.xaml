@@ -1,0 +1,89 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:DWSInterface">
+    <local:GridSizetoTitleFontSizeConverter x:Key="titleSizeConverter"/>
+    <Style x:Key="titleFontStyle" TargetType="TextBlock">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource titleSizeConverter}" Mode="OneWay">
+                    <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualWidth"/>
+                    <Binding RelativeSource="{RelativeSource AncestorType=Grid, Mode=FindAncestor,AncestorLevel=1}" Path="ActualHeight"/>
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:CircleControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:CircleControl}">
+                    <Grid Background="#69839C" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid x:Name="GridEllispe" Grid.Column="0">
+                            <Ellipse Width="{Binding ElementName=GridEllispe, Path=ActualWidth}"
+                                Height="{Binding ElementName=GridEllispe, Path=ActualWidth}"
+                                Fill="{TemplateBinding Background}">
+                            </Ellipse>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBlock Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{TemplateBinding Text}" FontSize="15"/>
+                        </Grid>
+                        
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
+
+    <Style TargetType="{x:Type local:CircleControlwithArrow}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:CircleControlwithArrow}">
+                    <Grid x:Name="GridParent" Background="#69839C" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="15"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid x:Name="GridEllispe" Grid.Column="0">
+                            <Ellipse Width="{Binding ElementName=GridEllispe, Path=ActualWidth}"
+                                Height="{Binding ElementName=GridEllispe, Path=ActualWidth}"
+                                Fill="{TemplateBinding Background}">
+                            </Ellipse>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBlock Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Text="{TemplateBinding Text}" FontSize="15"/>
+                        </Grid>
+                        <Border Grid.Column="2" BorderThickness="0" Background="#69839C" BorderBrush="#69839C">
+                            <Path x:Name="ArrowPath" Fill="White" Data="M -20,18 L -15,10 L -10,18"/>
+                        </Border>
+                        <Popup Width="{Binding ElementName=GridParent, Path=ActualWidth}" IsOpen="{Binding ElementName=GridParent, Path=IsMouseOver, Mode=OneWay}" Placement="Top" AllowsTransparency="True">
+                            <Border BorderThickness="0" Background="#69839C" BorderBrush="#69839C">
+                                <StackPanel Background="#69839C" >
+                                    <local:CircleControl Text="BT01" Background="{TemplateBinding BT01Background}"/>
+                                    <local:CircleControl Text="BT02" Background="{TemplateBinding BT02Background}"/>
+                                    <local:CircleControl Text="BT03" Background="{TemplateBinding BT03Background}"/>
+                                    <local:CircleControl Text="BT04" Background="{TemplateBinding BT04Background}"/>
+                                    <local:CircleControl Text="BT05" Background="{TemplateBinding BT05Background}"/>
+                                    <local:CircleControl Text="BT06" Background="{TemplateBinding BT06Background}"/>
+                                    <local:CircleControl Text="TopFront" Background="{TemplateBinding TFBackground}"/>
+                                    <local:CircleControl Text="TopRear" Background="{TemplateBinding TRBackground}"/>
+                                    <local:CircleControl Text="LeftFront" Background="{TemplateBinding LFBackground}"/>
+                                    <local:CircleControl Text="LeftRear" Background="{TemplateBinding LRBackground}"/>
+                                    <local:CircleControl Text="RightFront" Background="{TemplateBinding RFBackground}"/>
+                                    <local:CircleControl Text="RightRear" Background="{TemplateBinding RRBackground}"/>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

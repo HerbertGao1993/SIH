@@ -1,0 +1,77 @@
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\bin\Release\Cjwdev.WindowsApi.dll
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\obj\Release\Autorun.ProjectInstaller.resources
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\obj\Release\Autorun.csproj.GenerateResource.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\obj\Release\Autorun.csproj.CoreCompileInputs.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\obj\Release\Autorun.csproj.CopyComplete
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\bin\Release\Image Handler Autorun.exe.config
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\bin\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\bin\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\obj\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\obj\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.4 sftp\Autorun\obj\Release\Autorun.csproj.AssemblyReference.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\bin\Release\Image Handler Autorun.exe.config
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\bin\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\bin\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\bin\Release\Cjwdev.WindowsApi.dll
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\obj\Release\Autorun.ProjectInstaller.resources
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\obj\Release\Autorun.csproj.GenerateResource.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\obj\Release\Autorun.csproj.CoreCompileInputs.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\obj\Release\Autorun.csproj.CopyComplete
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\obj\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\obj\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.5 启用外部水印信息\Autorun\obj\Release\Autorun.csproj.AssemblyReference.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\bin\Release\Image Handler Autorun.exe.config
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\bin\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\bin\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\bin\Release\Cjwdev.WindowsApi.dll
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\obj\Release\Autorun.ProjectInstaller.resources
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\obj\Release\Autorun.csproj.GenerateResource.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\obj\Release\Autorun.csproj.CoreCompileInputs.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\obj\Release\Autorun.csproj.CopyComplete
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\obj\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\obj\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.6 最小二乘法\Autorun\obj\Release\Autorun.csproj.AssemblyReference.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\bin\Release\Image Handler Autorun.exe.config
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\bin\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\bin\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\bin\Release\Cjwdev.WindowsApi.dll
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\obj\Release\Autorun.ProjectInstaller.resources
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\obj\Release\Autorun.csproj.GenerateResource.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\obj\Release\Autorun.csproj.CoreCompileInputs.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\obj\Release\Autorun.csproj.CopyComplete
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\obj\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\obj\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.7 DWS界面\Autorun\obj\Release\Autorun.csproj.AssemblyReference.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\bin\Release\Image Handler Autorun.exe.config
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\bin\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\bin\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\bin\Release\Cjwdev.WindowsApi.dll
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\obj\Release\Autorun.ProjectInstaller.resources
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\obj\Release\Autorun.csproj.GenerateResource.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\obj\Release\Autorun.csproj.CoreCompileInputs.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\obj\Release\Autorun.csproj.CopyComplete
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\obj\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\obj\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.8 未读取分类\Autorun\obj\Release\Autorun.csproj.AssemblyReference.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\bin\Release\Image Handler Autorun.exe.config
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\bin\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\bin\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\bin\Release\Cjwdev.WindowsApi.dll
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\obj\Release\Autorun.ProjectInstaller.resources
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\obj\Release\Autorun.csproj.GenerateResource.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\obj\Release\Autorun.csproj.CoreCompileInputs.cache
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\obj\Release\Autorun.csproj.CopyComplete
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\obj\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\obj\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\obj\Release\Autorun.csproj.AssemblyReference.cache
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Release\Image Handler Autorun.exe.config
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Release\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Release\Cjwdev.WindowsApi.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Autorun.csproj.AssemblyReference.cache
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Autorun.ProjectInstaller.resources
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Autorun.csproj.GenerateResource.cache
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Autorun.csproj.CoreCompileInputs.cache
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Autorun.csproj.CopyComplete
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Image Handler Autorun.pdb

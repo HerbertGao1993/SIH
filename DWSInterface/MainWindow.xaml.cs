@@ -906,6 +906,7 @@ namespace DWSInterface
             else
             {
                 MainWindowViewModel.Language = "Chinese";
+                MainWindowViewModel.ResetTitle = "清零";
                 MainWindowViewModel.LHWTitle = "长*宽*高 mm";
                 MainWindowViewModel.TrackIDTitle = "索引号";
                 MainWindowViewModel.ChuteTitle = "格口";

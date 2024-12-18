@@ -11967,7 +11967,7 @@ namespace 存图助手标准版
                     {
                         bool flag1 = N1.StartsWith("UP");
                         bool flag2 = N1 == N2 && BarcodeImgEnable && N2 != "None" && !currentmaster.BarcodeImagePresent;
-                        bool flag22 = BarcodeImgEnable && N2 != "None" && !(N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("DN") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
+                        bool flag22 = BarcodeImgEnable && BarcodeImgMode != "拼接" && N2 != "None" && !(N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("DN") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
                         bool flag3 = (!TopOnlyOnRead || N2 == "None") && (N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("DN") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
                         if (flag1 || flag22 || flag3)//要处理的图片
                         {

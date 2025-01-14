@@ -97,8 +97,8 @@ D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\L
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Library\bin\Release\Library.dll
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Library\bin\Release\Library.pdb
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Library\bin\Release\Interop.Shell32.dll
-D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Library\obj\Release\Library.csproj.AssemblyReference.cache
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Library\obj\Release\Library.csproj.CoreCompileInputs.cache
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Library\obj\Release\Library.csproj.CopyComplete
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Library\obj\Release\Library.dll
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Library\obj\Release\Library.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Library\obj\Release\Library.csproj.AssemblyReference.cache

@@ -68,7 +68,6 @@ D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Relea
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Release\Image Handler Autorun.exe
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Release\Image Handler Autorun.pdb
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Release\Cjwdev.WindowsApi.dll
-D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Autorun.csproj.AssemblyReference.cache
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Autorun.ProjectInstaller.resources
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Autorun.csproj.GenerateResource.cache
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Release\Autorun.csproj.CoreCompileInputs.cache

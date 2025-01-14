@@ -8464,7 +8464,7 @@ namespace 存图助手标准版
                         //httpReq.SendChunked = true;
                         httpReq.Timeout = 3000;
                         httpReq.ContentType = "application/json";
-                        var jsonObject = new { barcode = BarcodesArray, machineCode = machineCode, operateTime = (long)(mst.ImageTime[0] - DateTime.Parse("1970-1-1")).TotalMilliseconds, weight = Weight, length = Length, width = Width, height = Height, lengthUnit = "cm", weightUnit = "kg", fileName = HttpFileName, fileSize = mst.Images[0].Length, fileMd5sum = mst.md5 };
+                        var jsonObject = new { barcode = BarcodesArray, machineCode = machineCode, operateTime = (long)(mst.ImageTime[0] - DateTime.ParseExact("1970-01-01 +00:00", "yyyy-MM-dd K", CultureInfo.InvariantCulture)).TotalMilliseconds, weight = Weight, length = Length, width = Width, height = Height, lengthUnit = "cm", weightUnit = "kg", fileName = HttpFileName, fileSize = mst.Images[0].Length, fileMd5sum = mst.md5 };
                         StringBuilder jsonstr = new StringBuilder(JsonConvert.SerializeObject(jsonObject));
                         byte[] jsonstrbyte = Encoding.UTF8.GetBytes(jsonstr.ToString());
                         httpReq.ContentLength = jsonstrbyte.Length;

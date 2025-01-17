@@ -21,9 +21,11 @@ using System.Threading;
 using System.Web;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+#if FEATURE_VPRO
 using Cognex.VisionPro;
 using Cognex.VisionPro.ToolBlock;
 using Cognex.VisionPro.ImageFile;
+#endif
 
 namespace 存图助手标准版
 {
@@ -31,7 +33,6 @@ namespace 存图助手标准版
     {
         static readonly object L = new object();
         int mImageIndex = 0;
-        CogImageFileTool mImageFileTool = new CogImageFileTool();
         //static string mImageFolderPath = Application.StartupPath + "\\images";
         public static bool DWSInterfaceEnabled = false;
         private static IntPtr hWnd = IntPtr.Zero;
@@ -151,12 +152,14 @@ namespace 存图助手标准版
         public static string LocalPort = "2112";
         public static bool running = true;
         //private static Tray[] TrayObjects = new Tray[1000];
+#if FEATURE_VPRO
         private CogImageFileTool mImageFileTool1 = new CogImageFileTool();
         private CogImageFileTool mImageFileTool2 = new CogImageFileTool();
         private CogImageFileTool mImageFileTool3 = new CogImageFileTool();
         private CogImageFileTool mImageFileTool4 = new CogImageFileTool();
         private CogImageFileTool mImageFileTool5 = new CogImageFileTool();
         private CogToolBlock mTB = null;
+#endif
         private readonly static Object TBLock = new object();
         private readonly static Object hWndLock = new object();
         private readonly static Object ExtCaptionBoxListLock1 = new object();
@@ -1717,6 +1720,7 @@ namespace 存图助手标准版
                 epbottom.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 90L);
                 bool f = File.Exists(Application.StartupPath + "\\ToolBlock.vpp");
                 //MessageBox.Show(Application.StartupPath + "\\ToolBlock.vpp", f.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+#if FEATURE_VPRO
                 if (File.Exists(Application.StartupPath + "\\ToolBlock.vpp"))
                 {
                     string mes = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "Licenses:\r\n";
@@ -1756,6 +1760,7 @@ namespace 存图助手标准版
                     mes += "\tVProX.ViDiELClassify: " + elclassify_flag.ToString() + "\r\n";
                     AddLog(mes, LogContentArray1);
                 }
+#endif
                 ReadBottomCalib(HomographySta1, ol01, bottomcal_path_1);
                 ReadBottomCalib(HomographySta2, ol02, bottomcal_path_2);
                 ReadBottomCalib(HomographySta3, ol03, bottomcal_path_3);
@@ -7125,7 +7130,9 @@ namespace 存图助手标准版
                                 {
                                     //logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] "  + "StationName: " + StationName + "GroupID: " + GroupID + " Starting Bottom No Read Analysis!";
                                     //AddLog(logcontent, LogContentArray);
+#if FEATURE_VPRO
                                     NoReadReason = NoReadAnalyzeFromMat(CurrentWarp, LogContentArray, StationName, GroupID);
+#endif
                                     //logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "StationName: " + StationName + "GroupID: " + GroupID + " Finished Bottom No Read Analysis!";
                                     //AddLog(logcontent, LogContentArray);
                                 }
@@ -14609,6 +14616,7 @@ namespace 存图助手标准版
             string ftpFolder = ftp_temp_url1;
             string logcontent = "";
             ArrayList LogContentArray = null;
+#if FEATURE_VPRO
             CogImageFileTool mImageFileTool = mImageFileTool1;
             if (folder == caption_url1)
             {
@@ -14640,6 +14648,7 @@ namespace 存图助手标准版
                 ftpFolder = ftp_temp_url1;
                 mImageFileTool = mImageFileTool1;
             }
+#endif
             foreach (FileInfo file in Files)
             {
                 /*
@@ -15046,7 +15055,9 @@ namespace 存图助手标准版
                             {
                                 //logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "文件: " + file.FullName + " Starting No Read Analysis!";
                                 //AddLog(logcontent, LogContentArray);
+#if FEATURE_VPRO
                                 NoReadReason = NoReadAnalyzeFromFile(file, mImageFileTool, LogContentArray, file.FullName);
+#endif
                                 //logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "文件: " + file.FullName + " Finished No Read Analysis!";
                                 //AddLog(logcontent, LogContentArray);
                             }
@@ -15185,6 +15196,7 @@ namespace 存图助手标准版
                 catch (Exception ex) { }
             }
         }
+#if FEATURE_VPRO
         private CogImage8Grey ConvertMat2CogImage8Grey(Mat m)
         {
             CogImage8Grey cogImage8Grey = new CogImage8Grey(m.Cols, m.Rows);
@@ -15222,6 +15234,7 @@ namespace 存图助手标准版
             }
             return cogImage8Grey;
         }
+
         private string NoReadAnalyzeFromMat(Mat m, ArrayList LogContentArray, string StationName, string GroupID)
         {
             string logcontent = "";
@@ -15308,6 +15321,7 @@ namespace 存图助手标准版
             }
             return NoReadReason;
         }
+#endif
         private void CaptionEnableCheck_CheckedChanged(object sender, EventArgs e)
         {
             lock (OpenConfigLock)

@@ -42,11 +42,15 @@ namespace 存图助手标准版
             {
                 try
                 {
+#if FEATURE_VPRO
                     Cognex.Vision.Startup.Initialize(Cognex.Vision.Startup.ProductKey.VProX);
+#endif
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
                     Application.Run(new MainForm());
+#if FEATURE_VPRO
                     Cognex.Vision.Startup.Shutdown();
+#endif
                 }
                 catch(Exception ex)
                 {

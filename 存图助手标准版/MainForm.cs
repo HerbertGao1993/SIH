@@ -2183,6 +2183,7 @@ namespace 存图助手标准版
                         UploadStatusCheck.Checked = false;
                         uploadStatus = false;
                     }
+                    
                     if (ConfigurationManager.AppSettings["DWSEnable"] == "true")
                     {
                         DWSEnableCheck.Checked = true;
@@ -2311,16 +2312,7 @@ namespace 存图助手标准版
                             catch (Exception ex) { }
                         }
                     }
-                    if (ConfigurationManager.AppSettings["AllowChineseCaption"] == "false")
-                    {
-                        allowChinese = false;
-                        captionOptionList.Text = "仅英文字符";
-                    }
-                    else
-                    {
-                        allowChinese = true;
-                        captionOptionList.Text = "包含中文字符";
-                    }
+                   
                     if (ConfigurationManager.AppSettings["AllowPackageBorder"] == "true")
                     {
                         PackageBorderCheck.Checked = true;
@@ -2403,7 +2395,44 @@ namespace 存图助手标准版
                     BottomCamNoCombo2.Text = ConfigurationManager.AppSettings["BottomCamNo2"];//每次开机访问配置文件，获取底扫存图相机数量
                     BottomCamNoCombo3.Text = ConfigurationManager.AppSettings["BottomCamNo3"];//每次开机访问配置文件，获取底扫存图相机数量
                     BottomCamNoCombo4.Text = ConfigurationManager.AppSettings["BottomCamNo4"];//每次开机访问配置文件，获取底扫存图相机数量
-                    BarcodeImgModeCombo.Text = ConfigurationManager.AppSettings["BarcodeImgMode"];//每次开机访问配置文件，获取局部图片处理模式
+                    LangCombo.Text = ConfigurationManager.AppSettings["CurLang"];
+                    if (LangCombo.Text == "Chinese")
+                    {
+                        captionOptionList.Items[0] = "包含中文字符";
+                        captionOptionList.Items[1] = "仅英文字符";
+                        if (ConfigurationManager.AppSettings["AllowChineseCaption"] == "false")
+                        {
+                            allowChinese = false;
+                            captionOptionList.Text = "仅英文字符";
+                        }
+                        else
+                        {
+                            allowChinese = true;
+                            captionOptionList.Text = "包含中文字符";
+                        }
+                        BarcodeImgModeCombo.Items[0] = "拼接";
+                        BarcodeImgModeCombo.Items[1] = "不拼接";
+                        BarcodeImgModeCombo.Text = (ConfigurationManager.AppSettings["BarcodeImgMode"]== "拼接" || ConfigurationManager.AppSettings["BarcodeImgMode"] == "stitched")? "拼接": "不拼接";//每次开机访问配置文件，获取局部图片处理模式
+                    }
+                    else
+                    {
+                        captionOptionList.Items[0] = "AllowChinese";
+                        captionOptionList.Items[1] = "EnglishOnly";
+                        if (ConfigurationManager.AppSettings["AllowChineseCaption"] == "false")
+                        {
+                            allowChinese = false;
+                            captionOptionList.Text = "EnglishOnly";
+                        }
+                        else
+                        {
+                            allowChinese = true;
+                            captionOptionList.Text = "AllowChinese";
+                        }
+                        BarcodeImgModeCombo.Items[0] = "stitched";
+                        BarcodeImgModeCombo.Items[1] = "normal";
+                        BarcodeImgModeCombo.Text = (ConfigurationManager.AppSettings["BarcodeImgMode"] == "拼接" || ConfigurationManager.AppSettings["BarcodeImgMode"] == "stitched") ? "stitched" : "normal";
+                    }
+                    
                     InductIDCombo1.Text = ConfigurationManager.AppSettings["InductID1"];//每次开机访问配置文件，获取工位一对应的供包台区域
                     InductIDCombo2.Text = ConfigurationManager.AppSettings["InductID2"];//每次开机访问配置文件，获取工位二对应的供包台区域
                     InductIDCombo3.Text = ConfigurationManager.AppSettings["InductID3"];//每次开机访问配置文件，获取工位三对应的供包台区域
@@ -2457,6 +2486,8 @@ namespace 存图助手标准版
                     DimWgtCombo.Text = ConfigurationManager.AppSettings["DimAndWeightFormat"];//每次开机访问配置文件，获取体积重量格式
                     DimAndWeightFormat = DimWgtCombo.Text;
                     InductorBindingTimeout = Convert.ToInt32(ind.BindingTimeoutBox.Text);
+                    
+                    //shiftLang();
                     LocalIP = ind.LocalIPBox.Text;
                     LocalPort = ind.LocalPortBox.Text;
                     ExtCaptionIP = ind.ExtCaptionIPBox.Text;
@@ -3598,7 +3629,7 @@ namespace 存图助手标准版
                         try
                         {
                             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                            config.AppSettings.Settings["AllowChineseCaption"].Value = captionOptionList.Text == "包含中文字符" ? "true" : "false";
+                            config.AppSettings.Settings["AllowChineseCaption"].Value = (captionOptionList.Text == "包含中文字符"|| captionOptionList.Text == "AllowChinese") ? "true" : "false";
                             config.AppSettings.Settings["FTPOKMes"].Value = FTPOKBox.Text;
                             config.AppSettings.Settings["FTPNOKMes"].Value = FTPNOKBox.Text;
                             config.AppSettings.Settings["HTTPOKMes"].Value = HTTPOKBox.Text;
@@ -3686,7 +3717,7 @@ namespace 存图助手标准版
                         }
                         catch (Exception ex) { }
                     }
-                    allowChinese = captionOptionList.Text == "包含中文字符" ? true : false;
+                    allowChinese = (captionOptionList.Text == "包含中文字符" || captionOptionList.Text == "AllowChinese") ? true : false;
                     PicStorDays = Convert.ToInt32(PicStorDaysText.Text);
                     MultiCodeDelimiter[0] = delimiterBox.Text;
                     FTPOKMes = FTPOKBox.Text;
@@ -11809,7 +11840,7 @@ namespace 存图助手标准版
                         //SystemLog(logpath, logcontent, MasterArray);
                     }
                 }
-                if (BarcodeImgEnable && BarcodeImgMode == "拼接"  && (N1.StartsWith("UP") || (N1 == N2 && !currentmaster.BarcodeImagePresent)) && InductID != "一区" && InductID != "二区" && N2 != "None")//局部图片开启、处于拼接模式、供包台禁用、成功读取时顶部以及局部图片需要加入BarcodeStitchObj中，并移到暂存文件夹
+                if (BarcodeImgEnable && (BarcodeImgMode == "拼接"|| BarcodeImgMode == "stitched")  && (N1.StartsWith("UP") || (N1 == N2 && !currentmaster.BarcodeImagePresent)) && InductID != "一区" && InductID != "二区" && N2 != "None")//局部图片开启、处于拼接模式、供包台禁用、成功读取时顶部以及局部图片需要加入BarcodeStitchObj中，并移到暂存文件夹
                 {
                     string boxidtext = SorterBoxIDFormat;
                     boxidtext = boxidtext.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
@@ -11974,7 +12005,7 @@ namespace 存图助手标准版
                     {
                         bool flag1 = N1.StartsWith("UP");
                         bool flag2 = N1 == N2 && BarcodeImgEnable && N2 != "None" && !currentmaster.BarcodeImagePresent;
-                        bool flag22 = BarcodeImgEnable && BarcodeImgMode != "拼接" && N2 != "None" && !(N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("DN") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
+                        bool flag22 = BarcodeImgEnable && BarcodeImgMode != "拼接" && BarcodeImgMode != "stitched" && N2 != "None" && !(N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("DN") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
                         bool flag3 = (!TopOnlyOnRead || N2 == "None") && (N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("DN") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
                         if (flag1 || flag22 || flag3)//要处理的图片
                         {
@@ -12958,7 +12989,7 @@ namespace 存图助手标准版
                 }
                 logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "GroupID: " + master.N0 + " is not found in " + MasterName + " so a new master is created " + file.Name + " is the current file!";
                 AddLog(logcontent, LogContentArray);
-                if (httpUpload && !captionEnable && InductID != "一区" && InductID != "二区" && !(BarcodeImgEnable && BarcodeImgMode == "拼接"))//启用局部读码图片拼接或启用水印或者打开供包台绑定功能的工位暂时不把master加入HttpArray
+                if (httpUpload && !captionEnable && InductID != "一区" && InductID != "二区" && !(BarcodeImgEnable && (BarcodeImgMode == "拼接" || BarcodeImgMode == "stitched")))//启用局部读码图片拼接或启用水印或者打开供包台绑定功能的工位暂时不把master加入HttpArray
                 {
                     lock (HttpArrayLock)
                     {
@@ -16248,5 +16279,375 @@ namespace 存图助手标准版
             }*/
 
         }
+        private void shiftLang()
+        {
+            if (LangCombo.Text == "Chinese")
+            {
+                CamCountLabel.Text = "存图相机数量：";
+                工位一.Text = "主线工位一";
+                工位二.Text = "主线工位二";
+                label1.Text = "FTP根目录：";
+                label2.Text = "存图位置根目录：";
+                label3.Text = "服务器ip：";
+                label4.Text = "端口：";
+                label5.Text = "用户名：";
+                label6.Text = "密码：";
+                label7.Text = "多路复用命名：";
+                label8.Text = "本地路径：";
+                label9.Text = "本地图片命名：";
+                label10.Text = "主线工位三";
+                label11.Text = "存图相机数量：";
+                label12.Text = "FTP根目录：";
+                label13.Text = "存图相机数量：";
+                label14.Text = "FTP根目录：";
+                label15.Text = "主线工位四";
+                label16.Text = "存图相机数量：";
+                label17.Text = "FTP根目录：";
+                label18.Text = "存图位置根目录：";
+                label19.Text = "存图位置根目录：";
+                label20.Text = "存图位置根目录：";
+                label21.Text = "远程路径：";
+                label22.Text = "若需要以时间命名，使用yyyy、MM、dd、HH、mm、ss、fff来表示";
+                label23.Text = "图片保存天数：";
+                label24.Text = "上传url：";
+                label25.Text = "设备编码：";
+                label26.Text = "正则url：";
+                label27.Text = "图片命名：";
+                label28.Text = "端口：";
+                label29.Text = "密码：";
+                label30.Text = "SCADA服务器ip：";
+                label31.Text = "FTP正常状态报文：";
+                label32.Text = "FTP异常状态报文：";
+                label33.Text = "HTTP异常状态报文：";
+                label34.Text = "HTTP正常状态报文：";
+                label35.Text = "坐标信息格式:         X1;Y1;X2;Y2;X3;Y3;X4;Y4";
+                label36.Text = "坐标信息：";
+                label37.Text = "坐标信息格式:        体积测量编号（0或1）;X1;Y1;Z1;X2;Y2;Z2;X3;Y3;Z3;X4;Y4;Z4";
+                label38.Text = "校验url：";
+                label39.Text = "体积重量信息：";
+                label40.Text = "（格式：长;宽;高;重量)";
+                label41.Text = "多代码分隔符：";
+                label42.Text = "DMBS数量：";
+                label43.Text = "DMBS数量：";
+                label44.Text = "DMBS数量：";
+                label45.Text = "DMBS数量：";
+                label46.Text = "供包台区域：";
+                label47.Text = "供包台区域：";
+                label48.Text = "供包台区域：";
+                label49.Text = "供包台区域：";
+                label50.Text = "供包台图片路径：";
+                label51.Text = "供包台图片命名格式：_0,序列号_1,读码器名称_2,时间戳_3,结果_4,条码";
+                label52.Text = "主线结果信息：\r\n(GR/MR/NR)";
+                label53.Text = "主线条码信息：";
+                label54.Text = "主线小车号信息：";
+                label55.Text = "主线时间戳信息：";
+                label56.Text = "远程图片命名：";
+                label57.Text = "主线索引号信息：";
+                label58.Text = "用户名：";
+                label59.Text = "端口：";
+                label60.Text = "服务器ip：";
+                label61.Text = "条码坐标信息：";
+                label62.Text = "主线工站号信息：";
+                label63.Text = "供包台一区工站号：";
+                label64.Text = "供包台二区工站号：";
+                label65.Text = "外部水印等待：";
+                label66.Text = "外部水印等待：";
+                label67.Text = "外部水印等待：";
+                label68.Text = "外部水印等待：";
+                label69.Text = "正则编码：";
+                label74.Text = "当前语言：";
+                UploadCheck.Text = "图片服务器";
+                Stop.Text = "停止";
+                Start.Text = "开始";
+                LogEnableCheck.Text = "是否启用日志";
+                HTTPUploadCheck.Text = "是否上传HTTP服务器";
+                UploadStatusCheck.Text = "是否上传状态报文";
+                CaptionEnableCheck.Text = "是否添加图片水印";
+                PackageBorderCheck.Text = "显示包裹边框";
+                calibrateBtn.Text = "标定";
+                InductCommBtn.Text = "供包台通讯配置";
+                UploadCheck2.Text = "中邮多路输出";
+                BarcodeImgEnableCheck.Text = "局部图片启用";
+                TopOnlyCheck1.Text = "成功读取只存顶面";
+                TopOnlyCheck2.Text = "成功读取只存顶面";
+                TopOnlyCheck3.Text = "成功读取只存顶面";
+                TopOnlyCheck4.Text = "成功读取只存顶面";
+                ExtCaptionEnableCheck.Text = "外部水印信息";
+                ExtCaptionCommBtn.Text = "外部水印通讯配置";
+                regexSta1Check.Text = "主机一";
+                regexSta2Check.Text = "主机二";
+                regexSta3Check.Text = "主机三";
+                regexSta4Check.Text = "主机四";
+                DWSEnableCheck.Text = "是否启用DWS界面";
+                NRAnalysisEnableCheck.Text = "未读取分类";
+                VPPConfigureButton.Text = "测试";
+                Login.label1text = "用户名";
+                Login.label2text = "密码";
+                Login.BtnCanceltext = "取消";
+                Login.BtnOKtext = "确定";
+                ind.BtnClose.Text = "关闭窗口";
+                ind.BtnSave.Text = "保存配置";
+                ind.label1.Text = "一区";
+                ind.label2.Text = "导入台十";
+                ind.label3.Text = "导入台一";
+                ind.label4.Text = "底扫IP：";
+                ind.label5.Text = "底扫端口：";
+                ind.label7.Text = "本地服务器端口:";
+                ind.label8.Text = "本地服务器IP:";
+                ind.label9.Text = "工控机作为客户端与底扫通讯";
+                ind.label10.Text = "工控机作为服务器与PLC通讯";
+                ind.label11.Text = "底扫端口：";
+                ind.label13.Text = "底扫IP：";
+                ind.label14.Text = "底扫端口：";
+                ind.label16.Text = "底扫IP：";
+                ind.label17.Text = "导入台二";
+                ind.label18.Text = "导入台三";
+                ind.label19.Text = "导入台四";
+                ind.label20.Text = "底扫端口：";
+                ind.label22.Text = "底扫IP：";
+                ind.label23.Text = "导入台五";
+                ind.label24.Text = "底扫端口：";
+                ind.label26.Text = "底扫IP：";
+                ind.label27.Text = "底扫端口：";
+                ind.label29.Text = "底扫IP：";
+                ind.label30.Text = "导入台九";
+                ind.label31.Text = "底扫端口：";
+                ind.label33.Text = "底扫IP：";
+                ind.label34.Text = "导入台八";
+                ind.label35.Text = "导入台七";
+                ind.label36.Text = "底扫端口：";
+                ind.label38.Text = "底扫IP：";
+                ind.label39.Text = "底扫端口：";
+                ind.label41.Text = "底扫IP：";
+                ind.label42.Text = "底扫端口：";
+                ind.label44.Text = "底扫IP：";
+                ind.label45.Text = "导入台六";
+                ind.label46.Text = "二区";
+                ind.label47.Text = "本地服务器";
+                ind.label48.Text = "小车无读绑定超时:";
+                ind.label49.Text = "秒";
+                ind.label50.Text = "外部水印客户端 IP:";
+                ind.label52.Text = "DWS1服务器:";
+                
+                if (BarcodeImgModeCombo.Text == "stitched" || BarcodeImgModeCombo.Text == "拼接")
+                {
+                    BarcodeImgModeCombo.Items[0] = "拼接";
+                    BarcodeImgModeCombo.Items[1] = "不拼接";
+                    BarcodeImgModeCombo.Text = "拼接";
+                }
+                else
+                {
+                    BarcodeImgModeCombo.Items[0] = "拼接";
+                    BarcodeImgModeCombo.Items[1] = "不拼接";
+                    BarcodeImgModeCombo.Text = "不拼接";
+                }
+                if (captionOptionList.Text == "AllowChinese" || captionOptionList.Text == "包含中文字符")
+                {
+                    captionOptionList.Items[0] = "包含中文字符";
+                    captionOptionList.Items[1] = "仅英文字符";
+                    captionOptionList.Text = "包含中文字符";
+                }
+                else
+                {
+                    captionOptionList.Items[0] = "包含中文字符";
+                    captionOptionList.Items[1] = "仅英文字符";
+                    captionOptionList.Text = "仅英文字符";
+                }
+            }
+            else if (LangCombo.Text == "English")
+            {
+                CamCountLabel.Text = "CamCount：";
+                工位一.Text = "StationA";
+                工位二.Text = "StationB";
+                label1.Text = "FTP Root：";
+                label2.Text = "Image Root：";
+                label3.Text = "ServerIP：";
+                label4.Text = "Port：";
+                label5.Text = "User：";
+                label6.Text = "Secret：";
+                label7.Text = "CPSTName：";
+                label8.Text = "LocalDir：";
+                label9.Text = "LocalName：";
+                label10.Text = "StationC";
+                label11.Text = "CamCount：";
+                label12.Text = "FTP Root：";
+                label13.Text = "CamCount：";
+                label14.Text = "FTP Root：";
+                label15.Text = "StationD";
+                label16.Text = "CamCount：";
+                label17.Text = "FTP Root：";
+                label18.Text = "Image Root：";
+                label19.Text = "Image Root：";
+                label20.Text = "Image Root：";
+                label21.Text = "RemoteDir：";
+                label22.Text = "Use yyyy、MM、dd、HH、mm、ss、fff as placeholder for Timestamp";
+                label23.Text = "Image Expiry(Days)：";
+                label24.Text = "Upload_url：";
+                label25.Text = "MachCode：";
+                label26.Text = "Regex_url：";
+                label27.Text = "ImgName：";
+                label28.Text = "Port：";
+                label29.Text = "Secret：";
+                label30.Text = "SCADA IP：";
+                label31.Text = "FTP OK Message：";
+                label32.Text = "FTP Err Message：";
+                label33.Text = "HTTP Err Message：";
+                label34.Text = "HTTP OK Message：";
+                label35.Text = "CodePos Format:        X1;Y1;X2;Y2;X3;Y3;X4;Y4";
+                label36.Text = "Pos：";
+                label37.Text = "DimPos Format:        DIMID(0/1);X1;Y1;Z1;X2;Y2;Z2;X3;Y3;Z3;X4;Y4;Z4";
+                label38.Text = "Check_url：";
+                label39.Text = "W&SInfo：";
+                label40.Text = "（Format：L;W;H;Weight)";
+                label41.Text = "Delimiter：";
+                label42.Text = "DMBSCnt：";
+                label43.Text = "DMBSCnt：";
+                label44.Text = "DMBSCnt：";
+                label45.Text = "DMBSCnt：";
+                label46.Text = "Inductor：";
+                label47.Text = "Inductor：";
+                label48.Text = "Inductor：";
+                label49.Text = "Inductor：";
+                label50.Text = "InductorRoot：";
+                label51.Text = "InductorImgName：_0,ID_1,BCRname_2,Time_3,Result_4,Code";
+                label52.Text = "SorterResult：\r\n(GR/MR/NR)";
+                label53.Text = "SorterCode：";
+                label54.Text = "SorterTrayID：";
+                label55.Text = "SorterTime：";
+                label56.Text = "RemoteName：";
+                label57.Text = "SorterGUID：";
+                label58.Text = "User：";
+                label59.Text = "Port：";
+                label60.Text = "ServerIP：";
+                label61.Text = "CodePos：";
+                label62.Text = "SorterStaNo：";
+                label63.Text = "InductAName：";
+                label64.Text = "InductBName：";
+                label65.Text = "ExtCapTimeout：";
+                label66.Text = "ExtCapTimeout：";
+                label67.Text = "ExtCapTimeout：";
+                label68.Text = "ExtCapTimeout：";
+                label69.Text = "RegCode：";
+                label74.Text = "Lang：";
+                UploadCheck.Text = "FTPServer";
+                Stop.Text = "Stop";
+                Start.Text = "Start";
+                LogEnableCheck.Text = "LogEnable";
+                HTTPUploadCheck.Text = "HTTPEnable";
+                UploadStatusCheck.Text = "ScadaEnable";
+                CaptionEnableCheck.Text = "Caption";
+                PackageBorderCheck.Text = "ShowBorder";
+                calibrateBtn.Text = "Calib";
+                InductCommBtn.Text = "InductorComm";
+                UploadCheck2.Text = "CPSTEnable";
+                BarcodeImgEnableCheck.Text = "BCRImg";
+                TopOnlyCheck1.Text = "TopOnlyGR";
+                TopOnlyCheck2.Text = "TopOnlyGR";
+                TopOnlyCheck3.Text = "TopOnlyGR";
+                TopOnlyCheck4.Text = "TopOnlyGR";
+                ExtCaptionEnableCheck.Text = "ExtCaption";
+                ExtCaptionCommBtn.Text = "ExtCapComm";
+                regexSta1Check.Text = "MasterA";
+                regexSta2Check.Text = "MasterB";
+                regexSta3Check.Text = "MasterC";
+                regexSta4Check.Text = "MasterD";
+                DWSEnableCheck.Text = "DWSInterface";
+                NRAnalysisEnableCheck.Text = "NR_ANA";
+                VPPConfigureButton.Text = "Test";
+                Login.label1text = "User";
+                Login.label2text = "Secret";
+                Login.BtnCanceltext = "Cancel";
+                Login.BtnOKtext = "OK";
+                ind.BtnClose.Text = "Close";
+                ind.BtnSave.Text = "Save";
+                ind.label1.Text = "Zone1";
+                ind.label2.Text = "Ind10";
+                ind.label3.Text = "Ind1";
+                ind.label4.Text = "BtmIP：";
+                ind.label5.Text = "BtmPort：";
+                ind.label7.Text = "LocSPort:";
+                ind.label8.Text = "LocSIP:";
+                ind.label9.Text = "Local as client vs. Bottom";
+                ind.label10.Text = "Local as server vs. PLC";
+                ind.label11.Text = "BtmPort：";
+                ind.label13.Text = "BtmIP：";
+                ind.label14.Text = "BtmPort：";
+                ind.label16.Text = "BtmIP：";
+                ind.label17.Text = "Ind2";
+                ind.label18.Text = "Ind3";
+                ind.label19.Text = "Ind4";
+                ind.label20.Text = "BtmPort：";
+                ind.label22.Text = "BtmIP：";
+                ind.label23.Text = "Ind5";
+                ind.label24.Text = "BtmPort：";
+                ind.label26.Text = "BtmIP：";
+                ind.label27.Text = "BtmPort：";
+                ind.label29.Text = "BtmIP：";
+                ind.label30.Text = "Ind9";
+                ind.label31.Text = "BtmPort：";
+                ind.label33.Text = "BtmIP：";
+                ind.label34.Text = "Ind8";
+                ind.label35.Text = "Ind7";
+                ind.label36.Text = "BtmPort：";
+                ind.label38.Text = "BtmIP：";
+                ind.label39.Text = "BtmPort：";
+                ind.label41.Text = "BtmIP：";
+                ind.label42.Text = "BtmPort：";
+                ind.label44.Text = "BtmIP：";
+                ind.label45.Text = "Ind6";
+                ind.label46.Text = "Zone2";
+                ind.label47.Text = "LocServer";
+                ind.label48.Text = "BindingTimeout:";
+                ind.label49.Text = "Sec";
+                ind.label50.Text = "ExtCapClientIP:";
+                ind.label52.Text = "DWS1Server:";
+                if (BarcodeImgModeCombo.Text == "stitched" || BarcodeImgModeCombo.Text == "拼接")
+                {
+                    BarcodeImgModeCombo.Items[0] = "stitched";
+                    BarcodeImgModeCombo.Items[1] = "normal";
+                    BarcodeImgModeCombo.Text = "stitched";
+                }
+                else
+                {
+                    BarcodeImgModeCombo.Items[0] = "stitched";
+                    BarcodeImgModeCombo.Items[1] = "normal";
+                    BarcodeImgModeCombo.Text = "separate";
+                }
+                if (captionOptionList.Text == "AllowChinese" || captionOptionList.Text == "包含中文字符")
+                {
+                    captionOptionList.Items[0] = "AllowChinese";
+                    captionOptionList.Items[1] = "EnglishOnly";
+                    captionOptionList.Text = "AllowChinese";
+                }
+                else
+                {
+                    captionOptionList.Items[0] = "AllowChinese";
+                    captionOptionList.Items[1] = "EnglishOnly";
+                    captionOptionList.Text = "EnglishOnly";
+                }
+            }
+        }
+        private void LangCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+                try
+                {
+                    lock (OpenConfigLock)
+                    {
+                        Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                        config.AppSettings.Settings["CurLang"].Value = LangCombo.Text;
+                        config.Save(ConfigurationSaveMode.Modified);
+                        ConfigurationManager.RefreshSection("appSettings");
+                    }
+                    shiftLang();
+                    
+                }
+                catch (Exception ex) { }
+            
+        }
+
+        
+
+        
     }
 }

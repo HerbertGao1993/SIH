@@ -40,7 +40,6 @@
             this.Folder2Combo = new System.Windows.Forms.ComboBox();
             this.Folder1Combo = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.ConnectStatusLabel = new System.Windows.Forms.Label();
             this.PasswordBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -245,6 +244,8 @@
             this.DWSEnableCheck = new System.Windows.Forms.CheckBox();
             this.NRAnalysisEnableCheck = new System.Windows.Forms.CheckBox();
             this.VPPConfigureButton = new System.Windows.Forms.Button();
+            this.LangCombo = new System.Windows.Forms.ComboBox();
+            this.label74 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SelectFtpRootButton1
@@ -457,21 +458,6 @@
             this.label8.Size = new System.Drawing.Size(78, 17);
             this.label8.TabIndex = 73;
             this.label8.Text = "本地路径：";
-            // 
-            // textBox1
-            // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(507, 4);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(593, 50);
-            this.textBox1.TabIndex = 72;
-            this.textBox1.Text = "原始图片命名：存图的命名规则为_0,N0(GroupID)_1,N1(BCRName)_2,N2(Source,无读为None)_3,N3_4,N4_5,N5_6" +
-    ",N6_7,N7_8,N8_9,N9_10,N10_11,N11(Barcode)";
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // ConnectStatusLabel
             // 
@@ -1689,7 +1675,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(514, 769);
+            this.label39.Location = new System.Drawing.Point(513, 769);
             this.label39.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(106, 17);
@@ -1709,7 +1695,7 @@
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(515, 738);
+            this.label41.Location = new System.Drawing.Point(514, 738);
             this.label41.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(106, 17);
@@ -2056,6 +2042,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(465, 719);
             this.textBox3.TabIndex = 196;
+            //this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // textBox4
             // 
@@ -2490,6 +2477,7 @@
             this.BarcodeImgModeCombo.Name = "BarcodeImgModeCombo";
             this.BarcodeImgModeCombo.Size = new System.Drawing.Size(75, 24);
             this.BarcodeImgModeCombo.TabIndex = 233;
+            //this.BarcodeImgModeCombo.SelectedIndexChanged += new System.EventHandler(this.BarcodeImgModeCombo_SelectedIndexChanged);
             // 
             // TopOnlyCheck1
             // 
@@ -2637,7 +2625,7 @@
             this.ExtCaptionCommBtn.Location = new System.Drawing.Point(976, 317);
             this.ExtCaptionCommBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ExtCaptionCommBtn.Name = "ExtCaptionCommBtn";
-            this.ExtCaptionCommBtn.Size = new System.Drawing.Size(103, 72);
+            this.ExtCaptionCommBtn.Size = new System.Drawing.Size(117, 72);
             this.ExtCaptionCommBtn.TabIndex = 246;
             this.ExtCaptionCommBtn.Text = "外部水印通讯配置";
             this.ExtCaptionCommBtn.UseVisualStyleBackColor = true;
@@ -2925,7 +2913,7 @@
             // DWSEnableCheck
             // 
             this.DWSEnableCheck.AutoSize = true;
-            this.DWSEnableCheck.Location = new System.Drawing.Point(22, 39);
+            this.DWSEnableCheck.Location = new System.Drawing.Point(507, 21);
             this.DWSEnableCheck.Margin = new System.Windows.Forms.Padding(2);
             this.DWSEnableCheck.Name = "DWSEnableCheck";
             this.DWSEnableCheck.Size = new System.Drawing.Size(146, 21);
@@ -2957,6 +2945,29 @@
             this.VPPConfigureButton.UseVisualStyleBackColor = true;
             this.VPPConfigureButton.Click += new System.EventHandler(this.VPPConfigureButton_Click);
             // 
+            // LangCombo
+            // 
+            this.LangCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LangCombo.Items.AddRange(new object[] {
+            "Chinese",
+            "English"});
+            this.LangCombo.Location = new System.Drawing.Point(173, 23);
+            this.LangCombo.Margin = new System.Windows.Forms.Padding(2);
+            this.LangCombo.Name = "LangCombo";
+            this.LangCombo.Size = new System.Drawing.Size(181, 24);
+            this.LangCombo.TabIndex = 277;
+            this.LangCombo.SelectedIndexChanged += new System.EventHandler(this.LangCombo_SelectedIndexChanged);
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(18, 26);
+            this.label74.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(78, 17);
+            this.label74.TabIndex = 278;
+            this.label74.Text = "当前语言：";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -2964,6 +2975,8 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1183, 1055);
+            this.Controls.Add(this.label74);
+            this.Controls.Add(this.LangCombo);
             this.Controls.Add(this.VPPConfigureButton);
             this.Controls.Add(this.NRAnalysisEnableCheck);
             this.Controls.Add(this.DWSEnableCheck);
@@ -3151,7 +3164,6 @@
             this.Controls.Add(this.Folder2Combo);
             this.Controls.Add(this.Folder1Combo);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.ConnectStatusLabel);
             this.Controls.Add(this.PasswordBox);
             this.Controls.Add(this.label6);
@@ -3203,7 +3215,6 @@
         private System.Windows.Forms.ComboBox Folder2Combo;
         private System.Windows.Forms.ComboBox Folder1Combo;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label ConnectStatusLabel;
         private System.Windows.Forms.TextBox PasswordBox;
         private System.Windows.Forms.Label label6;
@@ -3408,6 +3419,8 @@
         private System.Windows.Forms.CheckBox DWSEnableCheck;
         private System.Windows.Forms.CheckBox NRAnalysisEnableCheck;
         private System.Windows.Forms.Button VPPConfigureButton;
+        private System.Windows.Forms.ComboBox LangCombo;
+        private System.Windows.Forms.Label label74;
     }
 }
 

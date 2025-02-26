@@ -62,20 +62,20 @@
             this.label2.Location = new System.Drawing.Point(8, 101);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 39);
+            this.label2.Size = new System.Drawing.Size(119, 39);
             this.label2.TabIndex = 21;
-            this.label2.Text = "密码";
+            this.label2.Text = label2text;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 22);
+            this.label1.Location = new System.Drawing.Point(7, 22);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 39);
+            this.label1.Size = new System.Drawing.Size(94, 39);
             this.label1.TabIndex = 20;
-            this.label1.Text = "用户名";
+            this.label1.Text = label1text;
             // 
             // BtnCancel
             // 
@@ -84,9 +84,9 @@
             this.BtnCancel.Name = "BtnCancel";
             this.BtnCancel.Size = new System.Drawing.Size(100, 38);
             this.BtnCancel.TabIndex = 19;
-            this.BtnCancel.Text = "取消";
             this.BtnCancel.UseVisualStyleBackColor = true;
             this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
+            this.BtnCancel.Text = BtnCanceltext;
             // 
             // BtnOK
             // 
@@ -95,9 +95,9 @@
             this.BtnOK.Name = "BtnOK";
             this.BtnOK.Size = new System.Drawing.Size(100, 38);
             this.BtnOK.TabIndex = 18;
-            this.BtnOK.Text = "确定";
             this.BtnOK.UseVisualStyleBackColor = true;
             this.BtnOK.Click += new System.EventHandler(this.BtnOK_Click);
+            this.BtnOK.Text = BtnOKtext;
             // 
             // Login
             // 
@@ -125,6 +125,10 @@
 
         private System.Windows.Forms.TextBox password;
         private System.Windows.Forms.TextBox username;
+        static internal string label2text = "密码";
+        static internal string label1text = "用户名";
+        static internal string BtnCanceltext ="取消";
+        static internal string BtnOKtext="确定";
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BtnCancel;

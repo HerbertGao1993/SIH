@@ -37,7 +37,8 @@ namespace Calib
         public Mat mat5;
         public Mat mat6;
         private static double[] defaulthomo = { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
-        private static Mat defaultMat = new Mat(3, 3, MatType.CV_64FC1, defaulthomo);
+        //private static Mat defaultMat = new Mat(3, 3, MatType.CV_64FC1, defaulthomo);
+        private static Mat defaultMat = Mat.FromPixelData(3, 3, MatType.CV_64FC1, defaulthomo);
         public Mat H12 = defaultMat;
         public Mat H23 = defaultMat;
         public Mat H34 = defaultMat;

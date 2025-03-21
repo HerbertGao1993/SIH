@@ -16,18 +16,21 @@ using System.Diagnostics;
 using System.Globalization;
 using MySql.Data.MySqlClient;
 using System.IO;
+using OpenCvSharp;
+using System.Threading;
 
 namespace DWSInterface
 {
     /// <summary>
     /// QueryWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class QueryWindow : Window
+    public partial class QueryWindow : System.Windows.Window
     {
         
         string connStr = "server=localhost;user=root;database=dws;port=3306;password=123456";
         internal QueryViewModel qvm = new QueryViewModel();
         Process CurrentImageProcess = null;
+        Mat CurrentImage = null;
         public static class Utils
         {
             public static T GetVisualParent<T>(DependencyObject child) where T : DependencyObject
@@ -77,7 +80,7 @@ namespace DWSInterface
             this.DataContext = qvm;
         }
 
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Image_MouseUP(object sender, MouseButtonEventArgs e)
         {
             Image img = sender as Image;
             if (img != null)
@@ -89,15 +92,38 @@ namespace DWSInterface
                     string fullname = qvm.TempSource[rowIndex].FileFullName;
                     try
                     {
-                        if (CurrentImageProcess != null)
+                        if (CurrentImage != null)
                         {
-                            CurrentImageProcess.Kill();
+                            CurrentImage.Dispose();
+                        }
+                        Cv2.DestroyAllWindows();
+                        CurrentImage = Cv2.ImRead(fullname);
+                        Cv2.NamedWindow("Image", WindowFlags.KeepRatio);
+                       // Cv2.SetWindowProperty("Image", WindowProperty.WindowMaximize, 1);
+                        
+                        int screenWidth = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+                        int screenHeight = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+                        Cv2.MoveWindow("Image", 0, 0);
+                        Cv2.ResizeWindow("Image", screenWidth, screenHeight);
+                        Cv2.ImShow("Image", CurrentImage);
+                        /*
+                        IntPtr windowHandle = Cv2.GetWindowHandle("Image");
+                        if (windowHandle != IntPtr.Zero)
+                        {
+                            App.SetForegroundWindow(windowHandle);
+                            App.ShowWindow(windowHandle, 3);
+                        }*/
+                        /*if (CurrentImageProcess != null)
+                        {
+                            
+                            //CurrentImageProcess.Kill();
                             CurrentImageProcess.Dispose();
                         }
                         if (File.Exists(fullname))
                         {
                             CurrentImageProcess = Process.Start(fullname);
                         }
+                        */
                     }
                     catch { }
                     

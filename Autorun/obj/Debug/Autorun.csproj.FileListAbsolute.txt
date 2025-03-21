@@ -53,3 +53,13 @@ D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\A
 D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\obj\Debug\Autorun.csproj.CopyComplete
 D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\obj\Debug\Image Handler Autorun.exe
 D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Autorun\obj\Debug\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Debug\Image Handler Autorun.exe.config
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Debug\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\bin\Debug\Image Handler Autorun.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Debug\Autorun.csproj.AssemblyReference.cache
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Debug\Autorun.ProjectInstaller.resources
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Debug\Autorun.csproj.GenerateResource.cache
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Debug\Autorun.csproj.CoreCompileInputs.cache
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Debug\Autorun.csproj.CopyComplete
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Debug\Image Handler Autorun.exe
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Autorun\obj\Debug\Image Handler Autorun.pdb

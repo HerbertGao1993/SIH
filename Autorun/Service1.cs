@@ -18,6 +18,13 @@ namespace Autorun
 {
     public partial class Service1 : ServiceBase
     {
+        [DllImport("advapi32.dll", SetLastError = true)]
+        private static extern bool GetTokenInformation(
+        IntPtr tokenHandle,
+        int tokenInformationClass,
+        ref IntPtr tokenInformation,
+        int tokenInformationLength,
+        out int returnLength);
         System.Timers.Timer Timer1 = new System.Timers.Timer();
         public Service1()
         {
@@ -134,9 +141,124 @@ namespace Autorun
             base.OnContinue();
             Timer1.Enabled = true;
         }
-        
 
         public void AppStart(string appPath)
+        {
+            FileStream fs = null;
+            StreamWriter sr = null;
+            try
+            {
+                string appStartPath = appPath;
+                IntPtr userTokenHandle = IntPtr.Zero;
+                IntPtr unfiltereduserTokenHandle = IntPtr.Zero;
+                ApiDefinitions.WTSQueryUserToken(ApiDefinitions.WTSGetActiveConsoleSessionId(), ref userTokenHandle);
+
+                ApiDefinitions.PROCESS_INFORMATION procInfo = new ApiDefinitions.PROCESS_INFORMATION();
+                ApiDefinitions.STARTUPINFO startInfo = new ApiDefinitions.STARTUPINFO();
+                startInfo.cb = (uint)Marshal.SizeOf(startInfo);
+                /*try
+                {
+                    fs = new FileStream("D:\\log1.txt", FileMode.Append, FileAccess.Write);
+                    sr = new StreamWriter(fs);
+                    sr.WriteLine("NormalToken:" + userTokenHandle.ToInt32());
+                }
+                catch { }
+                finally
+                {
+                    if (sr != null)
+                    {
+                        sr.Dispose();
+                    }
+                    if (fs != null)
+                    {
+                        fs.Dispose();
+                    }
+                }*/
+                if (userTokenHandle != IntPtr.Zero)
+                {
+                    int length = 0;
+                    unsafe
+                    {
+                        GetTokenInformation(userTokenHandle, 19, ref unfiltereduserTokenHandle, sizeof(IntPtr), out length);
+                    }
+                    /*try
+                    {
+                        fs = new FileStream("D:\\log1.txt", FileMode.Append, FileAccess.Write);
+                        sr = new StreamWriter(fs);
+                        sr.WriteLine("AdminToken:" + unfiltereduserTokenHandle.ToInt32());
+                    }
+                    catch { }
+                    finally
+                    {
+                        if (sr != null)
+                        {
+                            sr.Dispose();
+                        }
+                        if (fs != null)
+                        {
+                            fs.Dispose();
+                        }
+                    }*/
+                    if (unfiltereduserTokenHandle != IntPtr.Zero)
+                    {
+                        ApiDefinitions.CreateProcessAsUser(
+                            unfiltereduserTokenHandle,
+                            appStartPath,
+                            "",
+                            IntPtr.Zero,
+                            IntPtr.Zero,
+                            false,
+                            0,
+                            IntPtr.Zero,
+                            null,
+                            ref startInfo,
+                            out procInfo);
+                        ApiDefinitions.CloseHandle(unfiltereduserTokenHandle);
+                    }
+                    else
+                    {
+                        ApiDefinitions.CreateProcessAsUser(
+                            userTokenHandle,
+                            appStartPath,
+                            "",
+                            IntPtr.Zero,
+                            IntPtr.Zero,
+                            false,
+                            0,
+                            IntPtr.Zero,
+                            null,
+                            ref startInfo,
+                            out procInfo);
+                        ApiDefinitions.CloseHandle(userTokenHandle);
+                    }
+                    int _currentAquariusProcessId = (int)procInfo.dwProcessId;
+                }
+            }
+            catch (Exception ex)
+            {
+                /*
+                try
+                {
+                    fs = new FileStream("D:\\log1.txt", FileMode.Append, FileAccess.Write);
+                    sr = new StreamWriter(fs);
+                    sr.WriteLine(ex.StackTrace);
+                }
+                catch { }
+                finally
+                {
+                    if (sr != null)
+                    {
+                        sr.Dispose();
+                    }
+                    if (fs != null)
+                    {
+                        fs.Dispose();
+                    }
+                }
+                */
+            }
+        }
+        public void AppStartOrigin(string appPath)
         {
             FileStream fs = null;
             StreamWriter sr = null;

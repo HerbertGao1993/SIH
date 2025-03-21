@@ -243,9 +243,11 @@
             this.regexMasterIPBox4 = new System.Windows.Forms.TextBox();
             this.DWSEnableCheck = new System.Windows.Forms.CheckBox();
             this.NRAnalysisEnableCheck = new System.Windows.Forms.CheckBox();
-            this.VPPConfigureButton = new System.Windows.Forms.Button();
             this.LangCombo = new System.Windows.Forms.ComboBox();
             this.label74 = new System.Windows.Forms.Label();
+            this.EncryptionEnableCheck = new System.Windows.Forms.CheckBox();
+            this.GridLineEnableCheck = new System.Windows.Forms.CheckBox();
+            this.GridConfigBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SelectFtpRootButton1
@@ -1370,7 +1372,7 @@
             this.HttpFileNameBox.Location = new System.Drawing.Point(641, 706);
             this.HttpFileNameBox.Margin = new System.Windows.Forms.Padding(2);
             this.HttpFileNameBox.Name = "HttpFileNameBox";
-            this.HttpFileNameBox.Size = new System.Drawing.Size(310, 22);
+            this.HttpFileNameBox.Size = new System.Drawing.Size(306, 22);
             this.HttpFileNameBox.TabIndex = 135;
             this.HttpFileNameBox.Text = "N0_N1_N2_N3_N4_N5_N6_N7_N8_N9_N10_N11";
             // 
@@ -1399,7 +1401,7 @@
             // UploadStatusCheck
             // 
             this.UploadStatusCheck.AutoSize = true;
-            this.UploadStatusCheck.Location = new System.Drawing.Point(36, 1026);
+            this.UploadStatusCheck.Location = new System.Drawing.Point(36, 1056);
             this.UploadStatusCheck.Margin = new System.Windows.Forms.Padding(2);
             this.UploadStatusCheck.Name = "UploadStatusCheck";
             this.UploadStatusCheck.Size = new System.Drawing.Size(142, 21);
@@ -1410,7 +1412,7 @@
             // 
             // SCADAPortBox
             // 
-            this.SCADAPortBox.Location = new System.Drawing.Point(162, 1088);
+            this.SCADAPortBox.Location = new System.Drawing.Point(162, 1118);
             this.SCADAPortBox.Margin = new System.Windows.Forms.Padding(2);
             this.SCADAPortBox.Name = "SCADAPortBox";
             this.SCADAPortBox.Size = new System.Drawing.Size(246, 22);
@@ -1421,7 +1423,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(34, 1091);
+            this.label28.Location = new System.Drawing.Point(34, 1121);
             this.label28.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(50, 17);
@@ -1431,7 +1433,7 @@
             // 
             // SCADAIPBox
             // 
-            this.SCADAIPBox.Location = new System.Drawing.Point(162, 1055);
+            this.SCADAIPBox.Location = new System.Drawing.Point(162, 1085);
             this.SCADAIPBox.Margin = new System.Windows.Forms.Padding(2);
             this.SCADAIPBox.Name = "SCADAIPBox";
             this.SCADAIPBox.Size = new System.Drawing.Size(246, 22);
@@ -1442,7 +1444,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(34, 1058);
+            this.label30.Location = new System.Drawing.Point(34, 1088);
             this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(121, 17);
@@ -1452,7 +1454,7 @@
             // 
             // FTPOKBox
             // 
-            this.FTPOKBox.Location = new System.Drawing.Point(548, 1054);
+            this.FTPOKBox.Location = new System.Drawing.Point(548, 1084);
             this.FTPOKBox.Margin = new System.Windows.Forms.Padding(2);
             this.FTPOKBox.Name = "FTPOKBox";
             this.FTPOKBox.Size = new System.Drawing.Size(143, 22);
@@ -1462,7 +1464,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(420, 1055);
+            this.label31.Location = new System.Drawing.Point(420, 1085);
             this.label31.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(132, 17);
@@ -1471,7 +1473,7 @@
             // 
             // FTPNOKBox
             // 
-            this.FTPNOKBox.Location = new System.Drawing.Point(548, 1087);
+            this.FTPNOKBox.Location = new System.Drawing.Point(548, 1117);
             this.FTPNOKBox.Margin = new System.Windows.Forms.Padding(2);
             this.FTPNOKBox.Name = "FTPNOKBox";
             this.FTPNOKBox.Size = new System.Drawing.Size(143, 22);
@@ -1481,7 +1483,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(420, 1089);
+            this.label32.Location = new System.Drawing.Point(420, 1119);
             this.label32.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(132, 17);
@@ -1490,7 +1492,7 @@
             // 
             // HTTPNOKBox
             // 
-            this.HTTPNOKBox.Location = new System.Drawing.Point(838, 1087);
+            this.HTTPNOKBox.Location = new System.Drawing.Point(838, 1117);
             this.HTTPNOKBox.Margin = new System.Windows.Forms.Padding(2);
             this.HTTPNOKBox.Name = "HTTPNOKBox";
             this.HTTPNOKBox.Size = new System.Drawing.Size(143, 22);
@@ -1500,7 +1502,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(701, 1088);
+            this.label33.Location = new System.Drawing.Point(701, 1118);
             this.label33.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(143, 17);
@@ -1509,7 +1511,7 @@
             // 
             // HTTPOKBox
             // 
-            this.HTTPOKBox.Location = new System.Drawing.Point(838, 1054);
+            this.HTTPOKBox.Location = new System.Drawing.Point(838, 1084);
             this.HTTPOKBox.Margin = new System.Windows.Forms.Padding(2);
             this.HTTPOKBox.Name = "HTTPOKBox";
             this.HTTPOKBox.Size = new System.Drawing.Size(143, 22);
@@ -1519,7 +1521,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(701, 1055);
+            this.label34.Location = new System.Drawing.Point(701, 1085);
             this.label34.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(143, 17);
@@ -1565,7 +1567,7 @@
             // PackageBorderCheck
             // 
             this.PackageBorderCheck.AutoSize = true;
-            this.PackageBorderCheck.Location = new System.Drawing.Point(518, 939);
+            this.PackageBorderCheck.Location = new System.Drawing.Point(518, 969);
             this.PackageBorderCheck.Margin = new System.Windows.Forms.Padding(2);
             this.PackageBorderCheck.Name = "PackageBorderCheck";
             this.PackageBorderCheck.Size = new System.Drawing.Size(114, 21);
@@ -1576,10 +1578,10 @@
             // 
             // calibrateBtn
             // 
-            this.calibrateBtn.Location = new System.Drawing.Point(640, 935);
+            this.calibrateBtn.Location = new System.Drawing.Point(640, 965);
             this.calibrateBtn.Margin = new System.Windows.Forms.Padding(2);
             this.calibrateBtn.Name = "calibrateBtn";
-            this.calibrateBtn.Size = new System.Drawing.Size(101, 28);
+            this.calibrateBtn.Size = new System.Drawing.Size(76, 28);
             this.calibrateBtn.TabIndex = 156;
             this.calibrateBtn.Text = "标定";
             this.calibrateBtn.UseVisualStyleBackColor = true;
@@ -1588,7 +1590,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(516, 967);
+            this.label36.Location = new System.Drawing.Point(516, 997);
             this.label36.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(78, 17);
@@ -1613,7 +1615,7 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.PosCombo.Location = new System.Drawing.Point(641, 965);
+            this.PosCombo.Location = new System.Drawing.Point(641, 995);
             this.PosCombo.Margin = new System.Windows.Forms.Padding(2);
             this.PosCombo.Name = "PosCombo";
             this.PosCombo.Size = new System.Drawing.Size(75, 24);
@@ -1622,7 +1624,7 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(516, 991);
+            this.label37.Location = new System.Drawing.Point(516, 1021);
             this.label37.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(522, 17);
@@ -1666,7 +1668,7 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.DimWgtCombo.Location = new System.Drawing.Point(641, 765);
+            this.DimWgtCombo.Location = new System.Drawing.Point(162, 925);
             this.DimWgtCombo.Margin = new System.Windows.Forms.Padding(2);
             this.DimWgtCombo.Name = "DimWgtCombo";
             this.DimWgtCombo.Size = new System.Drawing.Size(75, 24);
@@ -1675,7 +1677,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(513, 769);
+            this.label39.Location = new System.Drawing.Point(35, 929);
             this.label39.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(106, 17);
@@ -1685,12 +1687,12 @@
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(738, 769);
+            this.label40.Location = new System.Drawing.Point(251, 929);
             this.label40.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(151, 17);
+            this.label40.Size = new System.Drawing.Size(142, 17);
             this.label40.TabIndex = 164;
-            this.label40.Text = "（格式：长;宽;高;重量)";
+            this.label40.Text = "(格式：长;宽;高;重量)";
             // 
             // label41
             // 
@@ -2042,7 +2044,6 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(465, 719);
             this.textBox3.TabIndex = 196;
-            //this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // textBox4
             // 
@@ -2052,7 +2053,7 @@
             this.textBox4.Location = new System.Drawing.Point(22, 819);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(465, 107);
+            this.textBox4.Size = new System.Drawing.Size(465, 137);
             this.textBox4.TabIndex = 197;
             // 
             // textBox5
@@ -2060,7 +2061,7 @@
             this.textBox5.BackColor = System.Drawing.SystemColors.Control;
             this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox5.Enabled = false;
-            this.textBox5.Location = new System.Drawing.Point(22, 1021);
+            this.textBox5.Location = new System.Drawing.Point(22, 1051);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(1078, 101);
@@ -2071,7 +2072,7 @@
             this.textBox6.BackColor = System.Drawing.SystemColors.Control;
             this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(507, 932);
+            this.textBox6.Location = new System.Drawing.Point(507, 962);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(593, 83);
@@ -2085,7 +2086,7 @@
             this.textBox7.Location = new System.Drawing.Point(507, 573);
             this.textBox7.Multiline = true;
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(593, 353);
+            this.textBox7.Size = new System.Drawing.Size(593, 383);
             this.textBox7.TabIndex = 200;
             // 
             // textBox8
@@ -2401,7 +2402,7 @@
             // BarcodeImgEnableCheck
             // 
             this.BarcodeImgEnableCheck.AutoSize = true;
-            this.BarcodeImgEnableCheck.Location = new System.Drawing.Point(36, 939);
+            this.BarcodeImgEnableCheck.Location = new System.Drawing.Point(36, 969);
             this.BarcodeImgEnableCheck.Margin = new System.Windows.Forms.Padding(2);
             this.BarcodeImgEnableCheck.Name = "BarcodeImgEnableCheck";
             this.BarcodeImgEnableCheck.Size = new System.Drawing.Size(114, 21);
@@ -2413,7 +2414,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(33, 991);
+            this.label35.Location = new System.Drawing.Point(33, 1021);
             this.label35.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(296, 17);
@@ -2438,7 +2439,7 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.BarcodePosCombo.Location = new System.Drawing.Point(162, 965);
+            this.BarcodePosCombo.Location = new System.Drawing.Point(162, 995);
             this.BarcodePosCombo.Margin = new System.Windows.Forms.Padding(2);
             this.BarcodePosCombo.Name = "BarcodePosCombo";
             this.BarcodePosCombo.Size = new System.Drawing.Size(75, 24);
@@ -2447,7 +2448,7 @@
             // label61
             // 
             this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(33, 967);
+            this.label61.Location = new System.Drawing.Point(33, 997);
             this.label61.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(106, 17);
@@ -2459,7 +2460,7 @@
             this.textBox2.BackColor = System.Drawing.SystemColors.Control;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(22, 932);
+            this.textBox2.Location = new System.Drawing.Point(22, 962);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(465, 83);
@@ -2472,12 +2473,11 @@
             this.BarcodeImgModeCombo.Items.AddRange(new object[] {
             "拼接",
             "不拼接"});
-            this.BarcodeImgModeCombo.Location = new System.Drawing.Point(162, 937);
+            this.BarcodeImgModeCombo.Location = new System.Drawing.Point(162, 967);
             this.BarcodeImgModeCombo.Margin = new System.Windows.Forms.Padding(2);
             this.BarcodeImgModeCombo.Name = "BarcodeImgModeCombo";
             this.BarcodeImgModeCombo.Size = new System.Drawing.Size(75, 24);
             this.BarcodeImgModeCombo.TabIndex = 233;
-            //this.BarcodeImgModeCombo.SelectedIndexChanged += new System.EventHandler(this.BarcodeImgModeCombo_SelectedIndexChanged);
             // 
             // TopOnlyCheck1
             // 
@@ -2934,17 +2934,6 @@
             this.NRAnalysisEnableCheck.UseVisualStyleBackColor = true;
             this.NRAnalysisEnableCheck.CheckedChanged += new System.EventHandler(this.NRAnalysisEnableCheck_CheckedChanged);
             // 
-            // VPPConfigureButton
-            // 
-            this.VPPConfigureButton.Location = new System.Drawing.Point(791, 315);
-            this.VPPConfigureButton.Margin = new System.Windows.Forms.Padding(2);
-            this.VPPConfigureButton.Name = "VPPConfigureButton";
-            this.VPPConfigureButton.Size = new System.Drawing.Size(120, 25);
-            this.VPPConfigureButton.TabIndex = 276;
-            this.VPPConfigureButton.Text = "测试";
-            this.VPPConfigureButton.UseVisualStyleBackColor = true;
-            this.VPPConfigureButton.Click += new System.EventHandler(this.VPPConfigureButton_Click);
-            // 
             // LangCombo
             // 
             this.LangCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -2961,12 +2950,47 @@
             // label74
             // 
             this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(18, 26);
+            this.label74.Location = new System.Drawing.Point(19, 26);
             this.label74.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(78, 17);
             this.label74.TabIndex = 278;
             this.label74.Text = "当前语言：";
+            // 
+            // EncryptionEnableCheck
+            // 
+            this.EncryptionEnableCheck.AutoSize = true;
+            this.EncryptionEnableCheck.Location = new System.Drawing.Point(662, 21);
+            this.EncryptionEnableCheck.Margin = new System.Windows.Forms.Padding(2);
+            this.EncryptionEnableCheck.Name = "EncryptionEnableCheck";
+            this.EncryptionEnableCheck.Size = new System.Drawing.Size(114, 21);
+            this.EncryptionEnableCheck.TabIndex = 279;
+            this.EncryptionEnableCheck.Text = "是否图片加密";
+            this.EncryptionEnableCheck.UseVisualStyleBackColor = true;
+            this.EncryptionEnableCheck.CheckedChanged += new System.EventHandler(this.EncryptionEnableCheck_CheckedChanged);
+            // 
+            // GridLineEnableCheck
+            // 
+            this.GridLineEnableCheck.AutoSize = true;
+            this.GridLineEnableCheck.Location = new System.Drawing.Point(779, 317);
+            this.GridLineEnableCheck.Margin = new System.Windows.Forms.Padding(2);
+            this.GridLineEnableCheck.Name = "GridLineEnableCheck";
+            this.GridLineEnableCheck.Size = new System.Drawing.Size(86, 21);
+            this.GridLineEnableCheck.TabIndex = 280;
+            this.GridLineEnableCheck.Text = "显示网格";
+            this.GridLineEnableCheck.UseVisualStyleBackColor = true;
+            this.GridLineEnableCheck.CheckedChanged += new System.EventHandler(this.GridLineEnableCheck_CheckedChanged);
+            // 
+            // GridConfigBtn
+            // 
+            this.GridConfigBtn.Location = new System.Drawing.Point(863, 316);
+            this.GridConfigBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.GridConfigBtn.Name = "GridConfigBtn";
+            this.GridConfigBtn.Size = new System.Drawing.Size(30, 23);
+            this.GridConfigBtn.TabIndex = 288;
+            this.GridConfigBtn.Text = "...";
+            this.GridConfigBtn.UseVisualStyleBackColor = true;
+            this.GridConfigBtn.Click += new System.EventHandler(this.GridConfigBtn_Click_1);
             // 
             // MainForm
             // 
@@ -2975,9 +2999,11 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1183, 1055);
+            this.Controls.Add(this.GridConfigBtn);
+            this.Controls.Add(this.GridLineEnableCheck);
+            this.Controls.Add(this.EncryptionEnableCheck);
             this.Controls.Add(this.label74);
             this.Controls.Add(this.LangCombo);
-            this.Controls.Add(this.VPPConfigureButton);
             this.Controls.Add(this.NRAnalysisEnableCheck);
             this.Controls.Add(this.DWSEnableCheck);
             this.Controls.Add(this.regexSta4Check);
@@ -3418,9 +3444,11 @@
         private System.Windows.Forms.TextBox regexMasterIPBox4;
         private System.Windows.Forms.CheckBox DWSEnableCheck;
         private System.Windows.Forms.CheckBox NRAnalysisEnableCheck;
-        private System.Windows.Forms.Button VPPConfigureButton;
         private System.Windows.Forms.ComboBox LangCombo;
         private System.Windows.Forms.Label label74;
+        private System.Windows.Forms.CheckBox EncryptionEnableCheck;
+        private System.Windows.Forms.CheckBox GridLineEnableCheck;
+        private System.Windows.Forms.Button GridConfigBtn;
     }
 }
 

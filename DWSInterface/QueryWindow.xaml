@@ -144,7 +144,7 @@
                         </DataGridTemplateColumn.HeaderTemplate>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Image MouseDown="Image_MouseDown" Source="pack://application:,,,/Images/imageicon.jpg" Stretch="Uniform" HorizontalAlignment="Center"/>
+                                <Image MouseUp="Image_MouseUP" Source="pack://application:,,,/Images/imageicon.jpg" Stretch="Uniform" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

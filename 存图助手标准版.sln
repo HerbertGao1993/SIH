@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWSInterface", "DWSInterfac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigureMysql", "ConfigureMysql\ConfigureMysql.csproj", "{CBAE453C-8E85-4AE1-AEF8-678AB5555031}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decryption", "Decryption\Decryption.csproj", "{AFA919BE-13B9-44AB-B122-074B473FED3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +108,18 @@ Global
 		{CBAE453C-8E85-4AE1-AEF8-678AB5555031}.Release|x64.Build.0 = Release|Any CPU
 		{CBAE453C-8E85-4AE1-AEF8-678AB5555031}.Release|x86.ActiveCfg = Release|Any CPU
 		{CBAE453C-8E85-4AE1-AEF8-678AB5555031}.Release|x86.Build.0 = Release|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Debug|x64.Build.0 = Debug|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Debug|x86.Build.0 = Debug|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Release|x64.ActiveCfg = Release|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Release|x64.Build.0 = Release|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Release|x86.ActiveCfg = Release|Any CPU
+		{AFA919BE-13B9-44AB-B122-074B473FED3A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

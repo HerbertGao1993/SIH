@@ -312,6 +312,22 @@ namespace Library
             
             try
             {
+                try
+                {
+                    string registryPath = @"SOFTWARE\SIH";
+                    string keyname = "psw";
+                    string value = "Cognex";
+                    using (RegistryKey key = Registry.LocalMachine.OpenSubKey(registryPath, true))
+                    {
+                        RegistryKey curkey = key;
+                        if (curkey == null)
+                        {
+                            curkey = Registry.LocalMachine.CreateSubKey(registryPath, true);
+                        }
+                        curkey.SetValue(keyname, value);
+                    }
+                }
+                catch { }
                 string bottomcalib_path = this.Context.Parameters["targetdir"].Substring(0, this.Context.Parameters["targetdir"].Length - 2) + "\\bottomscan calibration";
                 string calib_path = this.Context.Parameters["targetdir"].Substring(0, this.Context.Parameters["targetdir"].Length - 2) + "\\calib";
                 string ftplog_path = this.Context.Parameters["targetdir"].Substring(0, this.Context.Parameters["targetdir"].Length - 2) + "\\FtpLog";

@@ -9,6 +9,7 @@ namespace 存图助手标准版
 {
     class BarcodeStitchObject
     {
+        public double parcelHeight;
         public string StationName;
         public string Description = "";
         public string N0 = "-1";
@@ -36,7 +37,7 @@ namespace 存图助手标准版
         public string BoxID = "";
         public FileInfo UPImage = null;
         public FileInfo BarcodeImage = null;
-        public BarcodeStitchObject(string N0, string N2, string N3, string N4, string N5, string N6, string N7, string N8, string N9, string N10, string N11, string N12, string description, DateTime timestamp, string localDir, string localfullname, string ftpDir, string ftpfullname, string pos, string barcodePos, DateTime TriggerTimestamp,string boxid)
+        public BarcodeStitchObject(string N0, string N2, string N3, string N4, string N5, string N6, string N7, string N8, string N9, string N10, string N11, string N12, string description, DateTime timestamp, string localDir, string localfullname, string ftpDir, string ftpfullname, string pos, string barcodePos, DateTime TriggerTimestamp,string boxid,string parcelHeight)
         {
             this.N0 = N0;
             this.N2 = N2;
@@ -61,6 +62,14 @@ namespace 存图助手标准版
             this.pos = pos;
             this.barcodePos = barcodePos;
             this.handled = false;
+            try
+            {
+                this.parcelHeight = Convert.ToDouble(parcelHeight);
+            }
+            catch 
+            { 
+                this.parcelHeight = -1; 
+            }
         }
     }
 }

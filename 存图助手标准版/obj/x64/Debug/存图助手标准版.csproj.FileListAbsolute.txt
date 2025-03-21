@@ -451,4 +451,17 @@ D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标�
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\obj\x64\Debug\存图助手标准版.csproj.CopyComplete
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\obj\x64\Debug\存图助手标准版.exe
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\obj\x64\Debug\存图助手标准版.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\obj\x64\Debug\存图助手标准版.GridSetting.resources
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\dll\x86\opencv_videoio_ffmpeg4100.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\dll\x64\opencv_videoio_ffmpeg4100_64.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\OpenCvSharp.WpfExtensions.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\System.Drawing.Common.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\System.Memory.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\System.ValueTuple.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\OpenCvSharp.WpfExtensions.xml
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\System.Drawing.Common.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\System.Drawing.Common.xml
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\System.Memory.xml
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Debug\System.ValueTuple.xml
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\obj\x64\Debug\存图助手标准版.csproj.AssemblyReference.cache
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\obj\x64\Debug\存图助手标准版.exe.config

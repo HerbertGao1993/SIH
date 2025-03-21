@@ -21,6 +21,7 @@ using System.Threading;
 using System.Web;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using Microsoft.Win32;
 #if FEATURE_VPRO
 using Cognex.VisionPro;
 using Cognex.VisionPro.ToolBlock;
@@ -31,7 +32,22 @@ namespace 存图助手标准版
 {
     public partial class MainForm : Form
     {
+        private GridSetting gs = new GridSetting();
+        internal static string DefaultPixelSize = "3.45";
+        internal static string DefaultFocusLength = "16";
+        internal static string DefaultReadAngle = "25";
+        internal static string DefaultMountingHeight = "1500";
+        internal static string DefaultMaxParcelHeight = "700";
+        internal static double PixelSize = 3.45;//um
+        internal static double FocusLength = 16;//mm
+        internal static double ReadAngle = 25;//deg
+        internal static double MountingHeight = 1500;//mm
+        internal static double MaxParcelHeight = 700;//mm
         static readonly object L = new object();
+        private bool GridLineEnable = false;
+        private bool imgEncryptEnable = false;
+        static string imgLockPSW = "";
+        static string imgLockIV = "";
         int mImageIndex = 0;
         //static string mImageFolderPath = Application.StartupPath + "\\images";
         public static bool DWSInterfaceEnabled = false;
@@ -182,7 +198,8 @@ namespace 存图助手标准版
         EncoderParameters epbottom = new EncoderParameters(1);
         private Calib cal = new Calib();
         private static double[] defaulthomo = { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
-        private static Mat defaultMat = new Mat(3, 3, MatType.CV_64FC1, defaulthomo);
+        //private static Mat defaultMat = new Mat(3, 3, MatType.CV_64FC1, defaulthomo);
+        private static Mat defaultMat = Mat.FromPixelData(3, 3, MatType.CV_64FC1, defaulthomo);
         private Mat[] HomographySta1 = new Mat[5] { defaultMat, defaultMat, defaultMat, defaultMat, defaultMat };
         private Mat[] HomographySta2 = new Mat[5] { defaultMat, defaultMat, defaultMat, defaultMat, defaultMat };
         private Mat[] HomographySta3 = new Mat[5] { defaultMat, defaultMat, defaultMat, defaultMat, defaultMat };
@@ -259,12 +276,13 @@ namespace 存图助手标准版
         private readonly Object HTTPInfoSta3_2Lock = new Object();
         private readonly Object HTTPInfoSta4_1Lock = new Object();
         private readonly Object HTTPInfoSta4_2Lock = new Object();
+        internal static string DoublePattern = @"^\d+(.\d+)?$";
         internal static string DaysPattern = @"^\d+$";
         private string NonSpacePattern = @"^\S+$";
         private string UrlPattern = @"^[C-Z]:(\\[^\\]+)*$";
         private string IPPattern = @"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$";
         private string PortPattern = @"^\d{1,5}$";
-        long HandleWaitTime = 800;//ms
+        long HandleWaitTime = 1200;//ms
         internal static long InductorBindingTimeout = 200;//s
         internal static long BottomOnlyBindingTimeout = 30000;//s
         long deleteRawImage = 25000;//ftp根目录下图片的生命周期ms
@@ -922,7 +940,7 @@ namespace 存图助手标准版
                         {
                             LocalServerHandler.Start();
                         }
-                        else
+                        else if(!LocalServerHandler.Disposed)
                         {
                             if (cnt == 0)
                             {
@@ -968,27 +986,32 @@ namespace 存图助手标准版
                                 if (Jo.Property("H12") != null)
                                 {
                                     double[] H12array = ((JArray)Jo["H12"]).ToObject<double[]>();
-                                    Homography[0] = new Mat(3, 3, MatType.CV_64FC1, H12array);
+                                    //Homography[0] = new Mat(3, 3, MatType.CV_64FC1, H12array);
+                                    Homography[0] = Mat.FromPixelData(3, 3, MatType.CV_64FC1, H12array);
                                 }
                                 if (Jo.Property("H23") != null)
                                 {
                                     double[] H23array = ((JArray)Jo["H23"]).ToObject<double[]>();
-                                    Homography[1] = new Mat(3, 3, MatType.CV_64FC1, H23array);
+                                    //Homography[1] = new Mat(3, 3, MatType.CV_64FC1, H23array);
+                                    Homography[1] = Mat.FromPixelData(3, 3, MatType.CV_64FC1, H23array);
                                 }
                                 if (Jo.Property("H34") != null)
                                 {
                                     double[] H34array = ((JArray)Jo["H34"]).ToObject<double[]>();
-                                    Homography[2] = new Mat(3, 3, MatType.CV_64FC1, H34array);
+                                    //Homography[2] = new Mat(3, 3, MatType.CV_64FC1, H34array);
+                                    Homography[2] = Mat.FromPixelData(3, 3, MatType.CV_64FC1, H34array);
                                 }
                                 if (Jo.Property("H45") != null)
                                 {
                                     double[] H45array = ((JArray)Jo["H45"]).ToObject<double[]>();
-                                    Homography[3] = new Mat(3, 3, MatType.CV_64FC1, H45array);
+                                    //Homography[3] = new Mat(3, 3, MatType.CV_64FC1, H45array);
+                                    Homography[3] = Mat.FromPixelData(3, 3, MatType.CV_64FC1, H45array);
                                 }
                                 if (Jo.Property("H56") != null)
                                 {
                                     double[] H56array = ((JArray)Jo["H56"]).ToObject<double[]>();
-                                    Homography[4] = new Mat(3, 3, MatType.CV_64FC1, H56array);
+                                    //Homography[4] = new Mat(3, 3, MatType.CV_64FC1, H56array);
+                                    Homography[4] = Mat.FromPixelData(3, 3, MatType.CV_64FC1, H56array);
                                 }
                                 if (Jo.Property("overlap") != null)
                                 { 
@@ -1710,9 +1733,12 @@ namespace 存图助手标准版
             try
             {
                 InitializeComponent();
+                imgLockPSW = readPSW();
+                imgLockIV = readIV();
                 PowerOnTime = DateTime.Now;
                 running = true;
                 //ind.Show();
+                gs.Hide();
                 ind.Hide();
                 //bool falgg = ind.IsHandleCreated;
                 cal.Hide();
@@ -2198,6 +2224,26 @@ namespace 存图助手标准版
                         ind.DWS1PortBox.Text = ConfigurationManager.AppSettings["DWS1Port"];//每次开机访问配置文件，获取DWS1端口
                         ind.DWS1IPBox.Text = ConfigurationManager.AppSettings["DWS1IP"];//每次开机访问配置文件，获取DWS1地址
                     }
+                    if (ConfigurationManager.AppSettings["EncryptionEnable"] == "true")
+                    {
+                        EncryptionEnableCheck.Checked = true;
+                        imgEncryptEnable = true; 
+                    }
+                    else if (ConfigurationManager.AppSettings["EncryptionEnable"] == "false")
+                    {
+                        EncryptionEnableCheck.Checked = false;
+                        imgEncryptEnable = false;
+                    }
+                    if (ConfigurationManager.AppSettings["GridLineEnable"] == "true")
+                    {
+                        GridLineEnableCheck.Checked = true;
+                        GridLineEnable = true;
+                    }
+                    else if (ConfigurationManager.AppSettings["GridLineEnable"] == "false")
+                    {
+                        GridLineEnableCheck.Checked = false;
+                        GridLineEnable = false;
+                    }
                     if (ConfigurationManager.AppSettings["LogEnable"] == "true")
                     {
                         LogEnableCheck.Checked = true;
@@ -2350,7 +2396,46 @@ namespace 存图助手标准版
                     {
                         ind.BindingTimeoutBox.Text = DefaultBindingTimeoutText;
                     }
-
+                    if (Regex.IsMatch(ConfigurationManager.AppSettings["PixelSize"], DoublePattern))
+                    {
+                        gs.PixelSizeText.Text = ConfigurationManager.AppSettings["PixelSize"];
+                    }
+                    else
+                    {
+                        gs.PixelSizeText.Text = DefaultPixelSize;
+                    }
+                    if (Regex.IsMatch(ConfigurationManager.AppSettings["FocusLength"], DoublePattern))
+                    {
+                        gs.FocusLengthText.Text = ConfigurationManager.AppSettings["FocusLength"];
+                    }
+                    else
+                    {
+                        gs.FocusLengthText.Text = DefaultFocusLength;
+                    }
+                    if (Regex.IsMatch(ConfigurationManager.AppSettings["ReadAngle"], DoublePattern))
+                    {
+                        gs.ReadAngleText.Text = ConfigurationManager.AppSettings["ReadAngle"];
+                    }
+                    else
+                    {
+                        gs.ReadAngleText.Text = DefaultReadAngle;
+                    }
+                    if (Regex.IsMatch(ConfigurationManager.AppSettings["MountingHeight"], DoublePattern))
+                    {
+                        gs.MountingHeightText.Text = ConfigurationManager.AppSettings["MountingHeight"];
+                    }
+                    else
+                    {
+                        gs.MountingHeightText.Text = DefaultMountingHeight;
+                    }
+                    if (Regex.IsMatch(ConfigurationManager.AppSettings["MaxParcelHeight"], DoublePattern))
+                    {
+                        gs.MaxParcelHeightText.Text = ConfigurationManager.AppSettings["MaxParcelHeight"];
+                    }
+                    else
+                    {
+                        gs.MaxParcelHeightText.Text = DefaultMaxParcelHeight;
+                    }
                     delimiterBox.Text = ConfigurationManager.AppSettings["MultiCodeDelimiter"];//每次开机访问配置文件，获取多条码分隔符
                     FTPOKBox.Text = ConfigurationManager.AppSettings["FTPOKMes"];//每次开机访问配置文件，获取FTPOK报文
                     FTPNOKBox.Text = ConfigurationManager.AppSettings["FTPNOKMes"];//每次开机访问配置文件，获取FTPNOK报文
@@ -2544,6 +2629,11 @@ namespace 存图助手标准版
                     Password2 = PasswordBox2.Text;
                     Credential2 = new NetworkCredential(User2, Password2);
                     PicStorDays = Convert.ToInt32(PicStorDaysText.Text);
+                    PixelSize = Convert.ToDouble(gs.PixelSizeText.Text);
+                    FocusLength = Convert.ToDouble(gs.FocusLengthText.Text);
+                    ReadAngle = Convert.ToDouble(gs.ReadAngleText.Text);
+                    MountingHeight = Convert.ToDouble(gs.MountingHeightText.Text);
+                    MaxParcelHeight = Convert.ToDouble(gs.MaxParcelHeightText.Text);
                     regexMasterIP1 = regexMasterIPBox1.Text;
                     regexMasterPort1 = regexMasterPortBox1.Text;
                     regexMasterIP2 = regexMasterIPBox2.Text;
@@ -3104,6 +3194,8 @@ namespace 存图助手标准版
                 SelectImageRootButton4.Enabled = false;
                 PackageBorderCheck.Enabled = false;
                 CaptionEnableCheck.Enabled = false;
+                EncryptionEnableCheck.Enabled = false;
+                GridLineEnableCheck.Enabled = false;
                 NRAnalysisEnableCheck.Enabled = false;
                 ExtCaptionEnableCheck.Enabled = false;
                 Sta1OnBox.Enabled = false;
@@ -3119,6 +3211,12 @@ namespace 存图助手标准版
                 BarcodePosCombo.Enabled = false;
                 CaptionFormatBox.Enabled = false;
                 PicStorDaysText.Enabled = false;
+                gs.PixelSizeText.Enabled = false;
+                gs.FocusLengthText.Enabled = false;
+                gs.ReadAngleText.Enabled = false;
+                gs.MountingHeightText.Enabled = false;
+                gs.MaxParcelHeightText.Enabled = false;
+                gs.BtnSave.Enabled = false;
                 if (!CheckDuplication(FtpRoots) && !CheckDuplication(StorageRoots))
                 {
                     if (Regex.IsMatch(FtpRoot1, UrlPattern) && Regex.IsMatch(StorageRoot1, UrlPattern) && Sta1On)
@@ -3391,6 +3489,8 @@ namespace 存图助手标准版
                     CamNoCombo4.Enabled = true;
                     PackageBorderCheck.Enabled = true;
                     CaptionEnableCheck.Enabled = true;
+                    EncryptionEnableCheck.Enabled = true;
+                    GridLineEnableCheck.Enabled = true;
                     NRAnalysisEnableCheck.Enabled = true;
                     ExtCaptionEnableCheck.Enabled = true;
                     Sta1OnBox.Enabled = true;
@@ -3406,6 +3506,12 @@ namespace 存图助手标准版
                     BarcodePosCombo.Enabled = true;
                     CaptionFormatBox.Enabled = true;
                     PicStorDaysText.Enabled = true;
+                    gs.PixelSizeText.Enabled = true;
+                    gs.FocusLengthText.Enabled = true;
+                    gs.ReadAngleText.Enabled = true;
+                    gs.MountingHeightText.Enabled = true;
+                    gs.MaxParcelHeightText.Enabled = true;
+                    gs.BtnSave.Enabled = true;
                     MonitorTimer.Enabled = false;
                     Timer1.Stop();
                     Timer2.Stop();
@@ -3555,6 +3661,7 @@ namespace 存图助手标准版
         }
         private void Start_Click(object sender, EventArgs e)
         {
+            
             PicStorDaysText.Text = Regex.IsMatch(PicStorDaysText.Text, DaysPattern) ? PicStorDaysText.Text : DefaultPicStorDaysText;
             Folder1Combo.Text = Regex.IsMatch(Folder1Combo.Text, NonSpacePattern) ? Folder1Combo.Text : DefaultSubFolder;
             Folder2Combo.Text = Regex.IsMatch(Folder2Combo.Text, NonSpacePattern) ? Folder2Combo.Text : DefaultSubFolder;
@@ -3640,6 +3747,7 @@ namespace 存图助手标准版
                             config.AppSettings.Settings["HttpCheckUrl"].Value = HttpCheckUrlBox.Text;
                             config.AppSettings.Settings["HttpUploadUrl"].Value = HttpUploadUrlBox.Text;
                             config.AppSettings.Settings["PicStorDays"].Value = PicStorDaysText.Text;
+                            
                             config.AppSettings.Settings["InductFtpRoot"].Value = InductFtpRootBox.Text;
                             config.AppSettings.Settings["ftp_image_dir1"].Value = FtpRootBox1.Text;
                             config.AppSettings.Settings["ftp_image_dir2"].Value = FtpRootBox2.Text;
@@ -3966,6 +4074,8 @@ namespace 存图助手标准版
                     SelectImageRootButton4.Enabled = false;
                     PackageBorderCheck.Enabled = false;
                     CaptionEnableCheck.Enabled = false;
+                    EncryptionEnableCheck.Enabled = false;
+                    GridLineEnableCheck.Enabled = false;
                     NRAnalysisEnableCheck.Enabled = false;
                     ExtCaptionEnableCheck.Enabled = false;
                     Sta1OnBox.Enabled = false;
@@ -3973,6 +4083,12 @@ namespace 存图助手标准版
                     Sta3OnBox.Enabled = false;
                     Sta4OnBox.Enabled = false;
                     PicStorDaysText.Enabled = false;
+                    gs.PixelSizeText.Enabled = false;
+                    gs.FocusLengthText.Enabled = false;
+                    gs.ReadAngleText.Enabled = false;
+                    gs.MountingHeightText.Enabled = false;
+                    gs.MaxParcelHeightText.Enabled = false;
+                    gs.BtnSave.Enabled = false;
                     MonitorTimer.Enabled = true;
                     if (Regex.IsMatch(FtpRoot1, UrlPattern) && Regex.IsMatch(StorageRoot1, UrlPattern) && Sta1On)
                     {
@@ -7224,7 +7340,14 @@ namespace 存图助手标准版
                                 }
                                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
                                 g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
-                                image.Save(local_fullname, ImageCodecInfo.GetImageEncoders().FirstOrDefault(j => j.MimeType == "image/jpeg"), epbottom);
+                                if (!imgEncryptEnable)
+                                {
+                                    image.Save(local_fullname, ImageCodecInfo.GetImageEncoders().FirstOrDefault(j => j.MimeType == "image/jpeg"), epbottom);
+                                }
+                                else
+                                {
+                                    EncryptImage(image, local_fullname, ImageCodecInfo.GetImageEncoders().FirstOrDefault(j => j.MimeType == "image/jpeg"), epbottom);
+                                }
                             }
                             else
                             {
@@ -7242,7 +7365,18 @@ namespace 存图助手标准版
                                     }
                                     y += (int)(40.0 * CurrentWarp.Rows / 750.0);
                                 }
-                                Cv2.ImWrite(local_fullname, CurrentWarpRGB, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                                if (!imgEncryptEnable)
+                                {
+                                    Cv2.ImWrite(local_fullname, CurrentWarpRGB, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                                }
+                                else
+                                {
+                                    //Stopwatch s = new Stopwatch();
+                                    //s.Start();
+                                    EncryptMat(CurrentWarpRGB, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                                    //s.Stop();
+                                    //long ss = s.ElapsedMilliseconds;
+                                }
                             }
                         }
                         else
@@ -7258,7 +7392,14 @@ namespace 存图助手标准版
                             obj.localDir = MultiSlash.Replace(obj.localDir, "\\");//本地路径
                             local_fullname = obj.localDir + obj.ftpFileName;//本地文件全名含路径
                             ftp_fullname = obj.ftpDir + "\\" + obj.ftpFileNameHeader + delimiter + obj.ftpFileName;
-                            Cv2.ImWrite(local_fullname, CurrentWarp, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                            if (!imgEncryptEnable)
+                            {
+                                Cv2.ImWrite(local_fullname, CurrentWarp, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                            }
+                            else
+                            {
+                                EncryptMat(CurrentWarpRGB, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                            }
                         }
                         if (System.IO.File.Exists(local_fullname))
                         {
@@ -7681,6 +7822,12 @@ namespace 存图助手标准版
                         {
                             fullmat = UPmat;
                         }
+                        if (GridLineEnable && obj.parcelHeight > 0 && obj.parcelHeight < MountingHeight)
+                        {
+                            
+                            GridLine(fullmat, UPmat.Cols, fullmat.Rows, obj.parcelHeight, 20);
+                           
+                        }
                         int dimNo = 1;
                         string[] posstring = obj.pos.Split(';');
                         if (posstring.Length == 13)
@@ -7895,7 +8042,6 @@ namespace 存图助手标准版
                                 Des = Des.Replace("#EXT0", ext0).Replace("#EXT1", ext1).Replace("#EXT2", ext2).Replace("#EXT3", ext3);
                                 Des = Des.Replace("#EXT4", ext4).Replace("#EXT5", ext5).Replace("#EXT6", ext6).Replace("#EXT7", ext7);
                                 Des = Des.Replace("#EXT8", ext8).Replace("#EXT9", ext9);
-
                                 //fullmatRGB = new Mat();
                                 //Cv2.CvtColor(fullmat, fullmatRGB, ColorConversionCodes.GRAY2RGB);
                                 if (allowChinese)
@@ -7914,7 +8060,14 @@ namespace 存图助手标准版
                             }
                             else
                             {
-                                Cv2.ImWrite(obj.localFullName, fullmat, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                                if (!imgEncryptEnable)
+                                {
+                                    Cv2.ImWrite(obj.localFullName, fullmat, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                                }
+                                else
+                                {
+                                    EncryptMat(fullmat, obj.localFullName, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                                }
                             }
                             if (System.IO.File.Exists(obj.localFullName))
                             {
@@ -10115,7 +10268,14 @@ namespace 存图助手标准版
                                     Thread.Sleep(1);
                                     try
                                     {
-                                        file.MoveTo(filename_url);
+                                        if (!imgEncryptEnable)
+                                        {
+                                            file.MoveTo(filename_url);
+                                        }
+                                        else
+                                        {
+                                            EncryptFile(file, filename_url);
+                                        }
                                     }
                                     catch (Exception ex)
                                     {
@@ -10123,7 +10283,7 @@ namespace 存图助手标准版
                                     }
                                 }
                                 file.Refresh();
-                                if (file.FullName != Originalname)//判断是否成功传输
+                                if (file.FullName != Originalname || (!file.Exists && File.Exists(filename_url)))//判断是否成功传输
                                 {
                                     lock (currentBox.BoxLock)
                                     {
@@ -11283,7 +11443,7 @@ namespace 存图助手标准版
                             }
                             continue;
                         }
-                        if ((file.Extension.ToLower() == ".bmp" || file.Extension.ToLower() == ".jpg") && (long)(DateTime.Now - file.CreationTime).TotalMilliseconds >= HandleWaitTime)
+                        if ((file.Extension.ToLower() == ".bmp" || file.Extension.ToLower() == ".jpg") && (long)(DateTime.Now - file.CreationTime).TotalMilliseconds >= HandleWaitTime && file.Length > 0)
                         {
                             //logpath = SystemLogDirectory + "\\log " + DateTime.Now.ToString("yyyyMMdd") + ".txt";
                             logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + file.Name + " is the current file!" + " File creation time: " + file.CreationTime.ToString("yyyy/MM/dd HH:mm:ss.fff");
@@ -11886,6 +12046,16 @@ namespace 存图助手标准版
                     pos = pos.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
                     pos = pos.Replace("#N0", N0).Replace("#N1", N1.Replace("Master", "").Replace("master", "")).Replace("#N2", N2).Replace("#N3", N3).Replace("#N4", N4).Replace("#N5", N5).Replace("#N6", N6);
                     pos = pos.Replace("#None", "");
+                    string DimWeight = DimAndWeightFormat;
+                    DimWeight = DimWeight.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
+                    DimWeight = DimWeight.Replace("#N0", N0).Replace("#N1", N1.Replace("Master", "").Replace("master", "")).Replace("#N2", N2).Replace("#N3", N3).Replace("#N4", N4).Replace("#N5", N5).Replace("#N6", N6);
+                    DimWeight = DimWeight.Replace("#None", "0;0;-1;0");
+                    string[] dimweight = DimWeight.Split(';');
+                    string parcelHeight = "-1";
+                    if (dimweight.Length >= 3)
+                    {
+                        parcelHeight = dimweight[2];
+                    }
                     BarcodeStitchObject BarcodeStitchObj = null;
                     int BarcodeStitchIndex = -1;
                     lock (BarcodeStitchArrayLock)
@@ -11903,7 +12073,7 @@ namespace 存图助手标准版
                             if (N1.StartsWith("UP"))
                             {
                                 //BottomObj = new BottomStitchObject(N0, N12, description, file.CreationTime, FullDir, filename_url, ftpTempDir, temp_filename_url);
-                                BarcodeStitchObj = new BarcodeStitchObject(N0, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, N12, description, DateTime.Now, FullDir, filename_url, ftpTempDir, temp_filename_url, pos, "0;0;0;0;0;0;0;0", Timestamp,boxidtext);
+                                BarcodeStitchObj = new BarcodeStitchObject(N0, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, N12, description, DateTime.Now, FullDir, filename_url, ftpTempDir, temp_filename_url, pos, "0;0;0;0;0;0;0;0", Timestamp,boxidtext, parcelHeight);
                                 lock (BarcodeStitchArrayLock)
                                 {
                                     BarcodeStitchArray.Add(BarcodeStitchObj);
@@ -12070,7 +12240,14 @@ namespace 存图助手标准版
                                     Thread.Sleep(1);
                                     try
                                     {
-                                        file.MoveTo(filename_url);
+                                        if (!imgEncryptEnable)
+                                        {
+                                            file.MoveTo(filename_url);
+                                        }
+                                        else
+                                        {
+                                            EncryptFile(file, filename_url);
+                                        }
                                     }
                                     catch (Exception ex)
                                     {
@@ -12078,7 +12255,7 @@ namespace 存图助手标准版
                                     }
                                 }
                                 file.Refresh();
-                                if (file.FullName != Originalname)//判断是否成功传输
+                                if (file.FullName != Originalname || (!file.Exists && File.Exists(filename_url)))//判断是否成功传输
                                 {
                                     HandleOK = 1;
                                     //logpath = SystemLogDirectory + "\\log " + DateTime.Now.ToString("yyyyMMdd") + ".txt";
@@ -13548,7 +13725,7 @@ namespace 存图助手标准版
                 catch (Exception ex) { }
             }
         }
-        public void DrawCaptionOpencv(FileInfo File, string description,string local_fullname, string pos,bool drawborder, calObject calobj)
+        public void DrawCaptionOpencv(FileInfo File, string description,string local_fullname, string pos,bool drawborder, calObject calobj, double parcelHeight, bool isUP)
         {
             Mat srcImg = null;
             string[] des = Regex.Split(description, "\r\n");
@@ -13606,6 +13783,10 @@ namespace 存图助手标准版
                         srcImg = Cv2.ImRead(File.FullName);
                         if (!srcImg.Empty())
                         {
+                            if (isUP && GridLineEnable && parcelHeight > 0 && parcelHeight < MountingHeight)
+                            {
+                                GridLine(srcImg, srcImg.Cols, srcImg.Rows, parcelHeight, 20);
+                            }
                             x = (int)(srcImg.Cols / 80);
                             y = (int)(srcImg.Rows / 20);
                             for (int i = 0; i < des.Length; i++)
@@ -13631,7 +13812,14 @@ namespace 存图助手标准版
                                 Cv2.Line(srcImg, new OpenCvSharp.Point(x3, y3), new OpenCvSharp.Point(x4, y4), new Scalar(0, 255, 0), (int)(srcImg.Cols / 1000));
                                 Cv2.Line(srcImg, new OpenCvSharp.Point(x4, y4), new OpenCvSharp.Point(x1, y1), new Scalar(0, 255, 0), (int)(srcImg.Cols / 1000));
                             }
-                            Cv2.ImWrite(local_fullname, srcImg, new ImageEncodingParam(ImwriteFlags.JpegQuality, 70));
+                            if (!imgEncryptEnable)
+                            {
+                                Cv2.ImWrite(local_fullname, srcImg, new ImageEncodingParam(ImwriteFlags.JpegQuality, 70));
+                            }
+                            else
+                            {
+                                EncryptMat(srcImg, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, 70));
+                            }
                         }
                     }
                 }
@@ -13754,7 +13942,14 @@ namespace 存图助手标准版
                         Cv2.Line(srcImg, new OpenCvSharp.Point(xx3, yy3), new OpenCvSharp.Point(xx4, yy4), new Scalar(0, 255, 0), (int)(srcImg.Cols / 500));
                         Cv2.Line(srcImg, new OpenCvSharp.Point(xx4, yy4), new OpenCvSharp.Point(xx1, yy1), new Scalar(0, 255, 0), (int)(srcImg.Cols / 500));
                     }
-                    Cv2.ImWrite(local_fullname, srcImg, new ImageEncodingParam(ImwriteFlags.JpegQuality, 70));
+                    if (!imgEncryptEnable)
+                    {
+                        Cv2.ImWrite(local_fullname, srcImg, new ImageEncodingParam(ImwriteFlags.JpegQuality, 70));
+                    }
+                    else
+                    {
+                        EncryptMat(srcImg, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, 70));
+                    }
                 }
             }
             catch (Exception ex) { }
@@ -13763,7 +13958,7 @@ namespace 存图助手标准版
                 
             }
         }
-        public void DrawCaptionGDI(FileInfo File, string description, string local_fullname, string pos, bool drawborder, calObject calobj)
+        public void DrawCaptionGDI(FileInfo File, string description, string local_fullname, string pos, bool drawborder, calObject calobj, double parcelHeight, bool isUP)
         {
             Image newImage = null;
             Image image = null;
@@ -13771,6 +13966,9 @@ namespace 存图助手标准版
             Font font = null;
             SolidBrush sb = null;
             Pen pen = null;
+            Font font2 = null;
+            SolidBrush sb2 = null;
+            Pen pen2 = null;
             int x1 = -1, y1 = -1, x2 = -1, y2 = -1, x3 = -1, y3 = -1, x4 = -1, y4 = -1;
             int X1 = 0, Y1 = 0, Z1 = 0, X2 = 0, Y2 = 0, Z2 = 0, X3 = 0, Y3 = 0, Z3 = 0, X4 = 0, Y4 = 0, Z4 = 0;
             double r11 = calobj.r11;
@@ -13817,7 +14015,7 @@ namespace 存图助手标准版
                 }
                 
                 sb = new SolidBrush(Color.FromArgb(255, 0, 255, 0));
-                
+                sb2 = new SolidBrush(Color.White);
                 if (File is FileInfo)
                 {
                     File.Refresh();
@@ -13829,6 +14027,14 @@ namespace 存图助手标准版
                         g.DrawImage(image, 0, 0, image.Width, image.Height);
                         PointF p = new PointF(image.Width/80, image.Height/60);
                         font = new Font("宋体", image.Width/50);
+                        font2 = new Font("宋体", image.Width / 80);
+                        pen2 = new Pen(sb2, image.Width / 1000);
+                        if (isUP && GridLineEnable && parcelHeight > 0 && parcelHeight < MountingHeight)
+                        {
+                            
+                            GridLine(g, image.Width, image.Height, parcelHeight, 20, font2, sb2, pen2);
+                            
+                        }
                         if (description != "")
                         {
                             g.DrawString(description, font, sb, p);
@@ -13836,6 +14042,7 @@ namespace 存图助手标准版
                         if (posValid && allowPackageBorder && calobj.calOK && drawborder)
                         {
                             pen = new Pen(sb, image.Width/1000);
+                            
                             x1 = Math.Max(0, Math.Min((int)((X1 * r11 + Y1 * r12 + Z1 * r13 + r14) / (X1 * r31 + Y1 * r32 + Z1 * r33 + 1)), image.Width));
                             y1 = Math.Max(0, Math.Min((int)((X1 * r21 + Y1 * r22 + Z1 * r23 + r24) / (X1 * r31 + Y1 * r32 + Z1 * r33 + 1)), image.Height));
                             x2 = Math.Max(0, Math.Min((int)((X2 * r11 + Y2 * r12 + Z2 * r13 + r14) / (X2 * r31 + Y2 * r32 + Z2 * r33 + 1)), image.Width));
@@ -13851,7 +14058,14 @@ namespace 存图助手标准版
                         }
                         g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
                         g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
-                        newImage.Save(local_fullname, ImageCodecInfo.GetImageEncoders().FirstOrDefault(j => j.MimeType == "image/jpeg"), ep);
+                        if (!imgEncryptEnable)
+                        {
+                            newImage.Save(local_fullname, ImageCodecInfo.GetImageEncoders().FirstOrDefault(j => j.MimeType == "image/jpeg"), ep);
+                        }
+                        else
+                        {
+                            EncryptImage(newImage, local_fullname, ImageCodecInfo.GetImageEncoders().FirstOrDefault(j => j.MimeType == "image/jpeg"), ep);
+                        }
                     }
                 }
             }
@@ -13881,6 +14095,18 @@ namespace 存图助手标准版
                 if (pen != null)
                 {
                     pen.Dispose();
+                }
+                if (font2 != null)
+                {
+                    font2.Dispose();
+                }
+                if (sb2 != null)
+                {
+                    sb2.Dispose();
+                }
+                if (pen2 != null)
+                {
+                    pen2.Dispose();
                 }
             }
         }
@@ -14002,7 +14228,14 @@ namespace 存图助手标准版
                 }
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
                 g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
-                newImage.Save(local_fullname, ImageCodecInfo.GetImageEncoders().FirstOrDefault(j => j.MimeType == "image/jpeg"), ep);
+                if (!imgEncryptEnable)
+                {
+                    newImage.Save(local_fullname, ImageCodecInfo.GetImageEncoders().FirstOrDefault(j => j.MimeType == "image/jpeg"), ep);
+                }
+                else
+                {
+                    EncryptImage(newImage, local_fullname, ImageCodecInfo.GetImageEncoders().FirstOrDefault(j => j.MimeType == "image/jpeg"), ep);
+                }
             }
             catch (Exception ex) { }
             finally
@@ -15079,6 +15312,23 @@ namespace 存图助手标准版
                         description = description.Replace("#EXT0", ext0).Replace("#EXT1", ext1).Replace("#EXT2", ext2).Replace("#EXT3", ext3);
                         description = description.Replace("#EXT4", ext4).Replace("#EXT5", ext5).Replace("#EXT6", ext6).Replace("#EXT7", ext7);
                         description = description.Replace("#EXT8", ext8).Replace("#EXT9", ext9);
+                        string DimWeight = DimAndWeightFormat;
+                        DimWeight = DimWeight.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
+                        DimWeight = DimWeight.Replace("#N0", N0).Replace("#N1", N1.Replace("Master", "").Replace("master", "")).Replace("#N2", N2).Replace("#N3", N3).Replace("#N4", N4).Replace("#N5", N5).Replace("#N6", N6);
+                        DimWeight = DimWeight.Replace("#None", "0;0;-1;0");
+                        string[] dimweight = DimWeight.Split(';');
+                        double parcelHeight = -1;
+                        if (dimweight.Length >= 3)
+                        {
+                            try
+                            {
+                                parcelHeight = Convert.ToDouble(dimweight[2]);
+                            }
+                            catch 
+                            { 
+                                parcelHeight = -1;
+                            }
+                        }
                         if (NoReadAnalysisEnable)
                         {
                             string NoReadReason = "N/A";
@@ -15139,13 +15389,16 @@ namespace 存图助手标准版
                             Stopwatch sw = new Stopwatch();
                             sw.Start();
                             bool drawborder = false;
+                            bool isUP = false;
                             if (N1.StartsWith("UP"))
                             {
                                 drawborder = true;
+                                isUP = true;
                             }
                             else
                             {
                                 drawborder = false;
+                                isUP = false;
                             }
                             try
                             {
@@ -15156,11 +15409,11 @@ namespace 存图助手标准版
                                     {
                                         DrawCaptionGDI(srcImg, description, local_fullname, pos, drawborder, calobj);
                                     }*/
-                                    DrawCaptionGDI(file, description, local_fullname, pos, drawborder, calobj);
+                                    DrawCaptionGDI(file, description, local_fullname, pos, drawborder, calobj, parcelHeight, isUP);
                                 }
                                 else
                                 {
-                                    DrawCaptionOpencv(file, description, local_fullname, pos, drawborder, calobj);
+                                    DrawCaptionOpencv(file, description, local_fullname, pos, drawborder, calobj, parcelHeight,isUP);
                                 }
                                 if (System.IO.File.Exists(local_fullname))
                                 {
@@ -16176,7 +16429,52 @@ namespace 存图助手标准版
                 catch (Exception ex) { }
             }
         }
-
+        private void GridLineEnableCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            lock (OpenConfigLock)
+            {
+                try
+                {
+                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    if (GridLineEnableCheck.Checked)
+                    {
+                        config.AppSettings.Settings["GridLineEnable"].Value = "true";
+                        GridLineEnable = true;
+                    }
+                    else
+                    {
+                        config.AppSettings.Settings["GridLineEnable"].Value = "false";
+                        GridLineEnable = false;
+                    }
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+                catch (Exception ex) { }
+            }
+        }
+        private void EncryptionEnableCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            lock (OpenConfigLock)
+            {
+                try
+                {
+                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    if (EncryptionEnableCheck.Checked)
+                    {
+                        config.AppSettings.Settings["EncryptionEnable"].Value = "true";
+                        imgEncryptEnable = true;
+                    }
+                    else
+                    {
+                        config.AppSettings.Settings["EncryptionEnable"].Value = "false";
+                        imgEncryptEnable = false;
+                    }
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+                catch (Exception ex) { }
+            }
+        }
         private void DWSEnableCheck_CheckedChanged(object sender, EventArgs e)
         {
             lock (OpenConfigLock)
@@ -16243,42 +16541,7 @@ namespace 存图助手标准版
             }
         }
 
-        private void VPPConfigureButton_Click(object sender, EventArgs e)
-        {
-            //AddCaptionInThreads(caption_url1,true);
-            /*Thread th = new Thread(() =>
-            {
-                while (true)
-                {
-                    /*
-                    Stopwatch sw = new Stopwatch();
-                
-                    mImageFileTool.Operator.Open(mImagesPath[mImageIndex], CogImageFileModeConstants.Read);
-                    mImageFileTool.Run();
-                    sw.Start();
-                    mTB.Inputs["OutputImage"].Value = mImageFileTool.OutputImage;
-                    mTB.Run();
-                    sw.Stop();
-                    MessageBox.Show("Info", sw.ElapsedMilliseconds + "ms!");*/
-            //NoReadAnalyzeFromFile(new FileInfo(mImagesPath[mImageIndex]), mImageFileTool, LogContentArray1, mImagesPath[mImageIndex]);
-            //mImageIndex++;
-            //mImageIndex = (mImageIndex) % mImagesPath.Count();
-            //Thread.Sleep(1000);
-            //AddCaptionInThreads(caption_url1);
-            //}
-            //});
-            //th.Start();
-            /*while (true)
-            {
-               
-                NoReadAnalyzeFromFile(new FileInfo(mImagesPath[mImageIndex]), mImageFileTool, LogContentArray1, mImagesPath[mImageIndex]);
-                mImageIndex++;
-                mImageIndex = (mImageIndex) % mImagesPath.Count();
-                Thread.Sleep(50);
-                //AddCaptionInThreads(caption_url1);
-            }*/
-
-        }
+        
         private void shiftLang()
         {
             if (LangCombo.Text == "Chinese")
@@ -16325,7 +16588,7 @@ namespace 存图助手标准版
                 label37.Text = "坐标信息格式:        体积测量编号（0或1）;X1;Y1;Z1;X2;Y2;Z2;X3;Y3;Z3;X4;Y4;Z4";
                 label38.Text = "校验url：";
                 label39.Text = "体积重量信息：";
-                label40.Text = "（格式：长;宽;高;重量)";
+                label40.Text = "(格式：长;宽;高;重量)";
                 label41.Text = "多代码分隔符：";
                 label42.Text = "DMBS数量：";
                 label43.Text = "DMBS数量：";
@@ -16379,8 +16642,10 @@ namespace 存图助手标准版
                 regexSta3Check.Text = "主机三";
                 regexSta4Check.Text = "主机四";
                 DWSEnableCheck.Text = "是否启用DWS界面";
+                EncryptionEnableCheck.Text = "是否图片加密";
+                GridLineEnableCheck.Text = "显示网格";
                 NRAnalysisEnableCheck.Text = "未读取分类";
-                VPPConfigureButton.Text = "测试";
+                //VPPConfigureButton.Text = "测试";
                 Login.label1text = "用户名";
                 Login.label2text = "密码";
                 Login.BtnCanceltext = "取消";
@@ -16428,7 +16693,9 @@ namespace 存图助手标准版
                 ind.label49.Text = "秒";
                 ind.label50.Text = "外部水印客户端 IP:";
                 ind.label52.Text = "DWS1服务器:";
-                
+                gs.BtnClose.Text = "关闭窗口";
+                gs.BtnSave.Text = "保存配置";
+
                 if (BarcodeImgModeCombo.Text == "stitched" || BarcodeImgModeCombo.Text == "拼接")
                 {
                     BarcodeImgModeCombo.Items[0] = "拼接";
@@ -16498,7 +16765,7 @@ namespace 存图助手标准版
                 label37.Text = "DimPos Format:        DIMID(0/1);X1;Y1;Z1;X2;Y2;Z2;X3;Y3;Z3;X4;Y4;Z4";
                 label38.Text = "Check_url：";
                 label39.Text = "W&SInfo：";
-                label40.Text = "（Format：L;W;H;Weight)";
+                label40.Text = "(Format：L;W;H;Weight)";
                 label41.Text = "Delimiter：";
                 label42.Text = "DMBSCnt：";
                 label43.Text = "DMBSCnt：";
@@ -16552,8 +16819,10 @@ namespace 存图助手标准版
                 regexSta3Check.Text = "MasterC";
                 regexSta4Check.Text = "MasterD";
                 DWSEnableCheck.Text = "DWSInterface";
+                EncryptionEnableCheck.Text = "Encryption";
+                GridLineEnableCheck.Text = "Grid";
                 NRAnalysisEnableCheck.Text = "NR_ANA";
-                VPPConfigureButton.Text = "Test";
+                //VPPConfigureButton.Text = "Test";
                 Login.label1text = "User";
                 Login.label2text = "Secret";
                 Login.BtnCanceltext = "Cancel";
@@ -16601,6 +16870,8 @@ namespace 存图助手标准版
                 ind.label49.Text = "Sec";
                 ind.label50.Text = "ExtCapClientIP:";
                 ind.label52.Text = "DWS1Server:";
+                gs.BtnClose.Text = "Close";
+                gs.BtnSave.Text = "Save";
                 if (BarcodeImgModeCombo.Text == "stitched" || BarcodeImgModeCombo.Text == "拼接")
                 {
                     BarcodeImgModeCombo.Items[0] = "stitched";
@@ -16645,9 +16916,397 @@ namespace 存图助手标准版
                 catch (Exception ex) { }
             
         }
+        public byte[] Encrypt(byte[] clearText, byte[] Key, byte[] IV)
+        {
+            Aes aesAlg = null;
+            ICryptoTransform encryptor = null;
+            byte[] EncryptedBytes = null;
+            try
+            {
+                aesAlg = Aes.Create();
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+                aesAlg.Mode = CipherMode.CBC; // 使用CBC模式
+                aesAlg.Padding = PaddingMode.PKCS7; // 使用PKCS7填充
+                encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+                EncryptedBytes = encryptor.TransformFinalBlock(clearText, 0, clearText.Length);
+            }
+            catch 
+            { 
+                EncryptedBytes = clearText; 
+            }
+            finally
+            {
+                if (aesAlg != null)
+                {
+                    aesAlg.Dispose();
+                }
+                if (encryptor != null)
+                {
+                    encryptor.Dispose();
+                }
+            }
+            return EncryptedBytes;
+        }
+        /*
+        public byte[] Decrypt(byte[] cipherText, byte[] Key, byte[] IV)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Key;
+                aesAlg.IV = IV;
+                aesAlg.Mode = CipherMode.CBC; // 使用CBC模式
+                aesAlg.Padding = PaddingMode.PKCS7; // 使用PKCS7填充
 
-        
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
+                return decryptor.TransformFinalBlock(cipherText, 0, cipherText.Length);
+            }
+        }
+        */
+        private string readIV()
+        {
+            string registryPath = @"SOFTWARE\SIH";
+            string keyname = "IV";
+            string defaultvalue = "Herbert199391003";
+            string value = "Herbert199391003";
+            RegistryKey key = null;
+            try
+            {
+                key = Registry.LocalMachine.OpenSubKey(registryPath, true);
+                if (key == null)
+                {
+                    key = Registry.LocalMachine.CreateSubKey(registryPath, true);
+                }
+                if (key.GetValue(keyname) == null)
+                {
+                    key.SetValue(keyname, defaultvalue);
+                }
+                value = key.GetValue(keyname).ToString();
+                while (value.Length < 16)
+                {
+                    value += "\x00";
+                }
+                value = value.Substring(0, 16);
+            }
+            catch { }
+            finally
+            {
+                if (key != null)
+                {
+                    key.Dispose();
+                }
+            }
+            return value;
+        }
+        private string readPSW()
+        {
+            string registryPath = @"SOFTWARE\SIH";
+            string keyname = "psw";
+            string defaultvalue = "Cognex";
+            string value = "Cognex";
+            RegistryKey key = null;
+            try
+            {
+                key = Registry.LocalMachine.OpenSubKey(registryPath, true);
+                if (key == null)
+                {
+                    key = Registry.LocalMachine.CreateSubKey(registryPath, true);
+                }
+                if (key.GetValue(keyname) == null)
+                {
+                    key.SetValue(keyname, defaultvalue);
+                }
+                value = key.GetValue(keyname).ToString();
+                while (value.Length < 16)
+                {
+                    value += "\x00";
+                }
+                value = value.Substring(0, 16);
+            }
+            catch { }
+            finally
+            {
+                if (key != null)
+                {
+                    key.Dispose();
+                }
+            }
+            return value;
+        }
+        private void EncryptMat(Mat m, string destinaton, ImageEncodingParam iep)
+        {
+            byte[] IV = System.Text.Encoding.ASCII.GetBytes(imgLockIV);
+            byte[] key = System.Text.Encoding.ASCII.GetBytes(imgLockPSW);
+            byte[] rawBytes = null;
+            if (m == null)
+            {
+                return;
+            }
+            if (m.Empty())
+            {
+                return;
+            }
+            if (System.IO.File.Exists(destinaton))
+            {
+                try
+                {
+                    File.Delete(destinaton);
+                }
+                catch { }
+            }
+            FileStream fs1 = null;
+            try
+            {
+                Cv2.ImEncode(".jpg", m, out rawBytes, iep);
+                if (rawBytes == null)
+                {
+                    return;
+                }
+                byte[] encryptedbytes = Encrypt(rawBytes, key, IV);
+                fs1 = new FileStream(destinaton, FileMode.CreateNew);
+                fs1.Write(encryptedbytes, 0, encryptedbytes.Length);
+                fs1.Close();
+            }
+            catch { }
+            finally
+            {
+                if (fs1 != null)
+                {
+                    fs1.Dispose();
+                }
+            }
+        }
+        private void EncryptImage(Image img, string destinaton, ImageCodecInfo Encoder, EncoderParameters eps)
+        {
+            byte[] IV = System.Text.Encoding.ASCII.GetBytes(imgLockIV);
+            byte[] key = System.Text.Encoding.ASCII.GetBytes(imgLockPSW);
+            byte[] rawBytes = null;
+            if (img == null)
+            {
+                return;
+            }
+            if (System.IO.File.Exists(destinaton))
+            {
+                try
+                {
+                    File.Delete(destinaton);
+                }
+                catch { }
+            }
+            FileStream fs1 = null;
+            try
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    img.Save(ms, Encoder, eps);
+                    rawBytes = ms.ToArray();
+                }
+                if (rawBytes == null)
+                {
+                    return;
+                }
+                byte[] encryptedbytes = Encrypt(rawBytes, key, IV);
+                fs1 = new FileStream(destinaton, FileMode.CreateNew);
+                fs1.Write(encryptedbytes, 0, encryptedbytes.Length);
+                fs1.Close();
+            }
+            catch { }
+            finally
+            {
+                if (fs1 != null)
+                {
+                    fs1.Dispose();
+                }
+            }
+        }
+        private void EncryptFile(FileInfo file, string destinaton)
+        {
+            byte[] IV = System.Text.Encoding.ASCII.GetBytes(imgLockIV);
+            byte[] key = System.Text.Encoding.ASCII.GetBytes(imgLockPSW);
+            FileStream fs = null;
+            FileStream fs1 = null;
+            if (System.IO.File.Exists(destinaton))
+            {
+                try
+                {
+                    File.Delete(destinaton);
+                }
+                catch { }
+            }
+            if(!file.Exists)
+            {
+                return;
+            }
+            try
+            {
+                fs = file.OpenRead();
+                byte[] rawBytes = new byte[fs.Length];
+                fs.Read(rawBytes, 0, rawBytes.Length);
+                fs.Close();
+                byte[] encryptedbytes = Encrypt(rawBytes, key, IV);
+                fs1 = new FileStream(destinaton, FileMode.CreateNew);
+                fs1.Write(encryptedbytes, 0, encryptedbytes.Length);
+                fs1.Close();
+                file.Delete();
+            }
+            catch { }
+            finally
+            {
+                if (fs != null)
+                {
+                    fs.Dispose();
+                }
+                if (fs1 != null)
+                {
+                    fs1.Dispose();
+                }
+            }
+        }
+        static void GridLine(Graphics g, int cols, int rows, double parcelHeight, int dotlength, Font font, SolidBrush sb, Pen pen)
+        {
+            int interval = CalculateInterval(parcelHeight);
+            if (interval > 0)
+            {
+                try
+                {
+                    DrawGrids(g, cols, rows, interval, dotlength, font, sb, pen);
+                }
+                catch { }
+            }
+        }
+        static void GridLine(Mat m, int cols, int rows, double parcelHeight, int dotlength)
+        {
+            int interval = CalculateInterval(parcelHeight);
+            if (interval > 0)
+            {
+                try
+                {
+                    DrawGrids(m, cols, rows, interval, dotlength);
+                }
+                catch { }
+            }
+        }
+        static int CalculateInterval(double parcelHeight)
+        {
+            double WD = (MountingHeight - parcelHeight) / Math.Cos(ReadAngle / 180.0 * Math.PI);
+            double u = (MountingHeight - 0.5 * MaxParcelHeight) / Math.Cos(ReadAngle / 180.0 * Math.PI);//对焦平面，物距
+            double v = 1 / (1 / FocusLength - 1 / u);
+            double pxWD = PixelSize * WD;
+            if (Math.Abs(pxWD) > 1E-6)
+            {
+                return (int)Math.Round(100000 * v / pxWD);
+            }
+            return -1;
+        }
         
+        static void DrawGrids(Graphics g, int cols, int rows, int interval, int dotlength, Font font, SolidBrush sb, Pen pen)
+        {
+            int stopCol = 0;
+            for (int i = 0; i < cols; i += interval)
+            {
+                int starty = rows - 1;
+                if (i > 0 && i + interval < cols)
+                {
+                    g.DrawString(10 * i / interval + "cm", font, sb, new PointF(i, rows - rows/40));
+                }
+                else if (i > 0)
+                {
+                    stopCol = i;
+                }
+                while (starty > 0)
+                {
+                    if (starty - 2 * dotlength > 0)
+                    {
+                        g.DrawLine(pen, i, starty, i, starty - dotlength);
+                    }
+                    else
+                    {
+                        g.DrawLine(pen, i, starty, i, 0);
+                    }
+                    starty -= 2 * dotlength;
+                }
+            }
+            for (int j = rows - 1; j > -1; j -= interval)
+            {
+                if (j < rows - 1)
+                {
+                    g.DrawString(10 * ((rows - 1 - j) / interval) + "cm", font, sb, new PointF(0, j));
+                }
+                int startx = 0;
+                while (startx < stopCol - 1)
+                {
+                    if (startx + 2 * dotlength < stopCol - 1)
+                    {
+                        g.DrawLine(pen, startx, j, startx + dotlength, j);
+                    }
+                    else
+                    {
+                        g.DrawLine(pen, startx, j, stopCol - 1, j);
+                    }
+                    startx += 2 * dotlength;
+                }
+            }
+        }
+        
+        static void DrawGrids(Mat m, int cols, int rows, int interval, int dotlength)
+        {
+            //int cols = m.Cols;
+            //int rows = m.Rows;
+            int stopCol = 0;
+            for (int i = 0; i < cols; i += interval)
+            {
+                int starty = rows - 1;
+                if (i > 0 && i + interval < cols)
+                {
+                    Cv2.PutText(m, 10 * i / interval + "cm", new OpenCvSharp.Point(i + m.Rows/256, rows - m.Rows / 256), HersheyFonts.HersheySimplex, m.Rows*1.0/1600.0, Scalar.White, (int)(Math.Max(1.0 * m.Rows / 500.0, 2)));
+                }
+                else if (i > 0)
+                {
+                    stopCol = i;
+                }
+                while (starty > 0)
+                {
+                    if (starty - 2 * dotlength > 0)
+                    {
+                        Cv2.Line(m, new OpenCvSharp.Point(i, starty), new OpenCvSharp.Point(i, starty - dotlength), Scalar.White, (int)Math.Round(m.Rows * 1.0 / 640.0));
+                    }
+                    else
+                    {
+                        Cv2.Line(m, new OpenCvSharp.Point(i, starty), new OpenCvSharp.Point(i, 0), Scalar.White, (int)Math.Round(m.Rows*1.0/ 640.0));
+                    }
+                    starty -= 2 * dotlength;
+                }
+            }
+            for (int j = rows - 1; j > -1; j -= interval)
+            {
+                if (j < rows - 1)
+                {
+                    Cv2.PutText(m, 10 * ((rows - 1 - j) / interval) + "cm", new OpenCvSharp.Point(m.Rows / 256, j + m.Rows / 50), HersheyFonts.HersheySimplex, m.Rows * 1.0 / 1600.0, Scalar.White, (int)(Math.Max(1.0 * m.Rows / 500.0, 2)));
+                }
+                int startx = 0;
+                while (startx < stopCol - 1)
+                {
+                    if (startx + 2 * dotlength < stopCol - 1)
+                    {
+                        Cv2.Line(m, new OpenCvSharp.Point(startx, j), new OpenCvSharp.Point(startx + dotlength, j), Scalar.White, (int)Math.Round(m.Rows * 1.0 / 640.0));
+                    }
+                    else
+                    {
+                        Cv2.Line(m, new OpenCvSharp.Point(startx, j), new OpenCvSharp.Point(stopCol - 1, j), Scalar.White, (int)Math.Round(m.Rows * 1.0 / 640.0));
+                    }
+                    startx += 2 * dotlength;
+                }
+            }
+        }
+        private void GridConfigBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GridConfigBtn_Click_1(object sender, EventArgs e)
+        {
+            gs.ShowDialog();
+        }
     }
 }

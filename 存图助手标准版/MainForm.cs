@@ -53,6 +53,7 @@ namespace 存图助手标准版
         public static bool DWSInterfaceEnabled = false;
         private static IntPtr hWnd = IntPtr.Zero;
         private List<string> JDRegexList = new List<string>();
+        private List<string> BroadJDRegexList = new List<string>();
         private bool LastJDRegexSuccessful = false;
         private DateTime LastRegexCompleteTime = DateTime.MinValue;
         private int JDRegexRetry = 5;
@@ -5787,7 +5788,7 @@ namespace 存图助手标准版
             {
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 socket.Connect(new IPEndPoint(IPAddress.Parse(IP), Convert.ToInt32(Port)));
-                var obj = new { regxArray = JDRegexList.ToArray() };
+                var obj = new { regxArray = JDRegexList.ToArray(), broadRegxArray = BroadJDRegexList.ToArray() };
                 socket.Send(Encoding.UTF8.GetBytes("\x02" + JsonConvert.SerializeObject(obj) + "\x03"));
             }
             catch
@@ -8385,7 +8386,7 @@ namespace 存图助手标准版
             {
                 JDRegexRetry = 5;
                 LastJDRegexSuccessful = false;
-                RegexCheck(out response, out errMsg);
+                RegexCheckGet(out response, out errMsg);
             }
             else if (flag2 && JDRegexRetry > 0 && !LastJDRegexSuccessful)
             {
@@ -8393,6 +8394,140 @@ namespace 存图助手标准版
             }
             logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + " Regex Check Complete! Remaining Retry = " + JDRegexRetry + "Response: " + response.Substring(0, Math.Min(response.Length, 100)) + " ErrMsg: " + errMsg;
             AddLog(logcontent, LogContentArray);
+        }
+        private void RegexCheckGet(out string response, out string errMsg)
+        {
+            LastRegexCompleteTime = DateTime.Now;
+            errMsg = "";
+            response = "";
+            HttpWebRequest httpReq = null;
+            Stream postStream = null;
+            HttpWebResponse webRespon = null;
+            Stream Responsestream = null;
+            StreamReader reader = null;
+            Uri uri = new Uri(HttpRegexUrl+ "?deviceNo=" + HttpUtility.UrlEncode( regexMachineCode).Replace("+", "%20"));
+            try
+            {
+                httpReq = (HttpWebRequest)WebRequest.Create(uri);
+                string urlraw = HttpRegexUrl.Substring(HttpRegexUrl.IndexOf("http://") + 7);
+                string host = "";
+                if (urlraw.IndexOf(@"/") > -1)
+                {
+                    host = urlraw.Substring(0, urlraw.IndexOf(@"/"));
+                }
+                else
+                {
+                    host = urlraw;
+                }
+                httpReq.Host = host;
+                httpReq.ServicePoint.Expect100Continue = false;
+                httpReq.ServicePoint.ConnectionLimit = 512;
+                httpReq.AllowAutoRedirect = true;
+                httpReq.KeepAlive = false;
+                httpReq.Method = "Get";
+                httpReq.AllowWriteStreamBuffering = false;
+                httpReq.Timeout = 3000;
+                //httpReq.ContentType = "application/x-www-form-urlencoded";
+                //string content = "machineCode=" + HttpUtility.UrlEncode(regexMachineCode).Replace("+", "%20");
+                //byte[] bytes = Encoding.UTF8.GetBytes(content.ToString());
+                //httpReq.ContentLength = bytes.Length;
+                //postStream = httpReq.GetRequestStream();
+                //postStream.Write(bytes, 0, bytes.Length);
+                //postStream.Close();
+                webRespon = httpReq.GetResponse() as HttpWebResponse;
+                string encoding = webRespon.ContentEncoding;
+                if (encoding == null || encoding.Length < 1)
+                {
+                    encoding = "UTF-8"; //默认编码  
+                }
+                Responsestream = webRespon.GetResponseStream();
+                reader = new StreamReader(Responsestream, Encoding.GetEncoding(encoding));
+                try
+                {
+                    response = reader.ReadToEnd();
+                    int start = response.IndexOf("{");
+                    int end = response.LastIndexOf("}");
+                    if (start > -1 && end > -1 && end > start)
+                    {
+                        response = response.Substring(start, end - start + 1);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    errMsg += "Regex Checking Error when reading response streamreader: " + ex.Message + "!!";
+                    JDRegexRetry--;
+                }
+                //reader.Dispose();
+                Responsestream.Close();
+                if (webRespon.ContentType.StartsWith("application/json") && response.StartsWith("{") && response.EndsWith("}"))
+                {
+                    JObject jobj = JsonConvert.DeserializeObject<JObject>(response);
+                    JArray JregxArray = (JArray)jobj["regxArray"];
+                    List<string> regxArray = new List<string>();
+                    if (JregxArray is JArray)
+                    {
+                        regxArray = JregxArray.Select(jo => jo.ToObject<string>()).ToList();
+                    }
+                    JArray broadJregxArray = (JArray)jobj["broadRegxArray"];
+                    List<string> broadRegxArray = new List<string>();
+                    if (broadJregxArray is JArray)
+                    {
+                        broadRegxArray = broadJregxArray.Select(jo => jo.ToObject<string>()).ToList();
+                    }
+                    response = webRespon.ContentType + "," + jobj.SelectToken("code").Value<int>() + "," + jobj.SelectToken("message").Value<string>() + ", regxArray: " + regxArray + ", broadRegxArray: " + broadRegxArray;
+                    if (jobj.SelectToken("valid").Value<bool>() == true)
+                    {
+                        if (regxArray.Count > 0 || broadRegxArray.Count > 0)
+                        {
+                            JDRegexList = regxArray;
+                            BroadJDRegexList = broadRegxArray;
+                            LastJDRegexSuccessful = true;
+                        }
+                        else
+                        {
+                            JDRegexRetry--;
+                        }
+                    }
+                    else
+                    {
+                        JDRegexRetry--;
+                    }
+                }
+                else
+                {
+                    JDRegexRetry = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                errMsg += "Regex Checking Error: " + ex.Message + "!!";
+                JDRegexRetry--;
+            }
+            finally
+            {
+                if (httpReq != null)
+                {
+                    httpReq.Abort();
+                }
+                if (postStream != null)
+                {
+                    postStream.Dispose();
+                }
+                if (webRespon != null)
+                {
+                    webRespon.Dispose();
+                }
+                if (Responsestream != null)
+                {
+                    Responsestream.Dispose();
+                }
+                if (reader != null)
+                {
+                    reader.Dispose();
+                }
+            }
+
         }
         private void RegexCheck(out string response, out string errMsg)
         {
@@ -8556,7 +8691,7 @@ namespace 存图助手标准版
                     string HttpFileName = Barcode + ".jpg";
                     //string[] BarcodesArray = Regex.Split(Barcode, MultiCodeDelimiter.Replace);
                     List<string> BarcodeList = Barcode.Split(MultiCodeDelimiter, StringSplitOptions.RemoveEmptyEntries).ToList<string>();
-                    if (JDRegexList.Count > 0)
+                    if (JDRegexList.Count > 0 || BroadJDRegexList.Count > 0)
                     {
                         for (int i = 0; i < BarcodeList.Count; i++)
                         {
@@ -8567,6 +8702,17 @@ namespace 存图助手标准版
                                 {
                                     match = true;
                                     break;
+                                }
+                            }
+                            if (!match)
+                            {
+                                for (int k = 0; k < BroadJDRegexList.Count; k++)
+                                {
+                                    if (Regex.IsMatch(BarcodeList[i], BroadJDRegexList[k]))
+                                    {
+                                        match = true;
+                                        break;
+                                    }
                                 }
                             }
                             if (!match)

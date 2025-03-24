@@ -457,4 +457,3 @@ D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标�
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Release\System.Memory.xml
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\bin\x64\Release\System.ValueTuple.xml
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\obj\x64\Release\存图助手标准版.exe.config
-D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\存图助手标准版\obj\x64\Release\存图助手标准版.csproj.AssemblyReference.cache

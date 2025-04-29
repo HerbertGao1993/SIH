@@ -25,9 +25,10 @@ namespace 存图助手标准版
         public string N10 = "xx";
         public string N11 = "xx";
         public string localDir = "";
-        public string localFullName = "";
+        public string localFileName = "";
         public string ftpDir = "";
-        public string ftpFullName = "";
+        public string ftpFileNameHeader = "";
+        public string ftpFileName = "";
         public string barcodePos = "";
         public string extDescription = "";
         public bool handled = false;
@@ -37,7 +38,9 @@ namespace 存图助手标准版
         public string BoxID = "";
         public FileInfo UPImage = null;
         public FileInfo BarcodeImage = null;
-        public BarcodeStitchObject(string N0, string N2, string N3, string N4, string N5, string N6, string N7, string N8, string N9, string N10, string N11, string N12, string description, DateTime timestamp, string localDir, string localfullname, string ftpDir, string ftpfullname, string pos, string barcodePos, DateTime TriggerTimestamp,string boxid,string parcelHeight)
+        public List<FileInfo> NRImage = new List<FileInfo>(100);
+        public readonly object NRLock = new object();
+        public BarcodeStitchObject(string N0, string N2, string N3, string N4, string N5, string N6, string N7, string N8, string N9, string N10, string N11, string N12, string description, DateTime timestamp, string localDir, string localFileName, string ftpDir, string ftpFileNameHeader,string ftpFileName, string pos, string barcodePos, DateTime TriggerTimestamp,string boxid,string parcelHeight)
         {
             this.N0 = N0;
             this.N2 = N2;
@@ -56,9 +59,10 @@ namespace 存图助手标准版
             this.TimeStamp = timestamp;
             this.TriggerTimestamp = TriggerTimestamp;
             this.localDir = localDir;
-            this.localFullName = localfullname;
+            this.localFileName = localFileName;
             this.ftpDir = ftpDir;
-            this.ftpFullName = ftpfullname;
+            this.ftpFileNameHeader = ftpFileNameHeader;
+            this.ftpFileName = ftpFileName;
             this.pos = pos;
             this.barcodePos = barcodePos;
             this.handled = false;

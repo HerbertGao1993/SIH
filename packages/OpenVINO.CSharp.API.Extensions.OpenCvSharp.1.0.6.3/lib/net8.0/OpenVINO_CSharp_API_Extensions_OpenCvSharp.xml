@@ -1,0 +1,1169 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OpenVINO_CSharp_API_Extensions_OpenCvSharp</name>
+    </assembly>
+    <members>
+        <member name="M:OpenVinoSharp.Extensions.model.PPYoloeDet.predict(OpenCvSharp.Mat)">
+            <summary>
+            The function takes an input image, preprocesses it, performs inference using a pre-trained
+            model, and returns the image with bounding boxes drawn around detected objects.
+            </summary>
+            <param name="Mat">The `Mat` class is a data structure in OpenCV that represents an image
+            matrix. It is used to store and manipulate image data.</param>
+            <returns>
+            The method is returning a `Mat` object, which is an image with bounding boxes drawn on it.
+            </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:OpenVinoSharp.Extensions.model.PPYoloeDet.postprocess(System.Single[],System.Int32[],System.Int32)" -->
+        <member name="T:OpenVinoSharp.Extensions.model.Predictor">
+            <summary>
+            Default model inference engine.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.Predictor.#ctor(System.String)">
+            <summary>
+            Default constructor.
+            </summary>
+            <param name="model_path">Inference model path</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.Predictor.#ctor(System.String,System.String,System.String,System.Nullable{System.Boolean},System.Int64[])">
+            <summary>
+            Parameter constructor.
+            </summary>
+            <param name="model_path">Inference model path.</param>
+            <param name="device">Inference model path device.</param>
+            <param name="cache_dir">The read-write property(string) to set/get the directory which will be used to store any data cached by plugins.</param>
+            <param name="input_size"></param>
+            <param name="use_gpu"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.Predictor.infer(System.Single[],System.Int64[])">
+            <summary>
+            The default model inference method is only applicable to single input and single output models.
+            </summary>
+            <param name="input_data">The input data.</param>
+            <param name="shape">The input shape.</param>
+            <returns>Infer result.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.RtdetrDet.predict(OpenCvSharp.Mat)">
+            <summary>
+            The function takes an input image, preprocesses it, performs inference using a pre-trained
+            model, and returns the image with bounding boxes drawn around detected objects.
+            </summary>
+            <param name="Mat">The `Mat` class is a data structure in OpenCV that represents an image
+            matrix. It is used to store and manipulate image data.</param>
+            <returns>
+            The method is returning a `Mat` object, which is an image with bounding boxes drawn on it.
+            </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:OpenVinoSharp.Extensions.model.RtdetrDet.postprocess(System.Single[],System.Single[],System.Int32)" -->
+        <member name="M:OpenVinoSharp.Extensions.model.RtdetrDet.sigmoid(System.Single)">
+            <summary>
+            The sigmoid function takes in a float value and returns the result of applying the sigmoid function
+            to that value.
+            </summary>
+            <param name="data">The parameter "data" is a float value that represents the input to the sigmoid
+            function.</param>
+            <returns>
+            the result of the sigmoid function applied to the input data.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.RtdetrDet.argmax(System.Single[],System.Int32)">
+            <summary>
+            The function `argmax` takes an array of floats and returns the index of the maximum value in the
+            array.
+            </summary>
+            <param name="data">An array of float values.</param>
+            <param name="length">The `length` parameter is the number of elements in the `data` array that
+            should be considered for finding the maximum value.</param>
+            <returns>
+            The method is returning the index of the maximum value in the given array.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.Yolov5Det.process_result(System.Single[],System.Int32)">
+            <summary>
+            Result process
+            </summary>
+            <param name="result">Model prediction output</param>
+            <returns>Model recognition results</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.Yolov5Seg.sigmoid(System.Single)">
+            <summary>
+            sigmoid
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.Yolov5Seg.process_result(System.Single[],System.Single[],System.Int32)">
+            <summary>
+            Result process
+            </summary>
+            <param name="detect">detection output</param>
+            <param name="proto">segmentation output</param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.Yolov8Det.process_result(System.Single[],System.Int32)">
+            <summary>
+            Result process
+            </summary>
+            <param name="result">Model prediction output</param>
+            <returns>Model recognition results</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.Yolov8Pose.process_result(System.Single[],System.Int32)">
+            <summary>
+            Result process
+            </summary>
+            <param name="result">Model prediction output</param>
+            <returns>Model recognition results</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.Yolov8Seg.sigmoid(System.Single)">
+            <summary>
+            sigmoid
+            </summary>
+            <param name="a"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.model.Yolov8Seg.process_result(System.Single[],System.Single[],System.Int32)">
+            <summary>
+            Result process
+            </summary>
+            <param name="detect">detection output</param>
+            <param name="proto">segmentation output</param>
+            <returns></returns>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.process.Normalize">
+            <summary>
+            Normalize data classes using OpenCvSharp.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.process.Normalize.run(OpenCvSharp.Mat,System.Single[],System.Single[],System.Boolean)">
+            <summary>
+            Run normalize data classes.
+            </summary>
+            <param name="im">The image mat.</param>
+            <param name="mean">Channel mean.</param>
+            <param name="scale">Channel variance.</param>
+            <param name="is_scale">Whether to divide by 255.</param>
+            <returns>The normalize data.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.process.Normalize.run(OpenCvSharp.Mat,System.Boolean)">
+            <summary>
+            Run normalize data classes.
+            </summary>
+            <param name="im">The image mat.</param>
+            <param name="is_scale">Whether to divide by 255.</param>
+            <returns>The normalize data.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.process.Visualize.draw_det_result(OpenVinoSharp.Extensions.result.BaseResult,OpenCvSharp.Mat)">
+            <summary>
+            Result drawing
+            </summary>
+            <param name="bresult">recognition result</param>
+            <param name="image">image</param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.process.Visualize.draw_obb_result(OpenVinoSharp.Extensions.result.BaseResult,OpenCvSharp.Mat)">
+            <summary>
+            Result drawing
+            </summary>
+            <param name="bresult">recognition result</param>
+            <param name="image"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.process.Visualize.draw_seg_result(OpenVinoSharp.Extensions.result.BaseResult,OpenCvSharp.Mat)">
+            <summary>
+            Result drawing
+            </summary>
+            <param name="bresult">recognition result</param>
+            <param name="image"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.process.Visualize.draw_poses(OpenVinoSharp.Extensions.result.BaseResult,OpenCvSharp.Mat,System.Single,System.Boolean)">
+            <summary>
+            Key point result drawing
+            </summary>
+            <param name="bresult">Key point data</param>
+            <param name="img">image</param>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.result.ClsData">
+            <summary>
+            Object detection result data.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.ClsData.index">
+            <summary>
+            Identification result class index.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.ClsData.lable">
+            <summary>
+            Identification result class lable.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.ClsData.score">
+            <summary>
+            Confidence value.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ClsData.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ClsData.#ctor(System.Int32,System.String,System.Single)">
+            <summary>
+            Parameter construction.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="lable">Identification result label.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ClsData.update_lable(System.Collections.Generic.List{System.String})">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ClsData.update_lable(System.String[])">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ClsData.to_string(System.String)">
+            <summary>
+            Converts the numeric value of this instance to its equivalent string representation.
+            </summary>
+            <param name="format">A numeric format string.</param>
+            <returns>DetData string.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ClsResult.add(System.Int32,System.Single)">
+            <summary>
+            Add data.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ClsResult.add(System.Int32,System.String,System.Single)">
+            <summary>
+            Add data.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="lable">Identification result label.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ClsResult.update_lable(System.Collections.Generic.List{System.String})">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ClsResult.update_lable(System.String[])">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ClsResult.print(System.String)">
+            <summary>
+            Print the inference results.
+            </summary>
+            <param name="format">A numeric format string.</param>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.result.DetData">
+            <summary>
+            Object detection result data.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.DetData.index">
+            <summary>
+            Identification result class index.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.DetData.lable">
+            <summary>
+            Identification result class lable.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.DetData.score">
+            <summary>
+            Confidence value.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.DetData.box">
+            <summary>
+            Prediction box.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetData.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetData.#ctor(System.Int32,System.String,System.Single,OpenCvSharp.Rect)">
+            <summary>
+            Parameter construction.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="lable">Identification result label.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetData.#ctor(System.Int32,System.Single,OpenCvSharp.Rect)">
+            <summary>
+            Parameter construction.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetData.update_lable(System.Collections.Generic.List{System.String})">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetData.update_lable(System.String[])">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetData.to_string(System.String)">
+            <summary>
+            Converts the numeric value of this instance to its equivalent string representation.
+            </summary>
+            <param name="format">A numeric format string.</param>
+            <returns>DetData string.</returns>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.result.DetResult">
+            <summary>
+            Object detection result class.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetResult.add(System.Int32,System.Single,OpenCvSharp.Rect)">
+            <summary>
+            Add data.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetResult.add(System.Int32,System.String,System.Single,OpenCvSharp.Rect)">
+            <summary>
+            Add data.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="lable">Identification result label.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetResult.update_lable(System.Collections.Generic.List{System.String})">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetResult.update_lable(System.String[])">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetResult.sort_by_index(System.Boolean)">
+            <summary>
+            Sorts the index elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetResult.sort_by_score(System.Boolean)">
+            <summary>
+            Sorts the score elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetResult.sort_by_bbox(System.Boolean)">
+            <summary>
+            Sorts the box elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.DetResult.print(System.String)">
+            <summary>
+            Print the inference results.
+            </summary>
+            <param name="format">A numeric format string.</param>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.result.ObbData">
+            <summary>
+            Object detection result data.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.ObbData.index">
+            <summary>
+            Identification result class index.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.ObbData.lable">
+            <summary>
+            Identification result class lable.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.ObbData.score">
+            <summary>
+            Confidence value.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.ObbData.box">
+            <summary>
+            Prediction RotatedRect.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbData.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbData.#ctor(System.Int32,System.String,System.Single,OpenCvSharp.RotatedRect)">
+            <summary>
+            Parameter construction.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="lable">Identification result label.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbData.#ctor(System.Int32,System.Single,OpenCvSharp.RotatedRect)">
+            <summary>
+            Parameter construction.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbData.update_lable(System.Collections.Generic.List{System.String})">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbData.update_lable(System.String[])">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbData.to_string(System.String)">
+            <summary>
+            Converts the numeric value of this instance to its equivalent string representation.
+            </summary>
+            <param name="format">A numeric format string.</param>
+            <returns>DetData string.</returns>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.result.ObbResult">
+            <summary>
+            Object detection result class.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbResult.add(System.Int32,System.Single,OpenCvSharp.RotatedRect)">
+            <summary>
+            Add data.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbResult.add(System.Int32,System.String,System.Single,OpenCvSharp.RotatedRect)">
+            <summary>
+            Add data.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="lable">Identification result label.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbResult.update_lable(System.Collections.Generic.List{System.String})">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbResult.update_lable(System.String[])">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbResult.sort_by_index(System.Boolean)">
+            <summary>
+            Sorts the index elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbResult.sort_by_score(System.Boolean)">
+            <summary>
+            Sorts the score elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbResult.sort_by_bbox(System.Boolean)">
+            <summary>
+            Sorts the box elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.ObbResult.print(System.String)">
+            <summary>
+            Print the inference results.
+            </summary>
+            <param name="format">A numeric format string.</param>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.PosePoint.score">
+            <summary>
+            Key point prediction score
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.PosePoint.point">
+            <summary>
+            Key point prediction results.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.PosePoint.#ctor(System.Single[],System.Single)">
+            <summary>
+            Default Constructor
+            </summary>
+            <param name="data">Key point prediction results.</param>
+            <param name="scales">Image scaling ratio.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.PosePoint.to_string(System.String)">
+            <summary>
+            Convert PoseData to string.
+            </summary>
+            <returns>PoseData string.</returns>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.PoseData.index">
+            <summary>
+            Identification result class index.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.PoseData.lable">
+            <summary>
+            Identification result class lable.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.PoseData.score">
+            <summary>
+            Confidence value.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.PoseData.box">
+            <summary>
+            Prediction box.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.PoseData.to_string(System.String)">
+            <summary>
+            Converts the numeric value of this instance to its equivalent string representation.
+            </summary>
+            <param name="format">A numeric format string.</param>
+            <returns>DetData string.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.PoseResult.add(System.Int32,System.String,System.Single,OpenCvSharp.Rect,OpenVinoSharp.Extensions.result.PosePoint)">
+            <summary>
+            Add data.
+            </summary>
+            <param name="index">Identification result number.</param>
+            <param name="lable">Identification result label.</param>
+            <param name="score">Identification result score.</param>
+            <param name="box">Identification result box.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.PoseResult.sort_by_score(System.Boolean)">
+            <summary>
+            Sorts the score elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.PoseResult.sort_by_bbox(System.Boolean)">
+            <summary>
+            Sorts the box elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.PoseResult.print(System.String)">
+            <summary>
+            Print the inference results.
+            </summary>
+            <param name="format">A numeric format string.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.BaseResult.INFO(System.String)">
+            <summary>
+            Get info message.
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.result.Result`1">
+            <summary>
+            Model inference result class.
+            </summary>
+            <typeparam name="T">Model inference result type.</typeparam>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.Result`1.datas">
+            <summary>
+            Model inference results list.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.#ctor(System.Collections.Generic.List{`0})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="datas">Initialized data.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.#ctor(OpenVinoSharp.Extensions.result.Result{`0})">
+            <summary>
+            Copy Constructor.
+            </summary>
+            <param name="values"></param>
+        </member>
+        <member name="P:OpenVinoSharp.Extensions.result.Result`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the element at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the element to get or set.</param>
+            <returns>The element at the specified index.</returns>
+        </member>
+        <member name="P:OpenVinoSharp.Extensions.result.Result`1.count">
+            <summary>
+            Gets the number of elements contained in the datas.
+            </summary>
+        </member>
+        <member name="P:OpenVinoSharp.Extensions.result.Result`1.capacity">
+            <summary>
+            Gets or sets the total number of elements the internal data structure can hold without resizing.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.add(`0)">
+            <summary>
+            Adds an object to the end of the inference results.
+            </summary>
+            <param name="item">The object to be added to the end of the inference results. The
+            value can be null for reference types.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.add_range(System.Collections.Generic.List{`0})">
+            <summary>
+             Adds the elements of the specified collection to the end of the inference results.
+            </summary>
+            <param name="collection">The collection whose elements should be added to the end of the inference results.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.clear">
+            <summary>
+            Removes all elements from the inference results.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.contains(`0)">
+            <summary>
+            Determines whether an element is in the inference results.
+            </summary>
+            <param name="item"> The object to locate in the  inference results.</param>
+            <returns>true if item is found in the inference results; otherwise, false.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.copy_to(`0[],System.Int32)">
+            <summary>
+            Copies the entire inference results to a compatible one-dimensional array, starting at the specified 
+            index of the target array.
+            </summary>
+            <param name="array">
+            The one-dimensional System.Array that is the destination of the elements copied
+            from inference results. The System.Array must have zero-based indexing.
+            </param>
+            <param name="array_index">The zero-based index in array at which copying begins.</param>
+            <exception cref="T:System.ArgumentNullException">array is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">arrayIndex is less than 0.</exception>
+            <exception cref="T:System.ArgumentException">
+            The number of elements in the source inference results is greater than the available space from arrayIndex 
+            to the end of the destination array.</exception>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.copy_to(`0[])">
+            <summary>
+            Copies the entire System.Collections.Generic.List`1 to a compatible one-dimensional
+            array, starting at the beginning of the target array.
+            </summary>
+            <param name="array">
+            The one-dimensional System.Array that is the destination of the elements copied
+            from System.Collections.Generic.List`1. The System.Array must have zero-based
+            indexing.
+            </param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.copy_to(System.Int32,`0[],System.Int32,System.Int32)">
+            <summary>
+            Copies a range of elements from the inference results to a compatible one-dimensional array, starting at 
+            the specified index of the target array.
+            </summary>
+            <param name="index">The zero-based index in the source inference results at which copying begins.</param>
+            <param name="array">
+            The one-dimensional System.Array that is the destination of the elements copied
+            from inference results. The System.Array must have zero-based indexing.
+            </param>
+            <param name="array_index">The zero-based index in array at which copying begins.</param>
+            <param name="count"> The number of elements to copy.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.find(System.Predicate{`0})">
+            <summary>
+            Searches for an element that matches the conditions defined by the specified 
+            predicate, and returns the first occurrence within the entire inference results.
+            </summary>
+            <param name="match">The System.Predicate`1 delegate that defines the conditions of the element to search for.</param>
+            <returns>
+            The first element that matches the conditions defined by the specified predicate, 
+            if found; otherwise, the default value for type T.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.find_all(System.Predicate{`0})">
+            <summary>
+            Retrieves all the elements that match the conditions defined by the specified predicate.
+            </summary>
+            <param name="match">The System.Predicate`1 delegate that defines the conditions of the elements to search for.</param>
+            <returns>
+            A inference results containing all the elements that match the conditions defined by the specified 
+            predicate, if found; otherwise, an empty inference results.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.find_index(System.Int32,System.Int32,System.Predicate{`0})">
+            <summary>
+            Searches for an element that matches the conditions defined by the specified
+            predicate, and returns the zero-based index of the first occurrence within the
+            range of elements in the inference results that starts at the
+            specified index and contains the specified number of elements.
+            </summary>
+            <param name="start_index">The zero-based starting index of the search.</param>
+            <param name="count">The number of elements in the section to search.</param>
+            <param name="match">The System.Predicate`1 delegate that defines the conditions of the element to search for.</param>
+            <returns>
+            The zero-based index of the first occurrence of an element that matches the conditions
+            defined by match, if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.find_index(System.Int32,System.Predicate{`0})">
+            <summary>
+            Searches for an element that matches the conditions defined by the specified 
+            predicate, and returns the zero-based index of the first occurrence within the 
+            range of elements in the inference results that extends from the specified index to the last element.
+            </summary>
+            <param name="start_index">The zero-based starting index of the search.</param>
+            <param name="match">
+             The System.Predicate`1 delegate that defines the conditions of the element to 
+             search for.</param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.find_index(System.Predicate{`0})">
+            <summary>
+            Searches for an element that matches the conditions defined by the specified
+            predicate, and returns the zero-based index of the first occurrence within the
+            entire inference results.
+            </summary>
+            <param name="match">The System.Predicate`1 delegate that defines the conditions of the element to
+            search for.</param>
+            <returns>
+            The zero-based index of the first occurrence of an element that matches the conditions
+            defined by match, if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.FindLast(System.Predicate{`0})">
+            <summary>
+            Searches for an element that matches the conditions defined by the specified
+            predicate, and returns the last occurrence within the entire inference results.
+            </summary>
+            <param name="match">The System.Predicate`1 delegate that defines the conditions of the element to search for.</param>
+            <returns>
+            The last element that matches the conditions defined by the specified predicate,
+            if found; otherwise, the default value for type T.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.find_last_index(System.Int32,System.Int32,System.Predicate{`0})">
+            <summary>
+            Searches for an element that matches the conditions defined by the specified
+            predicate, and returns the zero-based index of the last occurrence within the
+            range of elements in the inference results that contains the
+            specified number of elements and ends at the specified index.
+            </summary>
+            <param name="start_index">The zero-based starting index of the backward search.</param>
+            <param name="count"> The number of elements in the section to search.</param>
+            <param name="match">The System.Predicate`1 delegate that defines the conditions of the element to search for.</param>
+            <returns>
+            The zero-based index of the last occurrence of an element that matches the conditions
+            defined by match, if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.find_last_index(System.Int32,System.Predicate{`0})">
+            <summary>
+            Searches for an element that matches the conditions defined by the specified
+            predicate, and returns the zero-based index of the last occurrence within the
+            range of elements in the inference results that extends from
+            the first element to the specified index.
+            </summary>
+            <param name="start_index">The zero-based starting index of the backward search.</param>
+            <param name="match">The System.Predicate`1 delegate that defines the conditions of the element to
+            search for.</param>
+            <returns>
+            The zero-based index of the last occurrence of an element that matches the conditions
+            defined by match, if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.find_last_index(System.Predicate{`0})">
+            <summary>
+            Searches for an element that matches the conditions defined by the specified
+            predicate, and returns the zero-based index of the last occurrence within the
+            entire inference results.
+            </summary>
+            <param name="match">The System.Predicate`1 delegate that defines the conditions of the element to
+            search for.</param>
+            <returns>
+            The zero-based index of the last occurrence of an element that matches the conditions
+            defined by match, if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.for_each(System.Action{`0})">
+            <summary>
+            Performs the specified action on each element of the inference results.
+            </summary>
+            <param name="action"> The System.Action`1 delegate to perform on each element of the inference results.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.get_enumerator">
+            <summary>
+            Returns an enumerator that iterates through the inference results.
+            </summary>
+            <returns>A System.Collections.Generic.List`1.Enumerator for the  inference results.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.get_range(System.Int32,System.Int32)">
+            <summary>
+             Creates a shallow copy of a range of elements in the source  inference results.
+            </summary>
+            <param name="index">The zero-based System.Collections.Generic.List`1 index at which the range starts.</param>
+            <param name="count">The number of elements in the range.</param>
+            <returns>A shallow copy of a range of elements in the source inference results.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.index_of(`0,System.Int32,System.Int32)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the first
+            occurrence within the range of elements in the inference results
+            that starts at the specified index and contains the specified number of elements.
+            </summary>
+            <param name="item">The object to locate in the inference results. The value can be null for reference types.</param>
+            <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
+            <param name="count">The number of elements in the section to search.</param>
+            <returns>
+            The zero-based index of the first occurrence of item within the range of elements
+            in the inference results that starts at index and contains count
+            number of elements, if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.index_of(`0,System.Int32)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the first
+            occurrence within the range of elements in the inference results
+            that starts at the specified index and contains the specified number of elements.
+            </summary>
+            <param name="item">The object to locate in the inference results. The value can be null for reference types.</param>
+            <param name="index">The zero-based starting index of the search. 0 (zero) is valid in an empty list.</param>
+            <returns>
+            The zero-based index of the first occurrence of item within the range of elements
+            in the inference results that starts at index and contains count
+            number of elements, if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.index_of(`0)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the first
+            occurrence within the entire inference results.
+            </summary>
+            <param name="item">The object to locate in the inference results. The value can be null for reference types.</param>
+            <returns>
+            The zero-based index of the first occurrence of item within the entire inference results, 
+            if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.insert(System.Int32,`0)">
+            <summary>
+            Inserts an element into the System.Collections.Generic.List`1 at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which item should be inserted.</param>
+            <param name="item">The object to insert. The value can be null for reference types.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.insert_range(System.Int32,System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Inserts the elements of a collection into the inference results at the specified index.
+            </summary>
+            <param name="index">The zero-based index at which the new elements should be inserted.</param>
+            <param name="collection">
+            The collection whose elements should be inserted into the inference results.
+            The collection itself cannot be null, but it can contain elements that are null,
+            if type T is a reference type.
+            </param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.last_index_of(`0)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the last
+            occurrence within the entire inference results.
+            </summary>
+            <param name="item">The object to locate in the inference results. The value can be null for reference types.</param>
+            <returns>
+            The zero-based index of the last occurrence of item within the entire the inference results, if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.last_index_of(`0,System.Int32)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the last
+            occurrence within the range of elements in the inference results
+            that contains the specified number of elements and ends at the specified index.
+            </summary>
+            <param name="item">The object to locate in the System.Collections.Generic.List`1. The value can
+            be null for reference types.</param>
+            <param name="index">The zero-based starting index of the backward search.</param>
+            <returns>
+            The zero-based index of the last occurrence of item within the range of elements
+            in the inference results that contains count number of elements
+            and ends at index, if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.last_index_of(`0,System.Int32,System.Int32)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the last
+            occurrence within the range of elements in the inference results
+            that contains the specified number of elements and ends at the specified index.
+            </summary>
+            <param name="item">The object to locate in the System.Collections.Generic.List`1. The value can
+             be null for reference types.</param>
+            <param name="index">The zero-based starting index of the backward search.</param>
+            <param name="count">The number of elements in the section to search.</param>
+            <returns>
+            The zero-based index of the last occurrence of item within the range of elements
+            in the inference results that contains count number of elements
+            and ends at index, if found; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.Remove(`0)">
+            <summary>
+            Removes the first occurrence of a specific object from the inference results.
+            </summary>
+            <param name="item">
+            The object to remove from the inference results. The value can be null for reference types.
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.RemoveAll(System.Predicate{`0})">
+            <summary>
+            Removes all the elements that match the conditions defined by the specified predicate.
+            </summary>
+            <param name="match">The System.Predicate`1 delegate that defines the conditions of the elements to
+            remove.</param>
+            <returns>The number of elements removed from the inference results.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.remove_at(System.Int32)">
+            <summary>
+            Removes the element at the specified index of the inference results.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.remove_range(System.Int32,System.Int32)">
+            <summary>
+            Removes a range of elements from the inference results.
+            </summary>
+            <param name="index">The zero-based starting index of the range of elements to remove.</param>
+            <param name="count">The number of elements to remove.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.reverse(System.Int32,System.Int32)">
+            <summary>
+            Reverses the order of the elements in the specified range.
+            </summary>
+            <param name="index">The zero-based starting index of the range to reverse.</param>
+            <param name="count">The number of elements in the range to reverse.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.reverse">
+            <summary>
+            Reverses the order of the elements in the entire inference results.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.sort(System.Collections.Generic.IComparer{`0})">
+            <summary>
+            Sorts the elements in the entire inference resultsw using the specified comparer.
+            </summary>
+            <param name="comparer">
+            The inference results implementation to use when comparing 
+            elements, or null to use the default comparer inference results.Default.
+            </param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.sort(System.Comparison{`0})">
+            <summary>
+            Sorts the elements in the entire inference resultsw using the
+            specified System.Comparison`1.
+            </summary>
+            <param name="comparison">The System.Comparison`1 to use when comparing elements.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.sort(System.Int32,System.Int32,System.Collections.Generic.IComparer{`0})">
+            <summary>
+            Sorts the elements in a range of elements in inference results using the specified comparer.
+            </summary>
+            <param name="index">The zero-based starting index of the range to sort.</param>
+            <param name="count">The length of the range to sort.</param>
+            <param name="comparer">
+            The inference results implementation to use when comparing 
+            elements, or null to use the default comparer inference results.Default.
+            </param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.sort">
+            <summary>
+             Sorts the elements in the entire inference results using the default comparer.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.to_array">
+            <summary>
+            Copies the elements of the inference results to a new array.
+            </summary>
+            <returns>An array containing copies of the elements of the inference results.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.print(System.String)">
+            <summary>
+            Print  the inference results.
+            </summary>
+            <param name="format"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.Result`1.INFO(System.String)">
+            <summary>
+            Get info message.
+            </summary>
+            <param name="msg"></param>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.result.SegData">
+            <summary>
+            Object segmentation result data.
+            </summary>
+        </member>
+        <member name="F:OpenVinoSharp.Extensions.result.SegData.mask">
+            <summary>
+            Split Region
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegData.#ctor(System.Int32,System.String,System.Single,OpenCvSharp.Rect,OpenCvSharp.Mat)">
+            <summary>
+            Parameter construction.
+            </summary>
+            <param name="index">Target segmentation recognition result  number.</param>
+            <param name="lable">Target segmentation recognition result  label.</param>
+            <param name="score">Target segmentation recognition result  score.</param>
+            <param name="box">Target segmentation recognition result  box.</param>
+            <param name="mask">Target segmentation recognition result split region.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegData.#ctor(System.Int32,System.Single,OpenCvSharp.Rect,OpenCvSharp.Mat)">
+            <summary>
+            Parameter construction.
+            </summary>
+            <param name="index">Target segmentation recognition result  number.</param>
+            <param name="score">Target segmentation recognition result  score.</param>
+            <param name="box">Target segmentation recognition result  box.</param>
+            <param name="mask">Target segmentation recognition result split region.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegData.update_lable(System.Collections.Generic.List{System.String})">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegData.update_lable(System.String[])">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegData.to_string(System.String)">
+            <summary>
+            Converts the numeric value of this instance to its equivalent string representation.
+            </summary>
+            <param name="format">A numeric format string.</param>
+            <returns>SegData string.</returns>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.result.SegResult">
+            <summary>
+            Object segmentation result class.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegResult.add(System.Int32,System.Single,OpenCvSharp.Rect,OpenCvSharp.Mat)">
+            <summary>
+            Add data.
+            </summary>
+            <param name="index">Target segmentation recognition result  number.</param>
+            <param name="score">Target segmentation recognition result  score.</param>
+            <param name="box">Target segmentation recognition result  box.</param>
+            <param name="mask">Target segmentation recognition result split region.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegResult.add(System.Int32,System.String,System.Single,OpenCvSharp.Rect,OpenCvSharp.Mat)">
+            <summary>
+            Add data.
+            </summary>
+            <param name="index">Target segmentation recognition result  number.</param>
+            <param name="lable">Target segmentation recognition result  label.</param>
+            <param name="score">Target segmentation recognition result  score.</param>
+            <param name="box">Target segmentation recognition result  box.</param>
+            <param name="mask">Target segmentation recognition result split region.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegResult.sort_by_index(System.Boolean)">
+            <summary>
+            Sorts the index elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegResult.sort_by_score(System.Boolean)">
+            <summary>
+            Sorts the score elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegResult.sort_by_bbox(System.Boolean)">
+            <summary>
+            Sorts the box elements in the entire inference results using the default comparer.
+            </summary>
+            <param name="flag"></param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegResult.update_lable(System.Collections.Generic.List{System.String})">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegResult.update_lable(System.String[])">
+            <summary>
+            Update lable.
+            </summary>
+            <param name="lables">Lable array.</param>
+            <returns>DetData class.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.result.SegResult.print(System.String)">
+            <summary>
+            Print the inference results.
+            </summary>
+            <param name="format">A numeric format string.</param>
+        </member>
+    </members>
+</doc>

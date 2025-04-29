@@ -26,6 +26,15 @@ using Microsoft.Win32;
 using Cognex.VisionPro;
 using Cognex.VisionPro.ToolBlock;
 using Cognex.VisionPro.ImageFile;
+#else
+using OpenVinoSharp;
+using OpenCvSharp.Dnn;
+using OpenVinoSharp.Extensions;
+using OpenVinoSharp.Extensions.utility;
+using OpenVinoSharp.Extensions.model;
+using OpenVinoSharp.Extensions.result;
+using OpenVinoSharp.Extensions.process;
+using OpenVinoSharp.preprocess;
 #endif
 
 namespace 存图助手标准版
@@ -176,7 +185,23 @@ namespace 存图助手标准版
         private CogImageFileTool mImageFileTool4 = new CogImageFileTool();
         private CogImageFileTool mImageFileTool5 = new CogImageFileTool();
         private CogToolBlock mTB = null;
+#else
+        private static string[] Reasons = new string[] { "Good Code", "Damaged", "Folded or Occluded", "Folded or Occluded" };
+        private static bool SaveRawImg = false;
+        private static bool SaveProcessedImg = false;
+        private static int class_num;
+        private static int W;
+        private static int H;
+        // -------- Step 1. Initialize OpenVINO Runtime Core --------
+        static Core core = new Core();
+        static string model_path;
+        static string device = "CPU";
+        // -------- Step 2. Read inference model --------
+        static Model model = null;
+        // -------- Step 3. Loading a model to the device --------
+        static CompiledModel compiled_model = null;
 #endif
+        private readonly static Object YOLOLock = new object();
         private readonly static Object TBLock = new object();
         private readonly static Object hWndLock = new object();
         private readonly static Object ExtCaptionBoxListLock1 = new object();
@@ -332,6 +357,7 @@ namespace 存图助手标准版
         private string DefaultFileNameFormat = "#N0_#N1_#N2_#N3_#N4_#N5_#N6_#N7_#N8_#N9_#N10_#N11";
         private string DefaultSubFolder = "#None";
         private static string inductor_sorter_temp_url;
+        private string NR_Raw;
         private string barcode_stitch_url1;
         private string barcode_stitch_url2;
         private string barcode_stitch_url3;
@@ -404,40 +430,40 @@ namespace 存图助手标准版
         private string DefaultPicStorDaysText = "7";
         private int LogFailureNum1 = 0;
         private int LogFailureNum2 = 0;
-        private static ArrayList LogContentArray1 = new ArrayList();
-        private static ArrayList LogContentArray2 = new ArrayList();
-        private static ArrayList LogContentArray3 = new ArrayList();
-        private static ArrayList LogContentArray4 = new ArrayList();
-        private static ArrayList LogContentArrayInductor = new ArrayList();
-        public static ArrayList LogContentArrayComm = new ArrayList();
-        private static ArrayList LogContentArrayFTP1 = new ArrayList();
-        private static ArrayList LogContentArrayFTP2 = new ArrayList();
-        private static ArrayList LogContentArrayFTP3 = new ArrayList();
-        private static ArrayList LogContentArrayFTP4 = new ArrayList();
-        private static ArrayList LogContentArrayFTP5 = new ArrayList();
-        private static ArrayList LogContentArrayFTP6 = new ArrayList();
-        private ArrayList MasterArraySta1 = new ArrayList();
-        private ArrayList MasterArraySta2 = new ArrayList();
-        private ArrayList MasterArraySta3 = new ArrayList();
-        private ArrayList MasterArraySta4 = new ArrayList();
-        private List<BottomStitchObject> BottomStitchArray1 = new List<BottomStitchObject>();
-        private List<BottomStitchObject> BottomStitchArray2 = new List<BottomStitchObject>();
-        private List<BottomStitchObject> BottomStitchArray3 = new List<BottomStitchObject>();
-        private List<BottomStitchObject> BottomStitchArray4 = new List<BottomStitchObject>();
-        private List<BottomStitchObject> BottomStitchArray5 = new List<BottomStitchObject>();
-        private List<BarcodeStitchObject> BarcodeStitchArray1 = new List<BarcodeStitchObject>();
-        private List<BarcodeStitchObject> BarcodeStitchArray2 = new List<BarcodeStitchObject>();
-        private List<BarcodeStitchObject> BarcodeStitchArray3 = new List<BarcodeStitchObject>();
-        private List<BarcodeStitchObject> BarcodeStitchArray4 = new List<BarcodeStitchObject>();
-        private List<BarcodeStitchObject> BarcodeStitchArray5 = new List<BarcodeStitchObject>();
-        private ArrayList HTTPArraySta1_1 = new ArrayList();
-        private ArrayList HTTPArraySta1_2 = new ArrayList();
-        private ArrayList HTTPArraySta2_1 = new ArrayList();
-        private ArrayList HTTPArraySta2_2 = new ArrayList();
-        private ArrayList HTTPArraySta3_1 = new ArrayList();
-        private ArrayList HTTPArraySta3_2 = new ArrayList();
-        private ArrayList HTTPArraySta4_1 = new ArrayList();
-        private ArrayList HTTPArraySta4_2 = new ArrayList();
+        private static ArrayList LogContentArray1 = new ArrayList(100);
+        private static ArrayList LogContentArray2 = new ArrayList(100);
+        private static ArrayList LogContentArray3 = new ArrayList(100);
+        private static ArrayList LogContentArray4 = new ArrayList(100);
+        private static ArrayList LogContentArrayInductor = new ArrayList(100);
+        public static ArrayList LogContentArrayComm = new ArrayList(100);
+        private static ArrayList LogContentArrayFTP1 = new ArrayList(100);
+        private static ArrayList LogContentArrayFTP2 = new ArrayList(100);
+        private static ArrayList LogContentArrayFTP3 = new ArrayList(100);
+        private static ArrayList LogContentArrayFTP4 = new ArrayList(100);
+        private static ArrayList LogContentArrayFTP5 = new ArrayList(100);
+        private static ArrayList LogContentArrayFTP6 = new ArrayList(100);
+        private ArrayList MasterArraySta1 = new ArrayList(100);
+        private ArrayList MasterArraySta2 = new ArrayList(100);
+        private ArrayList MasterArraySta3 = new ArrayList(100);
+        private ArrayList MasterArraySta4 = new ArrayList(100);
+        private List<BottomStitchObject> BottomStitchArray1 = new List<BottomStitchObject>(100);
+        private List<BottomStitchObject> BottomStitchArray2 = new List<BottomStitchObject>(100);
+        private List<BottomStitchObject> BottomStitchArray3 = new List<BottomStitchObject>(100);
+        private List<BottomStitchObject> BottomStitchArray4 = new List<BottomStitchObject>(100);
+        private List<BottomStitchObject> BottomStitchArray5 = new List<BottomStitchObject>(100);
+        private List<BarcodeStitchObject> BarcodeStitchArray1 = new List<BarcodeStitchObject>(100);
+        private List<BarcodeStitchObject> BarcodeStitchArray2 = new List<BarcodeStitchObject>(100);
+        private List<BarcodeStitchObject> BarcodeStitchArray3 = new List<BarcodeStitchObject>(100);
+        private List<BarcodeStitchObject> BarcodeStitchArray4 = new List<BarcodeStitchObject>(100);
+        private List<BarcodeStitchObject> BarcodeStitchArray5 = new List<BarcodeStitchObject>(100);
+        private ArrayList HTTPArraySta1_1 = new ArrayList(100);
+        private ArrayList HTTPArraySta1_2 = new ArrayList(100);
+        private ArrayList HTTPArraySta2_1 = new ArrayList(100);
+        private ArrayList HTTPArraySta2_2 = new ArrayList(100);
+        private ArrayList HTTPArraySta3_1 = new ArrayList(100);
+        private ArrayList HTTPArraySta3_2 = new ArrayList(100);
+        private ArrayList HTTPArraySta4_1 = new ArrayList(100);
+        private ArrayList HTTPArraySta4_2 = new ArrayList(100);
         System.Timers.Timer Timer1 = new System.Timers.Timer();
         System.Timers.Timer Timer2 = new System.Timers.Timer();
         System.Timers.Timer Timer3 = new System.Timers.Timer();
@@ -1787,6 +1813,60 @@ namespace 存图助手标准版
                     mes += "\tVProX.ViDiELClassify: " + elclassify_flag.ToString() + "\r\n";
                     AddLog(mes, LogContentArray1);
                 }
+#else
+                if (ConfigurationManager.AppSettings["SaveRawImg"] == "true")
+                {
+                    SaveRawImg = true;
+                }
+                else
+                {
+                    SaveRawImg = false;
+                }
+                if (ConfigurationManager.AppSettings["SaveProcessedImg"] == "true")
+                {
+                    SaveProcessedImg = true;
+                }
+                else
+                {
+                    SaveProcessedImg = false;
+                }
+                try
+                {
+                    class_num = Convert.ToInt32(ConfigurationManager.AppSettings["class_num"]);
+                }
+                catch
+                {
+                    class_num = 4;
+                }
+                try
+                {
+                    W = Convert.ToInt32(ConfigurationManager.AppSettings["W"]);
+                }
+                catch
+                {
+                    W = 416;
+                }
+                try
+                {
+                    H = Convert.ToInt32(ConfigurationManager.AppSettings["H"]);
+                }
+                catch
+                {
+                    H = 416;
+                }
+#if DEBUG
+                model_path = @"D:\Openvino Yolov5 Model\NR 416x416\" + ConfigurationManager.AppSettings["ModelName"] + ".xml";
+#else
+                model_path = Application.StartupPath + @"\model\" + ConfigurationManager.AppSettings["ModelName"] + ".xml";
+#endif            
+                if (core != null && File.Exists(model_path))
+                {
+                    model = core.read_model(model_path);
+                    if (model != null)
+                    {
+                        compiled_model = core.compile_model(model, device);
+                    }
+                }
 #endif
                 ReadBottomCalib(HomographySta1, ol01, bottomcal_path_1);
                 ReadBottomCalib(HomographySta2, ol02, bottomcal_path_2);
@@ -2668,6 +2748,7 @@ namespace 存图助手标准版
                     StorageRoots[3] = StorageRoot4;
                     disk = FtpRoot1.Substring(0, 2);
                     //disk = StorageRoot1.Substring(0, 2);
+                    NR_Raw = disk + "\\SIH\\NR_Raw";
                     barcode_stitch_url1 = disk + "\\SIH\\TopStitch1";
                     barcode_stitch_url2 = disk + "\\SIH\\TopStitch2";
                     barcode_stitch_url3 = disk + "\\SIH\\TopStitch3";
@@ -3888,6 +3969,7 @@ namespace 存图助手标准版
                     StorageRoots[3] = StorageRoot4;
                     disk = FtpRoot1.Substring(0, 2);
                     //disk = StorageRoot1.Substring(0, 2);
+                    NR_Raw = disk + "\\SIH\\NR_Raw";
                     barcode_stitch_url1 = disk + "\\SIH\\TopStitch1";
                     barcode_stitch_url2 = disk + "\\SIH\\TopStitch2";
                     barcode_stitch_url3 = disk + "\\SIH\\TopStitch3";
@@ -4464,6 +4546,7 @@ namespace 存图助手标准版
                         deletefiles(ftp_temp_url4, 2);
                         deletefiles(ftp_temp_url5, 2);
                         deletefiles(ftp_temp_url6, 2);
+                        deletefiles(NR_Raw, 2);
                         deletefiles(barcode_stitch_url1, 2);
                         deletefiles(barcode_stitch_url2, 2);
                         deletefiles(barcode_stitch_url3, 2);
@@ -6651,6 +6734,7 @@ namespace 存图助手标准版
             Mat lastmat = null;
             Mat CurrentWarp = null;
             Mat CurrentWarpRGB = null;
+            Mat CurrentWarpRGB1 = null;
             int lastid = 0;
             int time = 0;
             Image image = null;
@@ -7280,6 +7364,41 @@ namespace 存图助手标准版
                                     //AddLog(logcontent, LogContentArray);
 #if FEATURE_VPRO
                                     NoReadReason = NoReadAnalyzeFromMat(CurrentWarp, LogContentArray, StationName, GroupID);
+#else
+                                    try
+                                    {
+                                        Cv2.CvtColor(CurrentWarp, CurrentWarpRGB1, ColorConversionCodes.GRAY2RGB);
+                                        if (SaveRawImg)
+                                        {
+                                            if (!Directory.Exists(NR_Raw))
+                                            {
+                                                Directory.CreateDirectory(NR_Raw);
+                                            }
+                                            Cv2.ImWrite(NR_Raw + "\\" + obj.ftpFileName, CurrentWarpRGB1);
+                                        }
+                                        if (compiled_model != null)
+                                        {
+                                            Tuple<int, OpenCvSharp.Rect, long> resultTuple = yolov5_det(compiled_model, CurrentWarpRGB1, device);
+                                            int reasonindex = resultTuple.Item1;
+                                            OpenCvSharp.Rect rect = resultTuple.Item2;
+                                            if (reasonindex > -1 && reasonindex < Reasons.Length)
+                                            {
+                                                NoReadReason = Reasons[reasonindex];
+                                            }
+                                            else if (reasonindex == -1)
+                                            {
+                                                NoReadReason = "No Code";
+                                            }
+                                        }
+                                    }
+                                    catch { }
+                                    finally
+                                    {
+                                        if (CurrentWarpRGB1 != null)
+                                        {
+                                            CurrentWarpRGB1.Dispose();
+                                        }
+                                    }
 #endif
                                     //logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "StationName: " + StationName + "GroupID: " + GroupID + " Finished Bottom No Read Analysis!";
                                     //AddLog(logcontent, LogContentArray);
@@ -7764,38 +7883,133 @@ namespace 存图助手标准版
             Mat UPmat = null;
             Mat Barcodemat = null;
             string[] pos = obj.barcodePos.Split(';');
-            int xx1 = 0, yy1 = 0, xx2 = 0, yy2 = 0, xx3 = 0, yy3 = 0, xx4 = 0, yy4 = 0;
+            int xx1 = 0, yy1 = 0, xx2 = 0, yy2 = 0, xx3 = 0, yy3 = 0, xx4 = 0, yy4 = 0, minx = 0, miny = 0, maxx = 0, maxy = 0;
             try
             {
-                if (pos.Length == 8 && obj.UPImage != null)
+                if (obj.UPImage != null)
                 {
-                    xx1 = Convert.ToInt32(pos[0]);
-                    yy1 = Convert.ToInt32(pos[1]);
-                    xx2 = Convert.ToInt32(pos[2]);
-                    yy2 = Convert.ToInt32(pos[3]);
-                    xx3 = Convert.ToInt32(pos[4]);
-                    yy3 = Convert.ToInt32(pos[5]);
-                    xx4 = Convert.ToInt32(pos[6]);
-                    yy4 = Convert.ToInt32(pos[7]);
-                    int minx = Math.Min(Math.Min(Math.Min(xx1, xx2), xx3), xx4);
-                    int miny = Math.Min(Math.Min(Math.Min(yy1, yy2), yy3), yy4);
-                    int maxx = Math.Max(Math.Max(Math.Max(xx1, xx2), xx3), xx4);
-                    int maxy = Math.Max(Math.Max(Math.Max(yy1, yy2), yy3), yy4);
                     UPmat = Cv2.ImRead(obj.UPImage.FullName, ImreadModes.Color);
-                    if (obj.BarcodeImage != null)
+                    if (pos.Length == 8 && obj.N2 != "None")
                     {
-                        Barcodemat = Cv2.ImRead(obj.BarcodeImage.FullName, ImreadModes.Color);
-                        Cv2.Line(Barcodemat, new OpenCvSharp.Point(xx1, yy1), new OpenCvSharp.Point(xx2, yy2), new Scalar(0, 255, 0), (int)(1 + Barcodemat.Cols / 500));
-                        Cv2.Line(Barcodemat, new OpenCvSharp.Point(xx2, yy2), new OpenCvSharp.Point(xx3, yy3), new Scalar(0, 255, 0), (int)(1 + Barcodemat.Cols / 500));
-                        Cv2.Line(Barcodemat, new OpenCvSharp.Point(xx3, yy3), new OpenCvSharp.Point(xx4, yy4), new Scalar(0, 255, 0), (int)(1 + Barcodemat.Cols / 500));
-                        Cv2.Line(Barcodemat, new OpenCvSharp.Point(xx4, yy4), new OpenCvSharp.Point(xx1, yy1), new Scalar(0, 255, 0), (int)(1 + Barcodemat.Cols / 500));
+                        xx1 = Convert.ToInt32(pos[0]);
+                        yy1 = Convert.ToInt32(pos[1]);
+                        xx2 = Convert.ToInt32(pos[2]);
+                        yy2 = Convert.ToInt32(pos[3]);
+                        xx3 = Convert.ToInt32(pos[4]);
+                        yy3 = Convert.ToInt32(pos[5]);
+                        xx4 = Convert.ToInt32(pos[6]);
+                        yy4 = Convert.ToInt32(pos[7]);
+                        minx = Math.Min(Math.Min(Math.Min(xx1, xx2), xx3), xx4);
+                        miny = Math.Min(Math.Min(Math.Min(yy1, yy2), yy3), yy4);
+                        maxx = Math.Max(Math.Max(Math.Max(xx1, xx2), xx3), xx4);
+                        maxy = Math.Max(Math.Max(Math.Max(yy1, yy2), yy3), yy4);
+                        if (obj.BarcodeImage != null)
+                        {
+                            Barcodemat = Cv2.ImRead(obj.BarcodeImage.FullName, ImreadModes.Color);
+                            Cv2.Line(Barcodemat, new OpenCvSharp.Point(xx1, yy1), new OpenCvSharp.Point(xx2, yy2), new Scalar(0, 255, 0), (int)(1 + Barcodemat.Cols / 500));
+                            Cv2.Line(Barcodemat, new OpenCvSharp.Point(xx2, yy2), new OpenCvSharp.Point(xx3, yy3), new Scalar(0, 255, 0), (int)(1 + Barcodemat.Cols / 500));
+                            Cv2.Line(Barcodemat, new OpenCvSharp.Point(xx3, yy3), new OpenCvSharp.Point(xx4, yy4), new Scalar(0, 255, 0), (int)(1 + Barcodemat.Cols / 500));
+                            Cv2.Line(Barcodemat, new OpenCvSharp.Point(xx4, yy4), new OpenCvSharp.Point(xx1, yy1), new Scalar(0, 255, 0), (int)(1 + Barcodemat.Cols / 500));
+                        }
                     }
+                    else if (obj.N2 == "None")//未读取图片处理
+                    {
+                        string NoReadReason = "N/A";
+                        int count = obj.NRImage.Count;
+                        for (int id = 0; id < count; id++)
+                        {
+                            minx = 0;
+                            miny = 0;
+                            maxx = 0;
+                            maxy = 0;
+                            FileInfo CurrentNRImage;
+                            lock (obj.NRLock)
+                            {
+                                CurrentNRImage = obj.NRImage[id];
+                            }
+                            Mat currentm = null;
+                            int reasonindex = -1;
+                            if (compiled_model != null)
+                            {
+                                try
+                                {
+                                    currentm = Cv2.ImRead(CurrentNRImage.FullName, ImreadModes.Color);
+                                    Tuple<int, OpenCvSharp.Rect, long> resultTuple = yolov5_det(compiled_model, currentm, device);
+                                    reasonindex = resultTuple.Item1;
+                                    if (reasonindex > -1 && reasonindex < Reasons.Length)
+                                    {
+                                        NoReadReason = Reasons[reasonindex];
+                                        OpenCvSharp.Rect rect = resultTuple.Item2;
+                                        if (rect.Width != 0 && rect.Height != 0)
+                                        {
+                                            Cv2.Rectangle(currentm, rect, Scalar.Red, 2, LineTypes.Link8);
+                                            minx = rect.X;
+                                            miny = rect.Y;
+                                            maxx = rect.X + rect.Width;
+                                            maxy = rect.Y + rect.Height;
+                                        }
+                                    }
+                                }
+                                catch { }
+                                finally
+                                {
+                                    if (reasonindex > -1 && reasonindex < Reasons.Length && NoReadReason != "N/A")
+                                    {
+                                        Barcodemat = currentm;
+                                    }
+                                    else if (currentm != null)
+                                    {
+                                        currentm.Dispose();
+                                    }
+                                }
+                                if (Barcodemat != null)
+                                {
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        if (NoReadReason == "N/A")
+                        {
+                            NoReadReason = "No Code";
+                        }
+                        string NoReadReasonPath = NoReadReason.Replace(@"/", "").Replace(@"\", "").Replace(@":", "").Replace(@"*", "").Replace(@"?", "").Replace("\"", "").Replace(@"<", "").Replace(@">", "").Replace(@"|", "");
+                        obj.Description = obj.Description.Replace("#ANA", NoReadReason);
+                        if (NoReadReason != "N/A")
+                        {
+                            obj.localFileName = obj.localFileName.Replace("#ANA", NoReadReasonPath);
+                            obj.ftpFileNameHeader = obj.ftpFileNameHeader.Replace("#ANA", NoReadReasonPath);
+                            obj.ftpFileName = obj.ftpFileName.Replace("#ANA", NoReadReasonPath);
+                            obj.localDir = obj.localDir.Replace("#ANA", NoReadReasonPath);
+                        }
+                        else
+                        {
+                            obj.localFileName = obj.localFileName.Replace("#ANA", "NA");
+                            obj.ftpFileNameHeader = obj.ftpFileNameHeader.Replace("#ANA", "");
+                            obj.ftpFileName = obj.ftpFileName.Replace("#ANA", "NA");
+                            obj.localDir = obj.localDir.Replace("#ANA", "");
+                        }
+                        Regex MultiSlash = new Regex("\\\\{2,}");
+                        Regex Multibar = new Regex("~{2,}");
+                        Regex Startbar = new Regex("^~");
+                        Regex Endbar = new Regex("~$");
+                        obj.ftpFileNameHeader = Multibar.Replace(obj.ftpFileNameHeader, "~");
+                        obj.ftpFileNameHeader = Startbar.Replace(obj.ftpFileNameHeader, "");
+                        obj.ftpFileNameHeader = Endbar.Replace(obj.ftpFileNameHeader, "");
+                        obj.localDir = obj.localDir.Replace(@"/", @"\").Replace(@"*", "").Replace(@"?", "").Replace("\"", "").Replace(@"<", "").Replace(@">", "").Replace(@"|", "");
+                        obj.localDir = MultiSlash.Replace(obj.localDir, "\\");//本地路径
+                    }
+                    string local_fullname = obj.localDir + obj.ftpFileName;//本地文件全名含路径
+                    string ftp_fullname = obj.ftpDir + "\\" + obj.ftpFileNameHeader + delimiter + obj.ftpFileName;
                     if (UPmat != null)
                     {
                         if (Barcodemat != null)
                         {
                             //if ((0 <= minx) && (minx <= maxx) && (maxx <= Barcodemat.Cols) && (0 <= miny) && (miny <= maxy) && (maxy <= Barcodemat.Rows))
-                            if ((minx <= maxx) && (miny <= maxy) )
+                            if ((minx <= maxx) && (miny <= maxy) && (minx != 0 || miny != 0 || maxx != 0 || maxy != 0))
                             {
                                 int startx = Math.Max(0, minx - 200);
                                 int starty = Math.Max(0, miny - 200);
@@ -8047,11 +8261,11 @@ namespace 存图助手标准版
                                 //Cv2.CvtColor(fullmat, fullmatRGB, ColorConversionCodes.GRAY2RGB);
                                 if (allowChinese)
                                 {
-                                    DrawCaptionGDI(fullmat, Des, obj.localFullName, obj.pos, true, calobj);
+                                    DrawCaptionGDI(fullmat, Des, local_fullname, obj.pos, true, calobj);
                                 }
                                 else
                                 {
-                                    DrawCaptionOpencv(fullmat, Des, obj.localFullName, obj.pos, true, calobj);
+                                    DrawCaptionOpencv(fullmat, Des, local_fullname, obj.pos, true, calobj);
                                 }
                                 
                                 /*else//移动到extcaption文件夹
@@ -8063,19 +8277,19 @@ namespace 存图助手标准版
                             {
                                 if (!imgEncryptEnable)
                                 {
-                                    Cv2.ImWrite(obj.localFullName, fullmat, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                                    Cv2.ImWrite(local_fullname, fullmat, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
                                 }
                                 else
                                 {
-                                    EncryptMat(fullmat, obj.localFullName, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                                    EncryptMat(fullmat, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
                                 }
                             }
-                            if (System.IO.File.Exists(obj.localFullName))
+                            if (System.IO.File.Exists(local_fullname))
                             {
-                                fileInfo = new FileInfo(obj.localFullName);
+                                fileInfo = new FileInfo(local_fullname);
                                 if (upload)
                                 {
-                                    fileInfo.CopyTo(obj.ftpFullName, false);
+                                    fileInfo.CopyTo(ftp_fullname, false);
                                 }
                                 if (httpUpload)
                                 {
@@ -8193,28 +8407,34 @@ namespace 存图助手标准版
             }
             logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "Count of items in BarcodeStitchArray " + ArrayName + ": " + BarcodeStitchArray.Count;
             AddLog(logcontent, LogContentArray);
-            for (int i = 0; i < BarcodeStitchArray.Count; i++)
+            int count = BarcodeStitchArray.Count;
+            for (int i = 0; i < count; i++)
             {
-                if (BarcodeStitchArray[i] != null)
+                BarcodeStitchObject curobj = null;
+                lock (BarcodeStitchLock)
                 {
-                    GroupID = BarcodeStitchArray[i].N0;
-                    StationName = BarcodeStitchArray[i].StationName;
-                    if (BarcodeStitchArray[i].StationName == "1")
+                    curobj = BarcodeStitchArray[i];
+                }
+                if (curobj != null)
+                {
+                    GroupID = curobj.N0;
+                    StationName = curobj.StationName;
+                    if (curobj.StationName == "1")
                     {
                         LogContentArray = LogContentArray1;
                         ExtCaptionTimeout = ExtCaptionBoxTimeOut1;
                     }
-                    else if (BarcodeStitchArray[i].StationName == "2")
+                    else if (curobj.StationName == "2")
                     {
                         LogContentArray = LogContentArray2;
                         ExtCaptionTimeout = ExtCaptionBoxTimeOut2;
                     }
-                    else if (BarcodeStitchArray[i].StationName == "3")
+                    else if (curobj.StationName == "3")
                     {
                         LogContentArray = LogContentArray3;
                         ExtCaptionTimeout = ExtCaptionBoxTimeOut3;
                     }
-                    else if (BarcodeStitchArray[i].StationName == "4")
+                    else if (curobj.StationName == "4")
                     {
                         LogContentArray = LogContentArray4;
                         ExtCaptionTimeout = ExtCaptionBoxTimeOut4;
@@ -8233,13 +8453,13 @@ namespace 存图助手标准版
                     {
                         Timeout = BarcodeStitchTimeOut;
                     }
-                    if ((((long)(Now - BarcodeStitchArray[i].TimeStamp).TotalMilliseconds > Timeout) || (BarcodeStitchArray[i].UPImage != null && BarcodeStitchArray[i].BarcodeImage != null)) && !BarcodeStitchArray[i].handled && captionEnable && extCaptionEnable)
+                    if ((((long)(Now - curobj.TimeStamp).TotalMilliseconds > Timeout) || (curobj.UPImage != null && curobj.BarcodeImage != null)) && !curobj.handled && captionEnable && extCaptionEnable)
                     {
                         int index = -1;
                         ExternalCaptionInfo Info = null;
                         lock (ExternalCaptionInfoListLock)
                         {
-                            index = FindExternalCaptionInfoListIndex(BarcodeStitchArray[i].BoxID);
+                            index = FindExternalCaptionInfoListIndex(curobj.BoxID);
                             if (index > -1)
                             {
                                 Info = ExternalCaptionInfoList[index];
@@ -8247,28 +8467,29 @@ namespace 存图助手标准版
                         }
                         if (Info != null)
                         {
-                            BarcodeStitchArray[i].extDescription = Info.extDescription;
+                            curobj.extDescription = Info.extDescription;
                         }
                     }
-                    if ((((long)(Now - BarcodeStitchArray[i].TimeStamp).TotalMilliseconds > Timeout) || (BarcodeStitchArray[i].UPImage != null && BarcodeStitchArray[i].BarcodeImage != null && (!extCaptionEnable || BarcodeStitchArray[i].extDescription != "")))  && !BarcodeStitchArray[i].handled)
+                    if ((((long)(Now - curobj.TimeStamp).TotalMilliseconds > Timeout) || (curobj.UPImage != null && curobj.BarcodeImage != null && (!extCaptionEnable || curobj.extDescription != "")))  && !curobj.handled)
                     {
                         Stopwatch sw = new Stopwatch();
                         sw.Start();
                         logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "StationName: " + StationName + "GroupID: " + GroupID + "开始局部拼图！";
                         AddLog(logcontent, LogContentArray);
-                        bool HandleOK = HandleBarcodeStitchPic(BarcodeStitchArray[i]);
+                        bool HandleOK = HandleBarcodeStitchPic(curobj);
                         sw.Stop();
                         logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "StationName: " + StationName + "GroupID: " + GroupID + "局部拼图耗时:" + sw.ElapsedMilliseconds + "ms!";
                         AddLog(logcontent, LogContentArray);
                         if (HandleOK)
                         {
-                            BarcodeStitchArray[i].handled = true;
+                            curobj.handled = true;
                         }
                     }
-                    if (((long)(Now - BarcodeStitchArray[i].TimeStamp).TotalMilliseconds > Timeout) || BarcodeStitchArray[i].handled)
+                    if (((long)(Now - curobj.TimeStamp).TotalMilliseconds > Timeout) || curobj.handled)
                     {
-                        FileInfo UPImage = BarcodeStitchArray[i].UPImage;
-                        FileInfo BarcodeImage = BarcodeStitchArray[i].BarcodeImage;
+                        FileInfo UPImage = curobj.UPImage;
+                        FileInfo BarcodeImage = curobj.BarcodeImage;
+                        List<FileInfo> NRImage = curobj.NRImage;
                         if (UPImage != null)
                         {
                             try
@@ -8293,8 +8514,27 @@ namespace 存图助手标准版
                             }
                             catch (Exception ex) { }
                         }
+                        for (int id = 0; id < NRImage.Count; id++)
+                        {
+                            try
+                            {
+                                FileInfo NRIMG = null;
+                                lock (curobj.NRLock)
+                                {
+                                    NRIMG = NRImage[id];
+                                }
+                                if (NRIMG != null)
+                                {
+                                    if (NRIMG.Exists)
+                                    {
+                                        NRIMG.Delete();
+                                    }
+                                }
+                            }
+                            catch { }
+                        }
                         string reason = "";
-                        if (BarcodeStitchArray[i].handled)
+                        if (curobj.handled)
                         {
                             reason = "handled";
                         }
@@ -8306,6 +8546,7 @@ namespace 存图助手标准版
                         {
                             BarcodeStitchArray.RemoveAt(i);
                             i--;
+                            count--;
                         }
                         logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "StationName: " + StationName + "GroupID: " + GroupID + " has been deleted from " + ArrayName + " for reason: " + reason + "!";
                         AddLog(logcontent, LogContentArray);
@@ -8317,6 +8558,7 @@ namespace 存图助手标准版
                     {
                         BarcodeStitchArray.RemoveAt(i);
                         i--;
+                        count--;
                     }
                 }
             }
@@ -11964,7 +12206,7 @@ namespace 存图助手标准版
                                             CurrentMaster.BcrName.Add(N1);
                                         }
                                     }
-                                    else if (N1 == N2)
+                                    else if (N1 == N2 && N2 != "None")
                                     {
                                         CurrentMaster.BarcodeImagePresent = true;
                                     }
@@ -11976,7 +12218,7 @@ namespace 存图助手标准版
                                     {
                                         CurrentMaster.time++;
                                     }
-                                    else if(N1 == N2)
+                                    else if(N1 == N2 && N2 != "None")
                                     {
                                         CurrentMaster.BarcodeImagePresent = true;
                                         CurrentMaster.time++;
@@ -12146,7 +12388,17 @@ namespace 存图助手标准版
                         //SystemLog(logpath, logcontent, MasterArray);
                     }
                 }
-                if (BarcodeImgEnable && (BarcodeImgMode == "拼接"|| BarcodeImgMode == "stitched")  && (N1.StartsWith("UP") || (N1 == N2 && !currentmaster.BarcodeImagePresent)) && InductID != "一区" && InductID != "二区" && N2 != "None")//局部图片开启、处于拼接模式、供包台禁用、成功读取时顶部以及局部图片需要加入BarcodeStitchObj中，并移到暂存文件夹
+                bool NRStitch = false;
+                bool isBarcodeImg = !(N1.StartsWith("UP") || N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
+#if !FEATURE_VPRO
+                if (compiled_model != null)
+                {
+                    NRStitch = true;
+                }
+#else
+                NRStitch = false;
+#endif
+                if (BarcodeImgEnable && (BarcodeImgMode == "拼接"|| BarcodeImgMode == "stitched")  && ((N1.StartsWith("UP") && (N2 != "None" || NRStitch)) || (N1 == N2 && !currentmaster.BarcodeImagePresent && N2 != "None") || (N2 == "None" && NRStitch && isBarcodeImg) ) && InductID != "一区" && InductID != "二区")//局部图片开启、处于拼接模式、供包台禁用、成功读取时顶部以及局部图片需要加入BarcodeStitchObj中，并移到暂存文件夹
                 {
                     string boxidtext = SorterBoxIDFormat;
                     boxidtext = boxidtext.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
@@ -12154,18 +12406,42 @@ namespace 存图助手标准版
                     boxidtext = boxidtext.Replace("#None", "");
                     FtpFileName = FtpFileName.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
                     FtpFileName = FtpFileName.Replace("#N0", N0).Replace("#N1", N1.Replace("Master", "").Replace("master", "")).Replace("#N2", N2).Replace("#N3", N3).Replace("#N4", N4).Replace("#N5", N5).Replace("#N6", N6);
-                    FtpFileName = FtpFileName.Replace("#yyyy", Year).Replace("#MM", Month).Replace("#dd", Day).Replace("#HH", Hour).Replace("#mm", Minute).Replace("#ss", Second).Replace("#fff", Millisecond).Replace("#ANA", "NA");
+                    FtpFileName = FtpFileName.Replace("#yyyy", Year).Replace("#MM", Month).Replace("#dd", Day).Replace("#HH", Hour).Replace("#mm", Minute).Replace("#ss", Second).Replace("#fff", Millisecond);
+                    if (N2 == "None" && NRStitch)
+                    {
+
+                    }
+                    else
+                    {
+                        FtpFileName = FtpFileName.Replace("#ANA", "NA");
+                    }
                     FtpFileName = FtpFileName.Replace(@"/", "").Replace(@"\", "").Replace(@":", "").Replace(@"*", "").Replace(@"?", "").Replace("\"", "").Replace(@"<", "").Replace(@">", "").Replace(@"|", "");
                     DirName = DirName.Replace("#None", "").Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
                     DirName = DirName.Replace("#N0", N0).Replace("#N1", N1.Replace("Master", "").Replace("master", "")).Replace("#N2", N2).Replace("#N3", N3).Replace("#N4", N4).Replace("#N5", N5).Replace("#N6", N6);
-                    DirName = DirName.Replace("#yyyy", Year).Replace("#MM", Month).Replace("#dd", Day).Replace("#HH", Hour).Replace("#mm", Minute).Replace("#ss", Second).Replace("#fff", Millisecond).Replace("#ANA", "");
+                    DirName = DirName.Replace("#yyyy", Year).Replace("#MM", Month).Replace("#dd", Day).Replace("#HH", Hour).Replace("#mm", Minute).Replace("#ss", Second).Replace("#fff", Millisecond);
+                    if (N2 == "None" && NRStitch)
+                    {
+
+                    }
+                    else
+                    {
+                        DirName = DirName.Replace("#ANA", "");
+                    }
                     DirName = DirName.Replace(@"/", @"\").Replace(@":", "").Replace(@"*", "").Replace(@"?", "").Replace("\"", "").Replace(@"<", "").Replace(@">", "").Replace(@"|", "");
                     FullDir = RootDir + "\\" + DirName;
                     FullDir = FullDir.Replace(@"/", @"\").Replace(@"*", "").Replace(@"?", "").Replace("\"", "").Replace(@"<", "").Replace(@">", "").Replace(@"|", "");
                     FullDir = MultiSlash.Replace(FullDir, "\\");//本地路径
                     FileName = FileName.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
                     FileName = FileName.Replace("#N0", N0).Replace("#N1", N1.Replace("Master", "").Replace("master", "")).Replace("#N2", N2).Replace("#N3", N3).Replace("#N4", N4).Replace("#N5", N5).Replace("#N6", N6);
-                    FileName = FileName.Replace("#yyyy", Year).Replace("#MM", Month).Replace("#dd", Day).Replace("#HH", Hour).Replace("#mm", Minute).Replace("#ss", Second).Replace("#fff", Millisecond).Replace("#ANA", "NA");
+                    FileName = FileName.Replace("#yyyy", Year).Replace("#MM", Month).Replace("#dd", Day).Replace("#HH", Hour).Replace("#mm", Minute).Replace("#ss", Second).Replace("#fff", Millisecond);
+                    if (N2 == "None" && NRStitch)
+                    {
+
+                    }
+                    else
+                    {
+                        FileName = FileName.Replace("#ANA", "NA");
+                    }
                     FileName = FileName.Replace(@"/", "").Replace(@"\", "").Replace(@":", "").Replace(@"*", "").Replace(@"?", "").Replace("\"", "").Replace(@"<", "").Replace(@">", "").Replace(@"|", "");
                     /*HttpFileName = HttpFileName.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
                     HttpFileName = HttpFileName.Replace("#N0", N0).Replace("#N1", N1.Replace("Master","").Replace("master","")).Replace("#N2", N2).Replace("#N3", N3).Replace("#N4", N4).Replace("#N5", N5).Replace("#N6", N6);
@@ -12175,7 +12451,15 @@ namespace 存图助手标准版
                     string temp_filename_header = FtpSubFolder1 + "~" + FtpSubFolder2 + "~" + FtpSubFolder3 + "~" + FtpSubFolder4 + "~" + FtpSubFolder5;
                     temp_filename_header = temp_filename_header.Replace("#None", "").Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
                     temp_filename_header = temp_filename_header.Replace("#N0", N0).Replace("#N1", N1.Replace("Master", "").Replace("master", "")).Replace("#N2", N2).Replace("#N3", N3).Replace("#N4", N4).Replace("#N5", N5).Replace("#N6", N6);
-                    temp_filename_header = temp_filename_header.Replace("#yyyy", Year).Replace("#MM", Month).Replace("#dd", Day).Replace("#HH", Hour).Replace("#mm", Minute).Replace("#ss", Second).Replace("#fff", Millisecond).Replace("#ANA", "");
+                    temp_filename_header = temp_filename_header.Replace("#yyyy", Year).Replace("#MM", Month).Replace("#dd", Day).Replace("#HH", Hour).Replace("#mm", Minute).Replace("#ss", Second).Replace("#fff", Millisecond);
+                    if (N2 == "None" && NRStitch)
+                    {
+
+                    }
+                    else
+                    {
+                        temp_filename_header = temp_filename_header.Replace("#ANA", "");
+                    }
                     temp_filename_header = temp_filename_header.Replace(@"/", "~").Replace(@"\", "~").Replace(@":", "").Replace(@"*", "").Replace(@"?", "").Replace("\"", "").Replace(@"<", "").Replace(@">", "").Replace(@"|", "");
                     temp_filename_header = Multibar.Replace(temp_filename_header, "~");
                     temp_filename_header = Startbar.Replace(temp_filename_header, "");
@@ -12186,7 +12470,15 @@ namespace 存图助手标准版
                     description = CaptionFormat;
                     description = description.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
                     description = description.Replace("#N0", N0).Replace("#N1", "DN01").Replace("#N2", N2).Replace("#N3", N3).Replace("#N4", N4).Replace("#N5", N5).Replace("#N6", N6);
-                    description = description.Replace("#yyyy", Year).Replace("#MM", Month).Replace("#dd", Day).Replace("#HH", Hour).Replace("#mm", Minute).Replace("#ss", Second).Replace("#fff", Millisecond).Replace("#ANA", "N/A"); ;
+                    description = description.Replace("#yyyy", Year).Replace("#MM", Month).Replace("#dd", Day).Replace("#HH", Hour).Replace("#mm", Minute).Replace("#ss", Second).Replace("#fff", Millisecond);
+                    if (N2 == "None" && NRStitch)
+                    {
+
+                    }
+                    else
+                    {
+                        description = description.Replace("#ANA", "N/A");
+                    }
                     string pos = "";
                     pos = PosFormat;
                     pos = pos.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
@@ -12219,7 +12511,7 @@ namespace 存图助手标准版
                             if (N1.StartsWith("UP"))
                             {
                                 //BottomObj = new BottomStitchObject(N0, N12, description, file.CreationTime, FullDir, filename_url, ftpTempDir, temp_filename_url);
-                                BarcodeStitchObj = new BarcodeStitchObject(N0, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, N12, description, DateTime.Now, FullDir, filename_url, ftpTempDir, temp_filename_url, pos, "0;0;0;0;0;0;0;0", Timestamp,boxidtext, parcelHeight);
+                                BarcodeStitchObj = new BarcodeStitchObject(N0, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, N12, description, DateTime.Now, FullDir, FileName, ftpTempDir, temp_filename_header, FtpFileName, pos, "0;0;0;0;0;0;0;0", Timestamp,boxidtext, parcelHeight);
                                 lock (BarcodeStitchArrayLock)
                                 {
                                     BarcodeStitchArray.Add(BarcodeStitchObj);
@@ -12262,7 +12554,7 @@ namespace 存图助手标准版
                         string failreason = "File not existed!";
                         if (file.Exists)
                         {
-                            if ((N1.StartsWith("UP") && BarcodeStitchObj.UPImage == null) || (!N1.StartsWith("UP") && BarcodeStitchObj.BarcodeImage == null))
+                            if ((N1.StartsWith("UP") && BarcodeStitchObj.UPImage == null) || (!N1.StartsWith("UP") && ((N1 == N2 && BarcodeStitchObj.BarcodeImage == null && N2 != "None") || N2 == "None")))
                             {
                                 logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] Trying to move file: " + file.Name + " to barcode stitch temp position: " + barcode_stitch_url + "!";
                                 AddLog(logcontent, LogContentArray);
@@ -12284,17 +12576,26 @@ namespace 存图助手标准版
                         file.Refresh();
                         if (file.FullName != Originalname)//判断是否成功传输
                         {
-                            if (N1.StartsWith("UP"))
+                            if ((N1.StartsWith("UP") && (N2 != "None" || NRStitch)))
                             {
                                 //这边要加入顶部图片;
                                 BarcodeStitchObj.N1 = N1;
                                 BarcodeStitchObj.UPImage = file;
                                 HandleOK = 2;
                             }
-                            else 
+                            else if ((N1 == N2 && BarcodeStitchObj.BarcodeImage == null && N2 != "None"))
                             {
                                 //这边要局部图片
                                 BarcodeStitchObj.BarcodeImage = file;
+                                HandleOK = 2;
+                            }
+                            else
+                            {
+                                //这边要无读图片
+                                lock (BarcodeStitchObj.NRLock)
+                                {
+                                    BarcodeStitchObj.NRImage.Add(file);
+                                }
                                 HandleOK = 2;
                             }
                             logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + file.Name + " has been moved to barcode stitch temp position: " + barcode_stitch_url + "!";
@@ -12321,7 +12622,7 @@ namespace 存图助手标准版
                     {
                         bool flag1 = N1.StartsWith("UP");
                         bool flag2 = N1 == N2 && BarcodeImgEnable && N2 != "None" && !currentmaster.BarcodeImagePresent;
-                        bool flag22 = BarcodeImgEnable && BarcodeImgMode != "拼接" && BarcodeImgMode != "stitched" && N2 != "None" && !(N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("DN") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
+                        bool flag22 = BarcodeImgEnable && BarcodeImgMode != "拼接" && BarcodeImgMode != "stitched" && N2 != "None" && !(N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
                         bool flag3 = (!TopOnlyOnRead || N2 == "None") && (N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("DN") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
                         if (flag1 || flag22 || flag3)//要处理的图片
                         {
@@ -13312,7 +13613,7 @@ namespace 存图助手标准版
                 }
                 logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "GroupID: " + master.N0 + " is not found in " + MasterName + " so a new master is created " + file.Name + " is the current file!";
                 AddLog(logcontent, LogContentArray);
-                if (httpUpload && !captionEnable && InductID != "一区" && InductID != "二区" && !(BarcodeImgEnable && (BarcodeImgMode == "拼接" || BarcodeImgMode == "stitched")))//启用局部读码图片拼接或启用水印或者打开供包台绑定功能的工位暂时不把master加入HttpArray
+                if (httpUpload && !captionEnable && InductID != "一区" && InductID != "二区" && !(N2 !="None" && BarcodeImgEnable && (BarcodeImgMode == "拼接" || BarcodeImgMode == "stitched")))//启用局部读码图片拼接或启用水印或者打开供包台绑定功能的工位暂时不把master加入HttpArray
                 {
                     lock (HttpArrayLock)
                     {
@@ -13871,7 +14172,7 @@ namespace 存图助手标准版
                 catch (Exception ex) { }
             }
         }
-        public void DrawCaptionOpencv(FileInfo File, string description,string local_fullname, string pos,bool drawborder, calObject calobj, double parcelHeight, bool isUP)
+        public void DrawCaptionOpencv(FileInfo File, string description,string local_fullname, string pos,bool drawborder, calObject calobj, double parcelHeight, bool isUP, OpenCvSharp.Rect rect)
         {
             Mat srcImg = null;
             string[] des = Regex.Split(description, "\r\n");
@@ -13929,6 +14230,10 @@ namespace 存图助手标准版
                         srcImg = Cv2.ImRead(File.FullName);
                         if (!srcImg.Empty())
                         {
+                            if (rect.Width != 0 && rect.Height != 0)
+                            {
+                                Cv2.Rectangle(srcImg, rect, Scalar.Red, 2, LineTypes.Link8);
+                            }
                             if (isUP && GridLineEnable && parcelHeight > 0 && parcelHeight < MountingHeight)
                             {
                                 GridLine(srcImg, srcImg.Cols, srcImg.Rows, parcelHeight, 20);
@@ -14104,7 +14409,7 @@ namespace 存图助手标准版
                 
             }
         }
-        public void DrawCaptionGDI(FileInfo File, string description, string local_fullname, string pos, bool drawborder, calObject calobj, double parcelHeight, bool isUP)
+        public void DrawCaptionGDI(FileInfo File, string description, string local_fullname, string pos, bool drawborder, calObject calobj, double parcelHeight, bool isUP, OpenCvSharp.Rect rect)
         {
             Image newImage = null;
             Image image = null;
@@ -14115,6 +14420,8 @@ namespace 存图助手标准版
             Font font2 = null;
             SolidBrush sb2 = null;
             Pen pen2 = null;
+            SolidBrush sb3 = null;
+            Pen pen3 = null;
             int x1 = -1, y1 = -1, x2 = -1, y2 = -1, x3 = -1, y3 = -1, x4 = -1, y4 = -1;
             int X1 = 0, Y1 = 0, Z1 = 0, X2 = 0, Y2 = 0, Z2 = 0, X3 = 0, Y3 = 0, Z3 = 0, X4 = 0, Y4 = 0, Z4 = 0;
             double r11 = calobj.r11;
@@ -14162,6 +14469,7 @@ namespace 存图助手标准版
                 
                 sb = new SolidBrush(Color.FromArgb(255, 0, 255, 0));
                 sb2 = new SolidBrush(Color.White);
+                sb3 = new SolidBrush(Color.Red); 
                 if (File is FileInfo)
                 {
                     File.Refresh();
@@ -14175,6 +14483,7 @@ namespace 存图助手标准版
                         font = new Font("宋体", image.Width/50);
                         font2 = new Font("宋体", image.Width / 80);
                         pen2 = new Pen(sb2, image.Width / 1000);
+                        pen3 = new Pen(sb3, image.Width / 1000);
                         if (isUP && GridLineEnable && parcelHeight > 0 && parcelHeight < MountingHeight)
                         {
                             
@@ -14184,6 +14493,10 @@ namespace 存图助手标准版
                         if (description != "")
                         {
                             g.DrawString(description, font, sb, p);
+                        }
+                        if (rect.Width != 0 && rect.Height != 0)
+                        {
+                            g.DrawRectangle(pen3, new Rectangle(rect.X, rect.Y, rect.Width, rect.Height));
                         }
                         if (posValid && allowPackageBorder && calobj.calOK && drawborder)
                         {
@@ -14201,6 +14514,7 @@ namespace 存图助手标准版
                             g.DrawLine(pen, x2, y2, x3, y3);
                             g.DrawLine(pen, x3, y3, x4, y4);
                             g.DrawLine(pen, x4, y4, x1, y1);
+                            
                         }
                         g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
                         g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
@@ -14253,6 +14567,14 @@ namespace 存图助手标准版
                 if (pen2 != null)
                 {
                     pen2.Dispose();
+                }
+                if (sb3 != null)
+                {
+                    sb3.Dispose();
+                }
+                if (pen3 != null)
+                {
+                    pen3.Dispose();
                 }
             }
         }
@@ -15026,6 +15348,9 @@ namespace 存图助手标准版
             string ftpFolder = ftp_temp_url1;
             string logcontent = "";
             ArrayList LogContentArray = null;
+            long yolotime = 0;
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
 #if FEATURE_VPRO
             CogImageFileTool mImageFileTool = mImageFileTool1;
             if (folder == caption_url1)
@@ -15073,7 +15398,7 @@ namespace 存图助手标准版
                 */
                 try
                 {
-                    if ((DateTime.Now - file.CreationTime).TotalMilliseconds >= 300)
+                    if ((DateTime.Now - file.CreationTime).TotalMilliseconds >= 800)
                     {
                         MasterImage master = null;
                         FileInfo fileInfo = null;//加完水印的图片
@@ -15475,6 +15800,11 @@ namespace 存图助手标准版
                                 parcelHeight = -1;
                             }
                         }
+                        OpenCvSharp.Rect rect = new Rect();
+                        rect.X = 0;
+                        rect.Y = 0;
+                        rect.Width = 0;
+                        rect.Height = 0;
                         if (NoReadAnalysisEnable)
                         {
                             string NoReadReason = "N/A";
@@ -15484,6 +15814,46 @@ namespace 存图助手标准版
                                 //AddLog(logcontent, LogContentArray);
 #if FEATURE_VPRO
                                 NoReadReason = NoReadAnalyzeFromFile(file, mImageFileTool, LogContentArray, file.FullName);
+#else
+                                
+                                Mat m = null;
+                                try
+                                {
+                                    if (SaveRawImg)
+                                    {
+                                        if (!Directory.Exists(NR_Raw))
+                                        {
+                                            Directory.CreateDirectory(NR_Raw);
+                                        }
+                                        file.CopyTo(NR_Raw + "\\" + FileName, true);
+                                    }
+                                    m = Cv2.ImRead(file.FullName, ImreadModes.Color);
+                                    if (compiled_model != null)
+                                    {
+                                        Tuple<int, OpenCvSharp.Rect, long> resultTuple = yolov5_det(compiled_model, m, device);
+                                        int reasonindex = resultTuple.Item1;
+
+                                        rect = resultTuple.Item2;
+                                        yolotime = resultTuple.Item3;
+                                        if (reasonindex > -1 && reasonindex < Reasons.Length)
+                                        {
+                                            NoReadReason = Reasons[reasonindex];
+                                        }
+                                        else if (reasonindex == -1)
+                                        {
+                                            NoReadReason = "No Code";
+                                        }
+                                    }
+                                }
+                                catch
+                                { }
+                                finally
+                                {
+                                    if (m != null)
+                                    {
+                                        m.Dispose();
+                                    }
+                                }
 #endif
                                 //logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "文件: " + file.FullName + " Finished No Read Analysis!";
                                 //AddLog(logcontent, LogContentArray);
@@ -15532,8 +15902,7 @@ namespace 存图助手标准版
                         }
                         if (!System.IO.File.Exists(local_fullname))
                         {
-                            Stopwatch sw = new Stopwatch();
-                            sw.Start();
+                            
                             bool drawborder = false;
                             bool isUP = false;
                             if (N1.StartsWith("UP"))
@@ -15555,11 +15924,11 @@ namespace 存图助手标准版
                                     {
                                         DrawCaptionGDI(srcImg, description, local_fullname, pos, drawborder, calobj);
                                     }*/
-                                    DrawCaptionGDI(file, description, local_fullname, pos, drawborder, calobj, parcelHeight, isUP);
+                                    DrawCaptionGDI(file, description, local_fullname, pos, drawborder, calobj, parcelHeight, isUP, rect);
                                 }
                                 else
                                 {
-                                    DrawCaptionOpencv(file, description, local_fullname, pos, drawborder, calobj, parcelHeight,isUP);
+                                    DrawCaptionOpencv(file, description, local_fullname, pos, drawborder, calobj, parcelHeight, isUP, rect);
                                 }
                                 if (System.IO.File.Exists(local_fullname))
                                 {
@@ -15570,7 +15939,7 @@ namespace 存图助手标准版
                                     }
                                 }
                                 sw.Stop();
-                                logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "文件名: " + FileName + "水印: " + sw.ElapsedMilliseconds + "ms";
+                                logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "文件名: " + FileName + "水印: " + sw.ElapsedMilliseconds + "ms 未读取分析: " + yolotime + "ms";
                                 AddLog(logcontent, LogContentArray);
                             }
                             catch (Exception ex)
@@ -15750,6 +16119,208 @@ namespace 存图助手标准版
                 }
             }
             return NoReadReason;
+        }
+#else
+        static Tuple<int, OpenCvSharp.Rect, long> yolov5_det(CompiledModel compiled_model, Mat imageraw, string device)
+        {
+            Stopwatch sw = new Stopwatch();
+            long time = 0;
+            OpenCvSharp.Rect primaryRect = new OpenCvSharp.Rect();
+            primaryRect.X = 0;
+            primaryRect.Y = 0;
+            primaryRect.Width = 0;
+            primaryRect.Height = 0;
+            int primaryIndex = -1;
+            int item_count = 0;
+            double factor0 = (double)(imageraw.Cols * 1.0 / (W * 1.0));
+            double factor1 = (double)(imageraw.Rows * 1.0 / (H * 1.0));
+            double factor = Math.Max(factor0, factor1);
+            double resizedH = (imageraw.Rows * 1.0) / factor;
+            double resizedW = (imageraw.Cols * 1.0) / factor;
+
+
+            Mat image = null;
+            Mat image_convert = null;
+            Mat result_data = null;
+            Mat classes_scores = null;
+            lock (YOLOLock)
+            {
+                try
+                {
+                    // -------- Step 4. Create an infer request --------
+                    sw.Restart();
+                    InferRequest infer_request = compiled_model.create_infer_request();
+                    sw.Stop();
+                    time += sw.ElapsedMilliseconds;
+                    Slog.INFO("4. Create an infer request success, time spend:" + sw.ElapsedMilliseconds + "ms.");
+                    // -------- Step 5. Process input images --------
+                    sw.Restart();
+                    image_convert = imageraw.Clone();
+                    image = new Mat(H, W, MatType.CV_8UC3, Scalar.Black);
+
+                    Cv2.Resize(image_convert, image_convert, new OpenCvSharp.Size(resizedW, resizedH));
+                    image[0, (int)Math.Floor(resizedH), 0, (int)Math.Floor(resizedW)] = image_convert[0, (int)Math.Floor(resizedH), 0, (int)Math.Floor(resizedW)];
+                    Cv2.CvtColor(image, image, ColorConversionCodes.BGR2RGB);
+                    image.ConvertTo(image, MatType.CV_32FC3, 1.0 / 255.0);
+                    float[] input_data = Permute.run(image);
+                    sw.Stop();
+                    time += sw.ElapsedMilliseconds;
+                    Slog.INFO("5. Process input images success, time spend:" + sw.ElapsedMilliseconds + "ms.");
+                    // -------- Step 6. Set up input data --------
+                    sw.Restart();
+                    Tensor input_tensor = infer_request.get_input_tensor();
+                    /*
+                    Shape input_shape = input_tensor.get_shape();
+                    Mat input_mat = CvDnn.BlobFromImage(image, 1.0 / 255.0, new OpenCvSharp.Size(input_shape[3], input_shape[2]), new Scalar(0), true, false);
+                    float[] input_data = new float[input_shape[1] * input_shape[2] * input_shape[3]];
+                    Marshal.Copy(input_mat.Ptr(0), input_data, 0, input_data.Length);
+                    */
+                    input_tensor.set_data<float>(input_data);
+                    sw.Stop();
+                    time += sw.ElapsedMilliseconds;
+                    Slog.INFO("6. Set up input data success, time spend:" + sw.ElapsedMilliseconds + "ms.");
+                    // -------- Step 7. Do inference synchronously --------
+                    sw.Restart();
+                    infer_request.infer();
+                    sw.Stop();
+                    time += sw.ElapsedMilliseconds;
+                    Slog.INFO("7. Do inference synchronously success, time spend:" + sw.ElapsedMilliseconds + "ms.");
+                    // -------- Step 8. Get infer result data --------
+                    sw.Restart();
+                    Tensor output_tensor = infer_request.get_output_tensor();
+                    int output_length = (int)output_tensor.get_size();
+                    float[] output_data = output_tensor.get_data<float>(output_length);
+                    sw.Stop();
+                    time += sw.ElapsedMilliseconds;
+                    Slog.INFO("8. Get infer result data success, time spend:" + sw.ElapsedMilliseconds + "ms.");
+
+                    // -------- Step 9. Process reault  --------
+                    sw.Restart();
+
+                    //Mat result_data = new Mat(9009, 9, MatType.CV_32F, output_data);
+                    result_data = Mat.FromPixelData((int)Math.Round(W / 32.0) * (int)Math.Round(H / 32.0) * 21 * 3, class_num + 5, MatType.CV_32F, output_data);
+                    // Storage results list
+                    List<OpenCvSharp.Rect> position_boxes = new List<OpenCvSharp.Rect>();
+                    List<int> class_ids = new List<int>();
+                    List<float> confidences = new List<float>();
+                    unsafe
+                    {
+                        float* f = (float*)result_data.DataStart.ToPointer();
+                        // Preprocessing output results
+                        for (int i = 0; i < result_data.Rows; i++)
+                        {
+                            f += 4;
+                            float confidence = *f;
+                            //float confidence = result_data.At<float>(i, 4);
+                            if (confidence < 0.5)
+                            {
+                                f += class_num + 1;
+                                continue;
+                            }
+                            classes_scores = new Mat(result_data, new OpenCvSharp.Rect(5, i, class_num, 1));
+                            OpenCvSharp.Point max_classId_point, min_classId_point;
+                            double max_score, min_score;
+                            // Obtain the maximum value and its position in a set of data
+                            Cv2.MinMaxLoc(classes_scores, out min_score, out max_score,
+                                out min_classId_point, out max_classId_point);
+                            // Confidence level between 0 ~ 1
+                            // Obtain identification box information
+                            if (max_score > 0.45)
+                            {
+                                f--;
+                                float oh = *f;
+                                f--;
+                                float ow = *f;
+                                f--;
+                                float cy = *f;
+                                f--;
+                                float cx = *f;
+                                f += class_num + 5;
+                                /*float cx = result_data.At<float>(i, 0);
+                                float cy = result_data.At<float>(i, 1);
+                                float ow = result_data.At<float>(i, 2);
+                                float oh = result_data.At<float>(i, 3);*/
+                                /*int x = (int)((cx - 0.5 * ow) * factor0);
+                                int y = (int)((cy - 0.5 * oh) * factor1);
+                                int width = (int)(ow * factor0);
+                                int height = (int)(oh * factor1);*/
+                                int x = (int)Math.Round((cx - 0.5 * ow) * factor);
+                                int y = (int)Math.Round((cy - 0.5 * oh) * factor);
+                                int width = (int)Math.Round(ow * factor);
+                                int height = (int)Math.Round(oh * factor);
+                                OpenCvSharp.Rect box = new OpenCvSharp.Rect();
+                                box.X = x;
+                                box.Y = y;
+                                box.Width = width;
+                                box.Height = height;
+
+                                position_boxes.Add(box);
+                                class_ids.Add(max_classId_point.X);
+                                confidences.Add((float)confidence);
+                            }
+                            else
+                            {
+                                f += class_num + 1;
+                            }
+                        }
+                    }
+                    // NMS non maximum suppression
+                    int[] indexes = new int[position_boxes.Count];
+                    CvDnn.NMSBoxes(position_boxes, confidences, 0.5f, 0.5f, out indexes);
+
+                    sw.Stop();
+                    time += sw.ElapsedMilliseconds;
+                    Slog.INFO("9. Process reault  success, time spend:" + sw.ElapsedMilliseconds + "ms.");
+                    sw.Restart();
+
+                    for (int i = 0; i < indexes.Length; i++)
+                    {
+                        if (i == 0)
+                        {
+                            int index = indexes[i];
+                            /*
+                            Cv2.Rectangle(imageraw, position_boxes[index], new Scalar(0, 0, 255), 2, LineTypes.Link8);
+                            Cv2.Rectangle(imageraw, new OpenCvSharp.Point(position_boxes[index].TopLeft.X, position_boxes[index].TopLeft.Y + 30),
+                                new OpenCvSharp.Point(position_boxes[index].BottomRight.X, position_boxes[index].TopLeft.Y), new Scalar(0, 255, 255), -1);
+
+
+                            Cv2.PutText(imageraw, class_ids[index] + "-" + confidences[index].ToString("0.00"),
+                                new OpenCvSharp.Point(position_boxes[index].X, position_boxes[index].Y + 25),
+                                HersheyFonts.HersheySimplex, 0.8, new Scalar(0, 0, 0), 2);
+                            */
+                            primaryIndex = class_ids[index];
+                            primaryRect = position_boxes[index];
+                        }
+                    }
+                    sw.Stop();
+                    time += sw.ElapsedMilliseconds;
+                    Slog.INFO("Draw Result time spend:" + sw.ElapsedMilliseconds + "ms.");
+                    Slog.INFO("Total Time: " + time);
+                    item_count = indexes.Length;
+                }
+                catch { }
+                finally
+                {
+                    if (image != null)
+                    {
+                        image.Dispose();
+                    }
+                    if (image_convert != null)
+                    {
+                        image_convert.Dispose();
+                    }
+                    if (result_data != null)
+                    {
+                        result_data.Dispose();
+                    }
+                    if (classes_scores != null)
+                    {
+                        classes_scores.Dispose();
+                    }
+                }
+            }
+            return Tuple.Create(primaryIndex, primaryRect, time);
+
         }
 #endif
         private void CaptionEnableCheck_CheckedChanged(object sender, EventArgs e)

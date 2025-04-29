@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OpenVINO_CSharp_API_Extensions</name>
+    </assembly>
+    <members>
+        <member name="T:OpenVinoSharp.Extensions.NamespaceDoc">
+            <summary>
+            Customized OpenVINO application extension class, mainly 
+            including self-defined classes and methods.
+            </summary>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.Benchmark">
+            <summary>
+            Model performance evaluation class
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.Benchmark.sync_benchmark(System.String,System.String)">
+            <summary>
+            This sample demonstrates how to estimate performance of a model using Synchronous Inference Request API. 
+            </summary>
+            <param name="model_path">The inference model path.</param>
+            <param name="device_name">The device name, default="CPU".</param>
+            <returns>Running status code.</returns>
+        </member>
+        <member name="T:OpenVinoSharp.Extensions.Common">
+            <summary>
+            Public method class.
+            </summary>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.Common.fill_tensor_random(OpenVinoSharp.Tensor)">
+            <summary>
+            Fill the tensor with random data.
+            </summary>
+            <param name="tensor">The model tensor.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.OvExtensions.printf_model_info(OpenVinoSharp.Model)">
+            <summary>
+            Print the input and output information of the model
+            </summary>
+            <param name="model">The openvino model.</param>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.utility.Utility.argsort(System.Collections.Generic.List{System.Single})">
+            <summary>
+            Obtain the original position of the arranged array.
+            </summary>
+            <param name="array">The original array.</param>
+            <returns>The position after arrangement.</returns>
+        </member>
+        <member name="M:OpenVinoSharp.Extensions.utility.Utility.argsort(System.Single[])">
+            <summary>
+            Obtain the original position of the arranged array.
+            </summary>
+            <param name="array">The original array.</param>
+            <returns>The position after arrangement.</returns>
+        </member>
+    </members>
+</doc>

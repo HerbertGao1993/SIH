@@ -6041,7 +6041,7 @@ namespace 存图助手标准版
                         fs.Close();
                         stream.Close();
                         stream.Dispose();
-                        Uploadreq.Abort();
+                        //Uploadreq.Abort();
                         return 0;
                     }
                     fs.Close();
@@ -6064,19 +6064,19 @@ namespace 存图助手标准版
                         }
                         */
                         fs.Close();
-                        Uploadreq.Abort();
+                        //Uploadreq.Abort();
                         return 0;
                     }
                     else if (ex.Message.IndexOf("550") != -1 || ex.Message.IndexOf("551") != -1 || ex.Message.IndexOf("552") != -1 || ex.Message.IndexOf("553") != -1)
                     {
                         fs.Close();
-                        Uploadreq.Abort();
+                        //Uploadreq.Abort();
                         return 2;
                     }
                     else
                     {
                         fs.Close();
-                        Uploadreq.Abort();
+                        //Uploadreq.Abort();
                         return 0;
                     }
                 }
@@ -6085,7 +6085,7 @@ namespace 存图助手标准版
             {
                 logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + File.Name + " does not exist!";
                 AddLog(logcontent, LogContentArray);
-                Uploadreq.Abort();
+                //Uploadreq.Abort();
                 return 0;
             }
         }
@@ -6143,9 +6143,53 @@ namespace 存图助手标准版
                 return false;
             }
         }
-
-        //判断文件的目录是否存在,不存在则创建  
         public void FtpCheckDirectoryExist(string destFilePath, string ServerIP, string FTPPort, NetworkCredential Credential, ref int LogFailureNum)
+        {
+            try
+            {
+                string fullDir = FtpParseDirectory(destFilePath);
+                string[] dirs = fullDir.Split('/');
+                for (int id = dirs.Length - 1; id >= 0; id--)
+                {
+                    string temp = "/";
+                    for (int idid = 0; idid <= id; idid++)
+                    {
+                        if (dirs[idid] != null && dirs[idid].Length > 0)
+                        {
+                            temp += dirs[idid] + "/";
+                        }
+                    }
+                    dirs[id] = temp;
+                }
+                int i = dirs.Length - 1;
+                bool MKDflag = false;
+                while(i < dirs.Length && i >= 0)
+                {
+                    string dir = dirs[i];
+                    //如果是以/开始的路径,第一个为空    
+                    if (dir != "/")
+                    {
+                        try
+                        {
+                            MKDflag = FtpMakeDir(dir, ServerIP, FTPPort, Credential, ref LogFailureNum);
+                        }
+                        catch (Exception ex)
+                        { string s = ex.Message; }
+                    }
+                    if (MKDflag)//成功往后走
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        i--;
+                    }
+                }
+            }
+            catch (Exception ex) { }
+        }
+        //判断文件的目录是否存在,不存在则创建  
+        public void FtpCheckDirectoryExistOld(string destFilePath, string ServerIP, string FTPPort, NetworkCredential Credential, ref int LogFailureNum)
         {
             try
             {
@@ -6210,7 +6254,7 @@ namespace 存图助手标准版
                     }
                     */
                 }
-                MakeDirreq.Abort();
+                //MakeDirreq.Abort();
                 return false;
             }
             //MakeDirreq.Abort();  
@@ -15355,35 +15399,53 @@ namespace 存图助手标准版
             CogImageFileTool mImageFileTool = mImageFileTool1;
             if (folder == caption_url1)
             {
-                ftpFolder = ftp_temp_url1;
                 mImageFileTool = mImageFileTool1;
             }
             else if (folder == caption_url2)
             {
-                ftpFolder = ftp_temp_url2;
                 mImageFileTool = mImageFileTool2;
             }
             else if (folder == caption_url3)
             {
-                ftpFolder = ftp_temp_url3;
                 mImageFileTool = mImageFileTool3;
             }
             else if (folder == caption_url4)
             {
-                ftpFolder = ftp_temp_url4;
                 mImageFileTool = mImageFileTool4;
             }
             else if (folder == caption_url5)
             {
-                ftpFolder = ftp_temp_url5;
                 mImageFileTool = mImageFileTool5;
             }
             else
             {
-                ftpFolder = ftp_temp_url1;
                 mImageFileTool = mImageFileTool1;
             }
 #endif
+            if (folder == caption_url1)
+            {
+                ftpFolder = ftp_temp_url1;
+            }
+            else if (folder == caption_url2)
+            {
+                ftpFolder = ftp_temp_url2;
+            }
+            else if (folder == caption_url3)
+            {
+                ftpFolder = ftp_temp_url3;
+            }
+            else if (folder == caption_url4)
+            {
+                ftpFolder = ftp_temp_url4;
+            }
+            else if (folder == caption_url5)
+            {
+                ftpFolder = ftp_temp_url5;
+            }
+            else
+            {
+                ftpFolder = ftp_temp_url1;
+            }
             foreach (FileInfo file in Files)
             {
                 /*

@@ -26,4 +26,3 @@ D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Decryption\obj\Re
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Decryption\obj\Release\Decryption.csproj.CopyComplete
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Decryption\obj\Release\Decryption.exe
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Decryption\obj\Release\Decryption.pdb
-D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Decryption\obj\Release\Decryption.csproj.AssemblyReference.cache

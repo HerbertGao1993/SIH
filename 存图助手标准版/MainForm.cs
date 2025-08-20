@@ -42,6 +42,10 @@ namespace 存图助手标准版
     public partial class MainForm : Form
     {
         private GridSetting gs = new GridSetting();
+        internal int GRImgQuality = 90;
+        internal int NRImgQuality = 50;
+        internal long GRImgQualitylong = 90L;
+        internal long NRImgQualitylong = 50L;
         internal static string DefaultPixelSize = "3.45";
         internal static string DefaultFocusLength = "16";
         internal static string DefaultReadAngle = "25";
@@ -220,7 +224,7 @@ namespace 存图助手标准版
         private int[] ol02 = { 0, 0, 0, 0, 0, 0 };
         private int[] ol03 = { 0, 0, 0, 0, 0, 0 };
         private int[] ol04 = { 0, 0, 0, 0, 0, 0 };
-        EncoderParameters ep = new EncoderParameters(1);
+        //EncoderParameters ep = new EncoderParameters(1);
         EncoderParameters epbottom = new EncoderParameters(1);
         private Calib cal = new Calib();
         private static double[] defaulthomo = { 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
@@ -1769,7 +1773,7 @@ namespace 存图助手标准版
                 ind.Hide();
                 //bool falgg = ind.IsHandleCreated;
                 cal.Hide();
-                ep.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 70L);
+                //ep.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 70L);
                 epbottom.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 90L);
                 bool f = File.Exists(Application.StartupPath + "\\ToolBlock.vpp");
                 //MessageBox.Show(Application.StartupPath + "\\ToolBlock.vpp", f.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2179,6 +2183,26 @@ namespace 存图助手标准版
                             ConfigurationManager.RefreshSection("appSettings");
                         }
                         catch { }
+                    }
+                    try
+                    {
+                        GRImgQuality = Convert.ToInt32(ConfigurationManager.AppSettings["GRImgQuality"]);
+                        GRImgQualitylong = GRImgQuality;
+                    }
+                    catch 
+                    { 
+                        GRImgQuality = 90;
+                        GRImgQualitylong = GRImgQuality;
+                    }
+                    try
+                    {
+                        NRImgQuality = Convert.ToInt32(ConfigurationManager.AppSettings["NRImgQuality"]);
+                        NRImgQualitylong = NRImgQuality;
+                    }
+                    catch
+                    {
+                        NRImgQuality = 50;
+                        NRImgQualitylong = NRImgQuality;
                     }
                     if (ConfigurationManager.AppSettings["ExtCaptionEnable"] == "true")
                     {
@@ -7400,7 +7424,6 @@ namespace 存图助手标准版
                             Des = Des.Replace("#EXT8", ext8).Replace("#EXT9", ext9);
                             if (NoReadAnalysisEnable)
                             {
-
                                 string NoReadReason = "N/A";
                                 if (obj.Result == "NR")
                                 {
@@ -8305,11 +8328,13 @@ namespace 存图助手标准版
                                 //Cv2.CvtColor(fullmat, fullmatRGB, ColorConversionCodes.GRAY2RGB);
                                 if (allowChinese)
                                 {
-                                    DrawCaptionGDI(fullmat, Des, local_fullname, obj.pos, true, calobj);
+                                    EncoderParameters ep = new EncoderParameters(1);
+                                    ep.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, GRImgQualitylong);
+                                    DrawCaptionGDI(fullmat, Des, local_fullname, obj.pos, true, calobj, ep);
                                 }
                                 else
                                 {
-                                    DrawCaptionOpencv(fullmat, Des, local_fullname, obj.pos, true, calobj);
+                                    DrawCaptionOpencv(fullmat, Des, local_fullname, obj.pos, true, calobj, GRImgQuality);
                                 }
                                 
                                 /*else//移动到extcaption文件夹
@@ -8321,11 +8346,11 @@ namespace 存图助手标准版
                             {
                                 if (!imgEncryptEnable)
                                 {
-                                    Cv2.ImWrite(local_fullname, fullmat, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                                    Cv2.ImWrite(local_fullname, fullmat, new ImageEncodingParam(ImwriteFlags.JpegQuality, GRImgQuality));
                                 }
                                 else
                                 {
-                                    EncryptMat(fullmat, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                                    EncryptMat(fullmat, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, GRImgQuality));
                                 }
                             }
                             if (System.IO.File.Exists(local_fullname))
@@ -14216,7 +14241,7 @@ namespace 存图助手标准版
                 catch (Exception ex) { }
             }
         }
-        public void DrawCaptionOpencv(FileInfo File, string description,string local_fullname, string pos,bool drawborder, calObject calobj, double parcelHeight, bool isUP, OpenCvSharp.Rect rect)
+        public void DrawCaptionOpencv(FileInfo File, string description,string local_fullname, string pos,bool drawborder, calObject calobj, double parcelHeight, bool isUP, OpenCvSharp.Rect rect, int imgQuality)
         {
             Mat srcImg = null;
             string[] des = Regex.Split(description, "\r\n");
@@ -14309,11 +14334,11 @@ namespace 存图助手标准版
                             }
                             if (!imgEncryptEnable)
                             {
-                                Cv2.ImWrite(local_fullname, srcImg, new ImageEncodingParam(ImwriteFlags.JpegQuality, 70));
+                                Cv2.ImWrite(local_fullname, srcImg, new ImageEncodingParam(ImwriteFlags.JpegQuality, imgQuality));
                             }
                             else
                             {
-                                EncryptMat(srcImg, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, 70));
+                                EncryptMat(srcImg, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, imgQuality));
                             }
                         }
                     }
@@ -14328,7 +14353,7 @@ namespace 存图助手标准版
                 }
             }
         }
-        public void DrawCaptionOpencv(Mat srcImg, string description, string local_fullname, string pos, bool drawborder, calObject calobj, bool drawbarcode = false, string barcodepos = "")
+        public void DrawCaptionOpencv(Mat srcImg, string description, string local_fullname, string pos, bool drawborder, calObject calobj, int imgQuality, bool drawbarcode = false, string barcodepos = "")
         {
             string[] des = Regex.Split(description, "\r\n");
             int x = 50;
@@ -14439,11 +14464,11 @@ namespace 存图助手标准版
                     }
                     if (!imgEncryptEnable)
                     {
-                        Cv2.ImWrite(local_fullname, srcImg, new ImageEncodingParam(ImwriteFlags.JpegQuality, 70));
+                        Cv2.ImWrite(local_fullname, srcImg, new ImageEncodingParam(ImwriteFlags.JpegQuality, imgQuality));
                     }
                     else
                     {
-                        EncryptMat(srcImg, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, 70));
+                        EncryptMat(srcImg, local_fullname, new ImageEncodingParam(ImwriteFlags.JpegQuality, imgQuality));
                     }
                 }
             }
@@ -14453,7 +14478,7 @@ namespace 存图助手标准版
                 
             }
         }
-        public void DrawCaptionGDI(FileInfo File, string description, string local_fullname, string pos, bool drawborder, calObject calobj, double parcelHeight, bool isUP, OpenCvSharp.Rect rect)
+        public void DrawCaptionGDI(FileInfo File, string description, string local_fullname, string pos, bool drawborder, calObject calobj, double parcelHeight, bool isUP, OpenCvSharp.Rect rect, EncoderParameters ep)
         {
             Image newImage = null;
             Image image = null;
@@ -14622,7 +14647,7 @@ namespace 存图助手标准版
                 }
             }
         }
-        public void DrawCaptionGDI(Mat SrcImg, string description, string local_fullname, string pos, bool drawborder, calObject calobj, bool drawbarcode = false, string barcodepos = "")
+        public void DrawCaptionGDI(Mat SrcImg, string description, string local_fullname, string pos, bool drawborder, calObject calobj, EncoderParameters ep, bool drawbarcode = false, string barcodepos = "")
         {
             MemoryStream ms = null;
             Image newImage = null;
@@ -15979,18 +16004,37 @@ namespace 存图助手标准版
                             }
                             try
                             {
+
                                 if (allowChinese)
                                 {
+                                    EncoderParameters ep = new EncoderParameters(1);
+                                    if (N2 != "None" && N2 != "xx" && N2 != "")
+                                    {
+                                        ep.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, GRImgQualitylong);
+                                    }
+                                    else
+                                    {
+                                        ep.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, NRImgQualitylong);
+                                    }
                                     /*Mat srcImg = Cv2.ImRead(file.FullName);
                                     if (!srcImg.Empty())
                                     {
                                         DrawCaptionGDI(srcImg, description, local_fullname, pos, drawborder, calobj);
                                     }*/
-                                    DrawCaptionGDI(file, description, local_fullname, pos, drawborder, calobj, parcelHeight, isUP, rect);
+                                    DrawCaptionGDI(file, description, local_fullname, pos, drawborder, calobj, parcelHeight, isUP, rect, ep);
                                 }
                                 else
                                 {
-                                    DrawCaptionOpencv(file, description, local_fullname, pos, drawborder, calobj, parcelHeight, isUP, rect);
+                                    int imgQuality = 90;
+                                    if (N2 != "None" && N2 != "xx" && N2 != "")
+                                    {
+                                        imgQuality = GRImgQuality;
+                                    }
+                                    else
+                                    {
+                                        imgQuality = NRImgQuality;
+                                    }
+                                    DrawCaptionOpencv(file, description, local_fullname, pos, drawborder, calobj, parcelHeight, isUP, rect, imgQuality);
                                 }
                                 if (System.IO.File.Exists(local_fullname))
                                 {

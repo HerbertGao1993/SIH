@@ -138,11 +138,50 @@ namespace DWSInterface
             long endDTUnix = -1;
             string Barcode = "";
             string Command = "";
-            if ((string.IsNullOrEmpty(qvm.StartTime) || string.IsNullOrEmpty(qvm.EndTime)) && string.IsNullOrEmpty(qvm.Barcode))
+            if ((string.IsNullOrEmpty(qvm.StartTime) || string.IsNullOrEmpty(qvm.EndTime)) && string.IsNullOrEmpty(qvm.Barcode) && string.IsNullOrEmpty(qvm.Destination))
             {
                 MessageBox.Show("查询条件为空，请重新输入", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            else
+            {
+                List<string> conditionList = new List<string>(8);
+                if (!string.IsNullOrEmpty(qvm.StartTime) && !string.IsNullOrEmpty(qvm.EndTime))
+                {
+                    try
+                    {
+                        DateTime startDT = DateTime.ParseExact(qvm.StartTime, "yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture);
+                        startDTUnix = (long)(startDT - DateTime.Parse("1970-1-1", CultureInfo.InvariantCulture)).TotalMilliseconds;
+                        DateTime endDT = DateTime.ParseExact(qvm.EndTime, "yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture);
+                        endDTUnix = (long)(endDT - DateTime.Parse("1970-1-1", CultureInfo.InvariantCulture)).TotalMilliseconds;
+                        if (startDTUnix >= endDTUnix)
+                        {
+                            MessageBox.Show("起始时间晚于结束时间", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        else
+                        {
+                            conditionList.Add(String.Format("TimeStamp >= {0} AND TimeStamp <= {1}", startDTUnix.ToString(), endDTUnix.ToString()));
+                        }
+                    }
+                    catch
+                    {
+                        startDTUnix = -1;
+                        endDTUnix = -1;
+                    }
+                }
+                if (!string.IsNullOrEmpty(qvm.Barcode))
+                {
+                    conditionList.Add(String.Format("Barcode LIKE '%{0}%'", qvm.Barcode));
+                }
+                if (!string.IsNullOrEmpty(qvm.Destination))
+                {
+                    conditionList.Add(String.Format("Destination LIKE '%{0}%'", qvm.Destination));
+                }
+                string conditionstr = string.Join(" AND ", conditionList);
+                Command = "SELECT * FROM info WHERE " + conditionstr + ";";
+            }
+            /*
             else if (!string.IsNullOrEmpty(qvm.StartTime) && !string.IsNullOrEmpty(qvm.EndTime))
             {
                 try
@@ -179,12 +218,13 @@ namespace DWSInterface
             {
                 Barcode = qvm.Barcode;
                 Command = String.Format("SELECT * FROM info WHERE Barcode = \'{0}\'; ", Barcode);
-            }
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+            }*/
+
+           // Stopwatch sw = new Stopwatch();
+           // sw.Start();
             if (!string.IsNullOrEmpty(Command))
             {
-                List<History> histories = new List<History>();
+                List<History> histories = new List<History>(512000);
                 MySqlConnection connection = null;
                 MySqlCommand command = null;
                 MySqlDataReader reader = null;
@@ -195,9 +235,11 @@ namespace DWSInterface
                     connection.Open();
                     command = new MySqlCommand(Command, connection);
                     reader = command.ExecuteReader();
-                   
+                    //sw.Stop();
+                    //Stopwatch sw1 = new Stopwatch();
+                    //sw1.Start();
                     while (reader.Read())
-                    {
+                    {                        
                         UInt64 TimeStampUnix = reader.GetUInt64("TimeStamp");
                         DateTime DT = DateTime.Parse("1970-1-1", CultureInfo.InvariantCulture).AddMilliseconds(TimeStampUnix);
                         string TimeStamp = DT.ToString("yyyy/MM/dd HH:mm:ss.fff");
@@ -215,8 +257,9 @@ namespace DWSInterface
                         History his = new History(ParcelID, Code, Length, Width, Height, Volume, Weight, TimeStamp, ImageFullName, ReadStatus, Destination);
                         histories.Add(his);
                     }
-                    sw.Stop();
-                    long iii = sw.ElapsedMilliseconds;
+                    //sw1.Stop();
+                    //long iii = sw.ElapsedMilliseconds;
+                    //long iiii = sw1.ElapsedMilliseconds;
                 }
                 catch { }
                 finally

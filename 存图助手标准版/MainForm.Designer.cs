@@ -248,14 +248,29 @@
             this.EncryptionEnableCheck = new System.Windows.Forms.CheckBox();
             this.GridLineEnableCheck = new System.Windows.Forms.CheckBox();
             this.GridConfigBtn = new System.Windows.Forms.Button();
+            this.JDAIResetBtn = new System.Windows.Forms.Button();
+            this.JDAIConnectStatusLabel = new System.Windows.Forms.Label();
+            this.JDAICheck = new System.Windows.Forms.CheckBox();
+            this.label76 = new System.Windows.Forms.Label();
+            this.JDAIUrlBox = new System.Windows.Forms.TextBox();
+            this.label77 = new System.Windows.Forms.Label();
+            this.wcsUrlBox = new System.Windows.Forms.TextBox();
+            this.DeviceNo1Box = new System.Windows.Forms.TextBox();
+            this.label75 = new System.Windows.Forms.Label();
+            this.DeviceNo2Box = new System.Windows.Forms.TextBox();
+            this.label78 = new System.Windows.Forms.Label();
+            this.DeviceNo3Box = new System.Windows.Forms.TextBox();
+            this.label79 = new System.Windows.Forms.Label();
+            this.DeviceNo4Box = new System.Windows.Forms.TextBox();
+            this.label80 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SelectFtpRootButton1
             // 
-            this.SelectFtpRootButton1.Location = new System.Drawing.Point(414, 125);
+            this.SelectFtpRootButton1.Location = new System.Drawing.Point(331, 134);
             this.SelectFtpRootButton1.Margin = new System.Windows.Forms.Padding(2);
             this.SelectFtpRootButton1.Name = "SelectFtpRootButton1";
-            this.SelectFtpRootButton1.Size = new System.Drawing.Size(42, 24);
+            this.SelectFtpRootButton1.Size = new System.Drawing.Size(34, 19);
             this.SelectFtpRootButton1.TabIndex = 83;
             this.SelectFtpRootButton1.Text = "...";
             this.SelectFtpRootButton1.UseVisualStyleBackColor = true;
@@ -263,10 +278,10 @@
             // 
             // SelectImageRootButton4
             // 
-            this.SelectImageRootButton4.Location = new System.Drawing.Point(414, 721);
+            this.SelectImageRootButton4.Location = new System.Drawing.Point(331, 649);
             this.SelectImageRootButton4.Margin = new System.Windows.Forms.Padding(2);
             this.SelectImageRootButton4.Name = "SelectImageRootButton4";
-            this.SelectImageRootButton4.Size = new System.Drawing.Size(42, 24);
+            this.SelectImageRootButton4.Size = new System.Drawing.Size(34, 19);
             this.SelectImageRootButton4.TabIndex = 82;
             this.SelectImageRootButton4.Text = "...";
             this.SelectImageRootButton4.UseVisualStyleBackColor = true;
@@ -275,29 +290,29 @@
             // ImageRootBox4
             // 
             this.ImageRootBox4.Enabled = false;
-            this.ImageRootBox4.Location = new System.Drawing.Point(162, 722);
+            this.ImageRootBox4.Location = new System.Drawing.Point(130, 650);
             this.ImageRootBox4.Margin = new System.Windows.Forms.Padding(2);
             this.ImageRootBox4.Name = "ImageRootBox4";
-            this.ImageRootBox4.Size = new System.Drawing.Size(246, 22);
+            this.ImageRootBox4.Size = new System.Drawing.Size(198, 20);
             this.ImageRootBox4.TabIndex = 81;
             this.ImageRootBox4.Text = "D:\\Images\\Station4";
             // 
             // FileNameBox
             // 
-            this.FileNameBox.Location = new System.Drawing.Point(614, 208);
+            this.FileNameBox.Location = new System.Drawing.Point(491, 157);
             this.FileNameBox.Margin = new System.Windows.Forms.Padding(2);
             this.FileNameBox.Name = "FileNameBox";
-            this.FileNameBox.Size = new System.Drawing.Size(379, 22);
+            this.FileNameBox.Size = new System.Drawing.Size(304, 20);
             this.FileNameBox.TabIndex = 80;
             this.FileNameBox.Text = "N0_N1_N2_N3_N4_N5_N6_N7_N8_N9_N10_N11";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(512, 210);
+            this.label9.Location = new System.Drawing.Point(410, 159);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(106, 17);
+            this.label9.Size = new System.Drawing.Size(91, 13);
             this.label9.TabIndex = 79;
             this.label9.Text = "本地图片命名：";
             // 
@@ -325,10 +340,10 @@
             "#mm",
             "#ss",
             "#fff"});
-            this.Folder5Combo.Location = new System.Drawing.Point(918, 152);
+            this.Folder5Combo.Location = new System.Drawing.Point(734, 113);
             this.Folder5Combo.Margin = new System.Windows.Forms.Padding(2);
             this.Folder5Combo.Name = "Folder5Combo";
-            this.Folder5Combo.Size = new System.Drawing.Size(75, 24);
+            this.Folder5Combo.Size = new System.Drawing.Size(61, 21);
             this.Folder5Combo.TabIndex = 78;
             // 
             // Folder4Combo
@@ -355,10 +370,10 @@
             "#mm",
             "#ss",
             "#fff"});
-            this.Folder4Combo.Location = new System.Drawing.Point(841, 152);
+            this.Folder4Combo.Location = new System.Drawing.Point(673, 113);
             this.Folder4Combo.Margin = new System.Windows.Forms.Padding(2);
             this.Folder4Combo.Name = "Folder4Combo";
-            this.Folder4Combo.Size = new System.Drawing.Size(75, 24);
+            this.Folder4Combo.Size = new System.Drawing.Size(61, 21);
             this.Folder4Combo.TabIndex = 77;
             // 
             // Folder3Combo
@@ -385,10 +400,10 @@
             "#mm",
             "#ss",
             "#fff"});
-            this.Folder3Combo.Location = new System.Drawing.Point(766, 152);
+            this.Folder3Combo.Location = new System.Drawing.Point(613, 113);
             this.Folder3Combo.Margin = new System.Windows.Forms.Padding(2);
             this.Folder3Combo.Name = "Folder3Combo";
-            this.Folder3Combo.Size = new System.Drawing.Size(75, 24);
+            this.Folder3Combo.Size = new System.Drawing.Size(61, 21);
             this.Folder3Combo.TabIndex = 76;
             // 
             // Folder2Combo
@@ -415,10 +430,10 @@
             "#mm",
             "#ss",
             "#fff"});
-            this.Folder2Combo.Location = new System.Drawing.Point(690, 152);
+            this.Folder2Combo.Location = new System.Drawing.Point(552, 113);
             this.Folder2Combo.Margin = new System.Windows.Forms.Padding(2);
             this.Folder2Combo.Name = "Folder2Combo";
-            this.Folder2Combo.Size = new System.Drawing.Size(75, 24);
+            this.Folder2Combo.Size = new System.Drawing.Size(61, 21);
             this.Folder2Combo.TabIndex = 75;
             // 
             // Folder1Combo
@@ -445,19 +460,19 @@
             "#mm",
             "#ss",
             "#fff"});
-            this.Folder1Combo.Location = new System.Drawing.Point(614, 152);
+            this.Folder1Combo.Location = new System.Drawing.Point(491, 113);
             this.Folder1Combo.Margin = new System.Windows.Forms.Padding(2);
             this.Folder1Combo.Name = "Folder1Combo";
-            this.Folder1Combo.Size = new System.Drawing.Size(75, 24);
+            this.Folder1Combo.Size = new System.Drawing.Size(61, 21);
             this.Folder1Combo.TabIndex = 74;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(512, 155);
+            this.label8.Location = new System.Drawing.Point(410, 115);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(78, 17);
+            this.label8.Size = new System.Drawing.Size(67, 13);
             this.label8.TabIndex = 73;
             this.label8.Text = "本地路径：";
             // 
@@ -465,96 +480,96 @@
             // 
             this.ConnectStatusLabel.AutoSize = true;
             this.ConnectStatusLabel.BackColor = System.Drawing.SystemColors.GrayText;
-            this.ConnectStatusLabel.Location = new System.Drawing.Point(728, 408);
+            this.ConnectStatusLabel.Location = new System.Drawing.Point(582, 316);
             this.ConnectStatusLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ConnectStatusLabel.Name = "ConnectStatusLabel";
             this.ConnectStatusLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ConnectStatusLabel.Size = new System.Drawing.Size(24, 17);
+            this.ConnectStatusLabel.Size = new System.Drawing.Size(19, 13);
             this.ConnectStatusLabel.TabIndex = 71;
             this.ConnectStatusLabel.Text = "    ";
             // 
             // PasswordBox
             // 
-            this.PasswordBox.Location = new System.Drawing.Point(619, 536);
+            this.PasswordBox.Location = new System.Drawing.Point(495, 419);
             this.PasswordBox.Margin = new System.Windows.Forms.Padding(2);
             this.PasswordBox.Name = "PasswordBox";
-            this.PasswordBox.Size = new System.Drawing.Size(207, 22);
+            this.PasswordBox.Size = new System.Drawing.Size(166, 20);
             this.PasswordBox.TabIndex = 69;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(513, 539);
+            this.label6.Location = new System.Drawing.Point(410, 421);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(50, 17);
+            this.label6.Size = new System.Drawing.Size(43, 13);
             this.label6.TabIndex = 68;
             this.label6.Text = "密码：";
             // 
             // UserBox
             // 
-            this.UserBox.Location = new System.Drawing.Point(619, 504);
+            this.UserBox.Location = new System.Drawing.Point(495, 393);
             this.UserBox.Margin = new System.Windows.Forms.Padding(2);
             this.UserBox.Name = "UserBox";
-            this.UserBox.Size = new System.Drawing.Size(207, 22);
+            this.UserBox.Size = new System.Drawing.Size(166, 20);
             this.UserBox.TabIndex = 67;
             this.UserBox.Text = "herbert";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(513, 507);
+            this.label5.Location = new System.Drawing.Point(410, 396);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 17);
+            this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 66;
             this.label5.Text = "用户名：";
             // 
             // PortBox
             // 
-            this.PortBox.Location = new System.Drawing.Point(619, 471);
+            this.PortBox.Location = new System.Drawing.Point(495, 367);
             this.PortBox.Margin = new System.Windows.Forms.Padding(2);
             this.PortBox.Name = "PortBox";
-            this.PortBox.Size = new System.Drawing.Size(207, 22);
+            this.PortBox.Size = new System.Drawing.Size(166, 20);
             this.PortBox.TabIndex = 65;
             this.PortBox.Text = "21";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(513, 473);
+            this.label4.Location = new System.Drawing.Point(410, 368);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 17);
+            this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 64;
             this.label4.Text = "端口：";
             // 
             // ServerIPBox
             // 
-            this.ServerIPBox.Location = new System.Drawing.Point(619, 441);
+            this.ServerIPBox.Location = new System.Drawing.Point(495, 343);
             this.ServerIPBox.Margin = new System.Windows.Forms.Padding(2);
             this.ServerIPBox.Name = "ServerIPBox";
-            this.ServerIPBox.Size = new System.Drawing.Size(207, 22);
+            this.ServerIPBox.Size = new System.Drawing.Size(166, 20);
             this.ServerIPBox.TabIndex = 63;
             this.ServerIPBox.Text = "192.168.1.100";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(513, 443);
+            this.label3.Location = new System.Drawing.Point(410, 344);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 17);
+            this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 62;
             this.label3.Text = "服务器ip：";
             // 
             // UploadCheck
             // 
             this.UploadCheck.AutoSize = true;
-            this.UploadCheck.Location = new System.Drawing.Point(515, 407);
+            this.UploadCheck.Location = new System.Drawing.Point(412, 316);
             this.UploadCheck.Margin = new System.Windows.Forms.Padding(2);
             this.UploadCheck.Name = "UploadCheck";
-            this.UploadCheck.Size = new System.Drawing.Size(100, 21);
+            this.UploadCheck.Size = new System.Drawing.Size(86, 17);
             this.UploadCheck.TabIndex = 61;
             this.UploadCheck.Text = "图片服务器";
             this.UploadCheck.UseVisualStyleBackColor = true;
@@ -596,38 +611,38 @@
             "28",
             "29",
             "30"});
-            this.CamNoCombo1.Location = new System.Drawing.Point(162, 154);
+            this.CamNoCombo1.Location = new System.Drawing.Point(130, 157);
             this.CamNoCombo1.Margin = new System.Windows.Forms.Padding(2);
             this.CamNoCombo1.Name = "CamNoCombo1";
-            this.CamNoCombo1.Size = new System.Drawing.Size(114, 24);
+            this.CamNoCombo1.Size = new System.Drawing.Size(92, 21);
             this.CamNoCombo1.TabIndex = 60;
             // 
             // CamCountLabel
             // 
             this.CamCountLabel.AutoSize = true;
-            this.CamCountLabel.Location = new System.Drawing.Point(34, 158);
+            this.CamCountLabel.Location = new System.Drawing.Point(27, 160);
             this.CamCountLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CamCountLabel.Name = "CamCountLabel";
-            this.CamCountLabel.Size = new System.Drawing.Size(106, 17);
+            this.CamCountLabel.Size = new System.Drawing.Size(91, 13);
             this.CamCountLabel.TabIndex = 59;
             this.CamCountLabel.Text = "存图相机数量：";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 724);
+            this.label2.Location = new System.Drawing.Point(27, 651);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(120, 17);
+            this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 58;
             this.label2.Text = "存图位置根目录：";
             // 
             // Stop
             // 
-            this.Stop.Location = new System.Drawing.Point(394, 61);
+            this.Stop.Location = new System.Drawing.Point(319, 52);
             this.Stop.Margin = new System.Windows.Forms.Padding(2);
             this.Stop.Name = "Stop";
-            this.Stop.Size = new System.Drawing.Size(62, 28);
+            this.Stop.Size = new System.Drawing.Size(50, 22);
             this.Stop.TabIndex = 57;
             this.Stop.Text = "停止";
             this.Stop.UseVisualStyleBackColor = true;
@@ -636,29 +651,29 @@
             // FtpRootBox1
             // 
             this.FtpRootBox1.Enabled = false;
-            this.FtpRootBox1.Location = new System.Drawing.Point(162, 126);
+            this.FtpRootBox1.Location = new System.Drawing.Point(130, 135);
             this.FtpRootBox1.Margin = new System.Windows.Forms.Padding(2);
             this.FtpRootBox1.Name = "FtpRootBox1";
-            this.FtpRootBox1.Size = new System.Drawing.Size(246, 22);
+            this.FtpRootBox1.Size = new System.Drawing.Size(198, 20);
             this.FtpRootBox1.TabIndex = 56;
             this.FtpRootBox1.Text = "D:\\dataman ftp image";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 128);
+            this.label1.Location = new System.Drawing.Point(27, 136);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 17);
+            this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 55;
             this.label1.Text = "FTP根目录：";
             // 
             // Start
             // 
-            this.Start.Location = new System.Drawing.Point(394, 19);
+            this.Start.Location = new System.Drawing.Point(319, 19);
             this.Start.Margin = new System.Windows.Forms.Padding(2);
             this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(62, 28);
+            this.Start.Size = new System.Drawing.Size(50, 22);
             this.Start.TabIndex = 54;
             this.Start.Text = "开始";
             this.Start.UseVisualStyleBackColor = true;
@@ -667,29 +682,29 @@
             // 工位一
             // 
             this.工位一.AutoSize = true;
-            this.工位一.Location = new System.Drawing.Point(34, 102);
+            this.工位一.Location = new System.Drawing.Point(27, 116);
             this.工位一.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.工位一.Name = "工位一";
-            this.工位一.Size = new System.Drawing.Size(78, 17);
+            this.工位一.Size = new System.Drawing.Size(67, 13);
             this.工位一.TabIndex = 84;
             this.工位一.Text = "主线工位一";
             // 
             // 工位二
             // 
             this.工位二.AutoSize = true;
-            this.工位二.Location = new System.Drawing.Point(34, 275);
+            this.工位二.Location = new System.Drawing.Point(27, 267);
             this.工位二.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.工位二.Name = "工位二";
-            this.工位二.Size = new System.Drawing.Size(78, 17);
+            this.工位二.Size = new System.Drawing.Size(67, 13);
             this.工位二.TabIndex = 90;
             this.工位二.Text = "主线工位二";
             // 
             // SelectFtpRootButton2
             // 
-            this.SelectFtpRootButton2.Location = new System.Drawing.Point(414, 301);
+            this.SelectFtpRootButton2.Location = new System.Drawing.Point(331, 287);
             this.SelectFtpRootButton2.Margin = new System.Windows.Forms.Padding(2);
             this.SelectFtpRootButton2.Name = "SelectFtpRootButton2";
-            this.SelectFtpRootButton2.Size = new System.Drawing.Size(42, 24);
+            this.SelectFtpRootButton2.Size = new System.Drawing.Size(34, 19);
             this.SelectFtpRootButton2.TabIndex = 89;
             this.SelectFtpRootButton2.Text = "...";
             this.SelectFtpRootButton2.UseVisualStyleBackColor = true;
@@ -731,59 +746,59 @@
             "28",
             "29",
             "30"});
-            this.CamNoCombo2.Location = new System.Drawing.Point(162, 331);
+            this.CamNoCombo2.Location = new System.Drawing.Point(130, 312);
             this.CamNoCombo2.Margin = new System.Windows.Forms.Padding(2);
             this.CamNoCombo2.Name = "CamNoCombo2";
-            this.CamNoCombo2.Size = new System.Drawing.Size(114, 24);
+            this.CamNoCombo2.Size = new System.Drawing.Size(92, 21);
             this.CamNoCombo2.TabIndex = 88;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(34, 332);
+            this.label11.Location = new System.Drawing.Point(27, 313);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(106, 17);
+            this.label11.Size = new System.Drawing.Size(91, 13);
             this.label11.TabIndex = 87;
             this.label11.Text = "存图相机数量：";
             // 
             // FtpRootBox2
             // 
             this.FtpRootBox2.Enabled = false;
-            this.FtpRootBox2.Location = new System.Drawing.Point(162, 301);
+            this.FtpRootBox2.Location = new System.Drawing.Point(130, 288);
             this.FtpRootBox2.Margin = new System.Windows.Forms.Padding(2);
             this.FtpRootBox2.Name = "FtpRootBox2";
-            this.FtpRootBox2.Size = new System.Drawing.Size(246, 22);
+            this.FtpRootBox2.Size = new System.Drawing.Size(198, 20);
             this.FtpRootBox2.TabIndex = 86;
             this.FtpRootBox2.Text = "D:\\dataman ftp image";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(34, 303);
+            this.label12.Location = new System.Drawing.Point(27, 289);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(90, 17);
+            this.label12.Size = new System.Drawing.Size(75, 13);
             this.label12.TabIndex = 85;
             this.label12.Text = "FTP根目录：";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(34, 453);
+            this.label10.Location = new System.Drawing.Point(27, 422);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(78, 17);
+            this.label10.Size = new System.Drawing.Size(67, 13);
             this.label10.TabIndex = 96;
             this.label10.Text = "主线工位三";
             this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // SelectFtpRootButton3
             // 
-            this.SelectFtpRootButton3.Location = new System.Drawing.Point(414, 480);
+            this.SelectFtpRootButton3.Location = new System.Drawing.Point(331, 444);
             this.SelectFtpRootButton3.Margin = new System.Windows.Forms.Padding(2);
             this.SelectFtpRootButton3.Name = "SelectFtpRootButton3";
-            this.SelectFtpRootButton3.Size = new System.Drawing.Size(42, 24);
+            this.SelectFtpRootButton3.Size = new System.Drawing.Size(34, 19);
             this.SelectFtpRootButton3.TabIndex = 95;
             this.SelectFtpRootButton3.Text = "...";
             this.SelectFtpRootButton3.UseVisualStyleBackColor = true;
@@ -825,20 +840,20 @@
             "28",
             "29",
             "30"});
-            this.CamNoCombo3.Location = new System.Drawing.Point(162, 510);
+            this.CamNoCombo3.Location = new System.Drawing.Point(130, 468);
             this.CamNoCombo3.Margin = new System.Windows.Forms.Padding(2);
             this.CamNoCombo3.Name = "CamNoCombo3";
-            this.CamNoCombo3.Size = new System.Drawing.Size(114, 24);
+            this.CamNoCombo3.Size = new System.Drawing.Size(92, 21);
             this.CamNoCombo3.TabIndex = 94;
             this.CamNoCombo3.SelectedIndexChanged += new System.EventHandler(this.CamNoCombo3_SelectedIndexChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(34, 512);
+            this.label13.Location = new System.Drawing.Point(27, 470);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(106, 17);
+            this.label13.Size = new System.Drawing.Size(91, 13);
             this.label13.TabIndex = 93;
             this.label13.Text = "存图相机数量：";
             this.label13.Click += new System.EventHandler(this.label13_Click);
@@ -846,10 +861,10 @@
             // FtpRootBox3
             // 
             this.FtpRootBox3.Enabled = false;
-            this.FtpRootBox3.Location = new System.Drawing.Point(162, 480);
+            this.FtpRootBox3.Location = new System.Drawing.Point(130, 444);
             this.FtpRootBox3.Margin = new System.Windows.Forms.Padding(2);
             this.FtpRootBox3.Name = "FtpRootBox3";
-            this.FtpRootBox3.Size = new System.Drawing.Size(246, 22);
+            this.FtpRootBox3.Size = new System.Drawing.Size(198, 20);
             this.FtpRootBox3.TabIndex = 92;
             this.FtpRootBox3.Text = "D:\\dataman ftp image";
             this.FtpRootBox3.TextChanged += new System.EventHandler(this.ftpRootBox3_TextChanged);
@@ -857,10 +872,10 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(34, 481);
+            this.label14.Location = new System.Drawing.Point(27, 445);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(90, 17);
+            this.label14.Size = new System.Drawing.Size(75, 13);
             this.label14.TabIndex = 91;
             this.label14.Text = "FTP根目录：";
             this.label14.Click += new System.EventHandler(this.label14_Click);
@@ -868,19 +883,19 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(34, 633);
+            this.label15.Location = new System.Drawing.Point(27, 578);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(78, 17);
+            this.label15.Size = new System.Drawing.Size(67, 13);
             this.label15.TabIndex = 102;
             this.label15.Text = "主线工位四";
             // 
             // SelectFtpRootButton4
             // 
-            this.SelectFtpRootButton4.Location = new System.Drawing.Point(414, 658);
+            this.SelectFtpRootButton4.Location = new System.Drawing.Point(331, 598);
             this.SelectFtpRootButton4.Margin = new System.Windows.Forms.Padding(2);
             this.SelectFtpRootButton4.Name = "SelectFtpRootButton4";
-            this.SelectFtpRootButton4.Size = new System.Drawing.Size(42, 24);
+            this.SelectFtpRootButton4.Size = new System.Drawing.Size(34, 19);
             this.SelectFtpRootButton4.TabIndex = 101;
             this.SelectFtpRootButton4.Text = "...";
             this.SelectFtpRootButton4.UseVisualStyleBackColor = true;
@@ -922,48 +937,48 @@
             "28",
             "29",
             "30"});
-            this.CamNoCombo4.Location = new System.Drawing.Point(162, 689);
+            this.CamNoCombo4.Location = new System.Drawing.Point(130, 623);
             this.CamNoCombo4.Margin = new System.Windows.Forms.Padding(2);
             this.CamNoCombo4.Name = "CamNoCombo4";
-            this.CamNoCombo4.Size = new System.Drawing.Size(114, 24);
+            this.CamNoCombo4.Size = new System.Drawing.Size(92, 21);
             this.CamNoCombo4.TabIndex = 100;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(34, 693);
+            this.label16.Location = new System.Drawing.Point(27, 626);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(106, 17);
+            this.label16.Size = new System.Drawing.Size(91, 13);
             this.label16.TabIndex = 99;
             this.label16.Text = "存图相机数量：";
             // 
             // FtpRootBox4
             // 
             this.FtpRootBox4.Enabled = false;
-            this.FtpRootBox4.Location = new System.Drawing.Point(162, 660);
+            this.FtpRootBox4.Location = new System.Drawing.Point(130, 600);
             this.FtpRootBox4.Margin = new System.Windows.Forms.Padding(2);
             this.FtpRootBox4.Name = "FtpRootBox4";
-            this.FtpRootBox4.Size = new System.Drawing.Size(246, 22);
+            this.FtpRootBox4.Size = new System.Drawing.Size(198, 20);
             this.FtpRootBox4.TabIndex = 98;
             this.FtpRootBox4.Text = "D:\\dataman ftp image";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(34, 663);
+            this.label17.Location = new System.Drawing.Point(27, 602);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(90, 17);
+            this.label17.Size = new System.Drawing.Size(75, 13);
             this.label17.TabIndex = 97;
             this.label17.Text = "FTP根目录：";
             // 
             // SelectImageRootButton1
             // 
-            this.SelectImageRootButton1.Location = new System.Drawing.Point(414, 184);
+            this.SelectImageRootButton1.Location = new System.Drawing.Point(331, 181);
             this.SelectImageRootButton1.Margin = new System.Windows.Forms.Padding(2);
             this.SelectImageRootButton1.Name = "SelectImageRootButton1";
-            this.SelectImageRootButton1.Size = new System.Drawing.Size(42, 24);
+            this.SelectImageRootButton1.Size = new System.Drawing.Size(34, 19);
             this.SelectImageRootButton1.TabIndex = 105;
             this.SelectImageRootButton1.Text = "...";
             this.SelectImageRootButton1.UseVisualStyleBackColor = true;
@@ -972,29 +987,29 @@
             // ImageRootBox1
             // 
             this.ImageRootBox1.Enabled = false;
-            this.ImageRootBox1.Location = new System.Drawing.Point(162, 185);
+            this.ImageRootBox1.Location = new System.Drawing.Point(130, 182);
             this.ImageRootBox1.Margin = new System.Windows.Forms.Padding(2);
             this.ImageRootBox1.Name = "ImageRootBox1";
-            this.ImageRootBox1.Size = new System.Drawing.Size(246, 22);
+            this.ImageRootBox1.Size = new System.Drawing.Size(198, 20);
             this.ImageRootBox1.TabIndex = 104;
             this.ImageRootBox1.Text = "D:\\Images\\Station1";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(34, 186);
+            this.label18.Location = new System.Drawing.Point(27, 183);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(120, 17);
+            this.label18.Size = new System.Drawing.Size(103, 13);
             this.label18.TabIndex = 103;
             this.label18.Text = "存图位置根目录：";
             // 
             // SelectImageRootButton2
             // 
-            this.SelectImageRootButton2.Location = new System.Drawing.Point(414, 361);
+            this.SelectImageRootButton2.Location = new System.Drawing.Point(331, 336);
             this.SelectImageRootButton2.Margin = new System.Windows.Forms.Padding(2);
             this.SelectImageRootButton2.Name = "SelectImageRootButton2";
-            this.SelectImageRootButton2.Size = new System.Drawing.Size(42, 24);
+            this.SelectImageRootButton2.Size = new System.Drawing.Size(34, 19);
             this.SelectImageRootButton2.TabIndex = 108;
             this.SelectImageRootButton2.Text = "...";
             this.SelectImageRootButton2.UseVisualStyleBackColor = true;
@@ -1003,29 +1018,29 @@
             // ImageRootBox2
             // 
             this.ImageRootBox2.Enabled = false;
-            this.ImageRootBox2.Location = new System.Drawing.Point(162, 362);
+            this.ImageRootBox2.Location = new System.Drawing.Point(130, 337);
             this.ImageRootBox2.Margin = new System.Windows.Forms.Padding(2);
             this.ImageRootBox2.Name = "ImageRootBox2";
-            this.ImageRootBox2.Size = new System.Drawing.Size(246, 22);
+            this.ImageRootBox2.Size = new System.Drawing.Size(198, 20);
             this.ImageRootBox2.TabIndex = 107;
             this.ImageRootBox2.Text = "D:\\Images\\Station2";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(34, 363);
+            this.label19.Location = new System.Drawing.Point(27, 337);
             this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(120, 17);
+            this.label19.Size = new System.Drawing.Size(103, 13);
             this.label19.TabIndex = 106;
             this.label19.Text = "存图位置根目录：";
             // 
             // SelectImageRootButton3
             // 
-            this.SelectImageRootButton3.Location = new System.Drawing.Point(414, 540);
+            this.SelectImageRootButton3.Location = new System.Drawing.Point(331, 492);
             this.SelectImageRootButton3.Margin = new System.Windows.Forms.Padding(2);
             this.SelectImageRootButton3.Name = "SelectImageRootButton3";
-            this.SelectImageRootButton3.Size = new System.Drawing.Size(42, 24);
+            this.SelectImageRootButton3.Size = new System.Drawing.Size(34, 19);
             this.SelectImageRootButton3.TabIndex = 111;
             this.SelectImageRootButton3.Text = "...";
             this.SelectImageRootButton3.UseVisualStyleBackColor = true;
@@ -1034,30 +1049,30 @@
             // ImageRootBox3
             // 
             this.ImageRootBox3.Enabled = false;
-            this.ImageRootBox3.Location = new System.Drawing.Point(162, 541);
+            this.ImageRootBox3.Location = new System.Drawing.Point(130, 493);
             this.ImageRootBox3.Margin = new System.Windows.Forms.Padding(2);
             this.ImageRootBox3.Name = "ImageRootBox3";
-            this.ImageRootBox3.Size = new System.Drawing.Size(246, 22);
+            this.ImageRootBox3.Size = new System.Drawing.Size(198, 20);
             this.ImageRootBox3.TabIndex = 110;
             this.ImageRootBox3.Text = "D:\\Images\\Station3";
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(34, 543);
+            this.label20.Location = new System.Drawing.Point(27, 494);
             this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(120, 17);
+            this.label20.Size = new System.Drawing.Size(103, 13);
             this.label20.TabIndex = 109;
             this.label20.Text = "存图位置根目录：";
             // 
             // Sta2OnBox
             // 
             this.Sta2OnBox.AutoSize = true;
-            this.Sta2OnBox.Location = new System.Drawing.Point(162, 276);
+            this.Sta2OnBox.Location = new System.Drawing.Point(130, 268);
             this.Sta2OnBox.Margin = new System.Windows.Forms.Padding(2);
             this.Sta2OnBox.Name = "Sta2OnBox";
-            this.Sta2OnBox.Size = new System.Drawing.Size(18, 17);
+            this.Sta2OnBox.Size = new System.Drawing.Size(15, 14);
             this.Sta2OnBox.TabIndex = 112;
             this.Sta2OnBox.UseVisualStyleBackColor = true;
             this.Sta2OnBox.CheckedChanged += new System.EventHandler(this.Sta2OnBox_CheckedChanged);
@@ -1065,10 +1080,10 @@
             // Sta3OnBox
             // 
             this.Sta3OnBox.AutoSize = true;
-            this.Sta3OnBox.Location = new System.Drawing.Point(162, 454);
+            this.Sta3OnBox.Location = new System.Drawing.Point(130, 423);
             this.Sta3OnBox.Margin = new System.Windows.Forms.Padding(2);
             this.Sta3OnBox.Name = "Sta3OnBox";
-            this.Sta3OnBox.Size = new System.Drawing.Size(18, 17);
+            this.Sta3OnBox.Size = new System.Drawing.Size(15, 14);
             this.Sta3OnBox.TabIndex = 113;
             this.Sta3OnBox.UseVisualStyleBackColor = true;
             this.Sta3OnBox.CheckedChanged += new System.EventHandler(this.Sta3OnBox_CheckedChanged);
@@ -1076,10 +1091,10 @@
             // Sta4OnBox
             // 
             this.Sta4OnBox.AutoSize = true;
-            this.Sta4OnBox.Location = new System.Drawing.Point(162, 634);
+            this.Sta4OnBox.Location = new System.Drawing.Point(130, 579);
             this.Sta4OnBox.Margin = new System.Windows.Forms.Padding(2);
             this.Sta4OnBox.Name = "Sta4OnBox";
-            this.Sta4OnBox.Size = new System.Drawing.Size(18, 17);
+            this.Sta4OnBox.Size = new System.Drawing.Size(15, 14);
             this.Sta4OnBox.TabIndex = 114;
             this.Sta4OnBox.UseVisualStyleBackColor = true;
             this.Sta4OnBox.CheckedChanged += new System.EventHandler(this.Sta4OnBox_CheckedChanged);
@@ -1089,10 +1104,10 @@
             this.Sta1OnBox.AutoSize = true;
             this.Sta1OnBox.Checked = true;
             this.Sta1OnBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Sta1OnBox.Location = new System.Drawing.Point(162, 102);
+            this.Sta1OnBox.Location = new System.Drawing.Point(130, 116);
             this.Sta1OnBox.Margin = new System.Windows.Forms.Padding(2);
             this.Sta1OnBox.Name = "Sta1OnBox";
-            this.Sta1OnBox.Size = new System.Drawing.Size(18, 17);
+            this.Sta1OnBox.Size = new System.Drawing.Size(15, 14);
             this.Sta1OnBox.TabIndex = 115;
             this.Sta1OnBox.UseVisualStyleBackColor = true;
             this.Sta1OnBox.CheckedChanged += new System.EventHandler(this.Sta1OnBox_CheckedChanged);
@@ -1100,10 +1115,10 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(512, 288);
+            this.label22.Location = new System.Drawing.Point(410, 221);
             this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(422, 17);
+            this.label22.Size = new System.Drawing.Size(348, 13);
             this.label22.TabIndex = 117;
             this.label22.Text = "若需要以时间命名，使用yyyy、MM、dd、HH、mm、ss、fff来表示";
             // 
@@ -1131,10 +1146,10 @@
             "#mm",
             "#ss",
             "#fff"});
-            this.FTPFolder5Combo.Location = new System.Drawing.Point(918, 180);
+            this.FTPFolder5Combo.Location = new System.Drawing.Point(734, 135);
             this.FTPFolder5Combo.Margin = new System.Windows.Forms.Padding(2);
             this.FTPFolder5Combo.Name = "FTPFolder5Combo";
-            this.FTPFolder5Combo.Size = new System.Drawing.Size(75, 24);
+            this.FTPFolder5Combo.Size = new System.Drawing.Size(61, 21);
             this.FTPFolder5Combo.TabIndex = 123;
             // 
             // FTPFolder4Combo
@@ -1161,10 +1176,10 @@
             "#mm",
             "#ss",
             "#fff"});
-            this.FTPFolder4Combo.Location = new System.Drawing.Point(841, 180);
+            this.FTPFolder4Combo.Location = new System.Drawing.Point(673, 135);
             this.FTPFolder4Combo.Margin = new System.Windows.Forms.Padding(2);
             this.FTPFolder4Combo.Name = "FTPFolder4Combo";
-            this.FTPFolder4Combo.Size = new System.Drawing.Size(75, 24);
+            this.FTPFolder4Combo.Size = new System.Drawing.Size(61, 21);
             this.FTPFolder4Combo.TabIndex = 122;
             // 
             // FTPFolder3Combo
@@ -1191,10 +1206,10 @@
             "#mm",
             "#ss",
             "#fff"});
-            this.FTPFolder3Combo.Location = new System.Drawing.Point(766, 180);
+            this.FTPFolder3Combo.Location = new System.Drawing.Point(613, 135);
             this.FTPFolder3Combo.Margin = new System.Windows.Forms.Padding(2);
             this.FTPFolder3Combo.Name = "FTPFolder3Combo";
-            this.FTPFolder3Combo.Size = new System.Drawing.Size(75, 24);
+            this.FTPFolder3Combo.Size = new System.Drawing.Size(61, 21);
             this.FTPFolder3Combo.TabIndex = 121;
             // 
             // FTPFolder2Combo
@@ -1221,10 +1236,10 @@
             "#mm",
             "#ss",
             "#fff"});
-            this.FTPFolder2Combo.Location = new System.Drawing.Point(690, 180);
+            this.FTPFolder2Combo.Location = new System.Drawing.Point(552, 135);
             this.FTPFolder2Combo.Margin = new System.Windows.Forms.Padding(2);
             this.FTPFolder2Combo.Name = "FTPFolder2Combo";
-            this.FTPFolder2Combo.Size = new System.Drawing.Size(75, 24);
+            this.FTPFolder2Combo.Size = new System.Drawing.Size(61, 21);
             this.FTPFolder2Combo.TabIndex = 120;
             // 
             // FTPFolder1Combo
@@ -1251,29 +1266,29 @@
             "#mm",
             "#ss",
             "#fff"});
-            this.FTPFolder1Combo.Location = new System.Drawing.Point(614, 180);
+            this.FTPFolder1Combo.Location = new System.Drawing.Point(491, 135);
             this.FTPFolder1Combo.Margin = new System.Windows.Forms.Padding(2);
             this.FTPFolder1Combo.Name = "FTPFolder1Combo";
-            this.FTPFolder1Combo.Size = new System.Drawing.Size(75, 24);
+            this.FTPFolder1Combo.Size = new System.Drawing.Size(61, 21);
             this.FTPFolder1Combo.TabIndex = 119;
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(512, 183);
+            this.label21.Location = new System.Drawing.Point(410, 137);
             this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(78, 17);
+            this.label21.Size = new System.Drawing.Size(67, 13);
             this.label21.TabIndex = 118;
             this.label21.Text = "远程路径：";
             // 
             // LogEnableCheck
             // 
             this.LogEnableCheck.AutoSize = true;
-            this.LogEnableCheck.Location = new System.Drawing.Point(22, 64);
+            this.LogEnableCheck.Location = new System.Drawing.Point(22, 54);
             this.LogEnableCheck.Margin = new System.Windows.Forms.Padding(2);
             this.LogEnableCheck.Name = "LogEnableCheck";
-            this.LogEnableCheck.Size = new System.Drawing.Size(114, 21);
+            this.LogEnableCheck.Size = new System.Drawing.Size(98, 17);
             this.LogEnableCheck.TabIndex = 124;
             this.LogEnableCheck.Text = "是否启用日志";
             this.LogEnableCheck.UseVisualStyleBackColor = true;
@@ -1282,29 +1297,29 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(170, 65);
+            this.label23.Location = new System.Drawing.Point(142, 56);
             this.label23.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(106, 17);
+            this.label23.Size = new System.Drawing.Size(91, 13);
             this.label23.TabIndex = 125;
             this.label23.Text = "图片保存天数：";
             // 
             // PicStorDaysText
             // 
-            this.PicStorDaysText.Location = new System.Drawing.Point(298, 64);
+            this.PicStorDaysText.Location = new System.Drawing.Point(244, 54);
             this.PicStorDaysText.Margin = new System.Windows.Forms.Padding(2);
             this.PicStorDaysText.Name = "PicStorDaysText";
-            this.PicStorDaysText.Size = new System.Drawing.Size(56, 22);
+            this.PicStorDaysText.Size = new System.Drawing.Size(46, 20);
             this.PicStorDaysText.TabIndex = 126;
             this.PicStorDaysText.Text = "7";
             // 
             // HTTPUploadCheck
             // 
             this.HTTPUploadCheck.AutoSize = true;
-            this.HTTPUploadCheck.Location = new System.Drawing.Point(516, 584);
+            this.HTTPUploadCheck.Location = new System.Drawing.Point(414, 457);
             this.HTTPUploadCheck.Margin = new System.Windows.Forms.Padding(2);
             this.HTTPUploadCheck.Name = "HTTPUploadCheck";
-            this.HTTPUploadCheck.Size = new System.Drawing.Size(165, 21);
+            this.HTTPUploadCheck.Size = new System.Drawing.Size(139, 17);
             this.HTTPUploadCheck.TabIndex = 127;
             this.HTTPUploadCheck.Text = "是否上传HTTP服务器";
             this.HTTPUploadCheck.UseVisualStyleBackColor = true;
@@ -1312,77 +1327,77 @@
             // 
             // HttpUploadUrlBox
             // 
-            this.HttpUploadUrlBox.Location = new System.Drawing.Point(641, 648);
+            this.HttpUploadUrlBox.Location = new System.Drawing.Point(504, 502);
             this.HttpUploadUrlBox.Margin = new System.Windows.Forms.Padding(2);
             this.HttpUploadUrlBox.Name = "HttpUploadUrlBox";
-            this.HttpUploadUrlBox.Size = new System.Drawing.Size(246, 22);
+            this.HttpUploadUrlBox.Size = new System.Drawing.Size(198, 20);
             this.HttpUploadUrlBox.TabIndex = 129;
             this.HttpUploadUrlBox.Text = "http://ip/service/upload/image";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(513, 650);
+            this.label24.Location = new System.Drawing.Point(410, 505);
             this.label24.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(66, 17);
+            this.label24.Size = new System.Drawing.Size(54, 13);
             this.label24.TabIndex = 128;
             this.label24.Text = "上传url：";
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(901, 622);
+            this.label25.Location = new System.Drawing.Point(721, 482);
             this.label25.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(78, 17);
+            this.label25.Size = new System.Drawing.Size(67, 13);
             this.label25.TabIndex = 130;
             this.label25.Text = "设备编码：";
             // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(514, 679);
+            this.label26.Location = new System.Drawing.Point(411, 528);
             this.label26.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(66, 17);
+            this.label26.Size = new System.Drawing.Size(54, 13);
             this.label26.TabIndex = 131;
             this.label26.Text = "正则url：";
             // 
             // machineCodeBox
             // 
-            this.machineCodeBox.Location = new System.Drawing.Point(976, 619);
+            this.machineCodeBox.Location = new System.Drawing.Point(781, 479);
             this.machineCodeBox.Margin = new System.Windows.Forms.Padding(2);
             this.machineCodeBox.Name = "machineCodeBox";
-            this.machineCodeBox.Size = new System.Drawing.Size(111, 22);
+            this.machineCodeBox.Size = new System.Drawing.Size(90, 20);
             this.machineCodeBox.TabIndex = 132;
             this.machineCodeBox.Text = "SACA1";
             // 
             // HttpRegexUrlBox
             // 
-            this.HttpRegexUrlBox.Location = new System.Drawing.Point(641, 677);
+            this.HttpRegexUrlBox.Location = new System.Drawing.Point(504, 526);
             this.HttpRegexUrlBox.Margin = new System.Windows.Forms.Padding(2);
             this.HttpRegexUrlBox.Name = "HttpRegexUrlBox";
-            this.HttpRegexUrlBox.Size = new System.Drawing.Size(246, 22);
+            this.HttpRegexUrlBox.Size = new System.Drawing.Size(198, 20);
             this.HttpRegexUrlBox.TabIndex = 133;
             this.HttpRegexUrlBox.Text = "http://ip/service/upload/image";
             // 
             // HttpFileNameBox
             // 
-            this.HttpFileNameBox.Location = new System.Drawing.Point(641, 706);
+            this.HttpFileNameBox.Location = new System.Drawing.Point(504, 549);
             this.HttpFileNameBox.Margin = new System.Windows.Forms.Padding(2);
             this.HttpFileNameBox.Name = "HttpFileNameBox";
-            this.HttpFileNameBox.Size = new System.Drawing.Size(306, 22);
+            this.HttpFileNameBox.Size = new System.Drawing.Size(246, 20);
             this.HttpFileNameBox.TabIndex = 135;
             this.HttpFileNameBox.Text = "N0_N1_N2_N3_N4_N5_N6_N7_N8_N9_N10_N11";
             // 
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(514, 709);
+            this.label27.Location = new System.Drawing.Point(411, 552);
             this.label27.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(78, 17);
+            this.label27.Size = new System.Drawing.Size(67, 13);
             this.label27.TabIndex = 134;
             this.label27.Text = "图片命名：";
             // 
@@ -1390,21 +1405,21 @@
             // 
             this.HttpConnectStatusLabel.AutoSize = true;
             this.HttpConnectStatusLabel.BackColor = System.Drawing.SystemColors.GrayText;
-            this.HttpConnectStatusLabel.Location = new System.Drawing.Point(788, 584);
+            this.HttpConnectStatusLabel.Location = new System.Drawing.Point(621, 457);
             this.HttpConnectStatusLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.HttpConnectStatusLabel.Name = "HttpConnectStatusLabel";
             this.HttpConnectStatusLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.HttpConnectStatusLabel.Size = new System.Drawing.Size(24, 17);
+            this.HttpConnectStatusLabel.Size = new System.Drawing.Size(19, 13);
             this.HttpConnectStatusLabel.TabIndex = 137;
             this.HttpConnectStatusLabel.Text = "    ";
             // 
             // UploadStatusCheck
             // 
             this.UploadStatusCheck.AutoSize = true;
-            this.UploadStatusCheck.Location = new System.Drawing.Point(36, 1056);
+            this.UploadStatusCheck.Location = new System.Drawing.Point(29, 952);
             this.UploadStatusCheck.Margin = new System.Windows.Forms.Padding(2);
             this.UploadStatusCheck.Name = "UploadStatusCheck";
-            this.UploadStatusCheck.Size = new System.Drawing.Size(142, 21);
+            this.UploadStatusCheck.Size = new System.Drawing.Size(122, 17);
             this.UploadStatusCheck.TabIndex = 138;
             this.UploadStatusCheck.Text = "是否上传状态报文";
             this.UploadStatusCheck.UseVisualStyleBackColor = true;
@@ -1412,10 +1427,10 @@
             // 
             // SCADAPortBox
             // 
-            this.SCADAPortBox.Location = new System.Drawing.Point(162, 1118);
+            this.SCADAPortBox.Location = new System.Drawing.Point(130, 1001);
             this.SCADAPortBox.Margin = new System.Windows.Forms.Padding(2);
             this.SCADAPortBox.Name = "SCADAPortBox";
-            this.SCADAPortBox.Size = new System.Drawing.Size(246, 22);
+            this.SCADAPortBox.Size = new System.Drawing.Size(198, 20);
             this.SCADAPortBox.TabIndex = 142;
             this.SCADAPortBox.Text = "21";
             this.SCADAPortBox.TextChanged += new System.EventHandler(this.SCADAPortBox_TextChanged);
@@ -1423,20 +1438,20 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(34, 1121);
+            this.label28.Location = new System.Drawing.Point(27, 1004);
             this.label28.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(50, 17);
+            this.label28.Size = new System.Drawing.Size(43, 13);
             this.label28.TabIndex = 141;
             this.label28.Text = "端口：";
             this.label28.Click += new System.EventHandler(this.label28_Click);
             // 
             // SCADAIPBox
             // 
-            this.SCADAIPBox.Location = new System.Drawing.Point(162, 1085);
+            this.SCADAIPBox.Location = new System.Drawing.Point(130, 975);
             this.SCADAIPBox.Margin = new System.Windows.Forms.Padding(2);
             this.SCADAIPBox.Name = "SCADAIPBox";
-            this.SCADAIPBox.Size = new System.Drawing.Size(246, 22);
+            this.SCADAIPBox.Size = new System.Drawing.Size(198, 20);
             this.SCADAIPBox.TabIndex = 140;
             this.SCADAIPBox.Text = "192.168.1.100";
             this.SCADAIPBox.TextChanged += new System.EventHandler(this.SCADAIPBox_TextChanged);
@@ -1444,97 +1459,97 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(34, 1088);
+            this.label30.Location = new System.Drawing.Point(27, 977);
             this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(121, 17);
+            this.label30.Size = new System.Drawing.Size(99, 13);
             this.label30.TabIndex = 139;
             this.label30.Text = "SCADA服务器ip：";
             this.label30.Click += new System.EventHandler(this.label30_Click);
             // 
             // FTPOKBox
             // 
-            this.FTPOKBox.Location = new System.Drawing.Point(548, 1084);
+            this.FTPOKBox.Location = new System.Drawing.Point(438, 974);
             this.FTPOKBox.Margin = new System.Windows.Forms.Padding(2);
             this.FTPOKBox.Name = "FTPOKBox";
-            this.FTPOKBox.Size = new System.Drawing.Size(143, 22);
+            this.FTPOKBox.Size = new System.Drawing.Size(115, 20);
             this.FTPOKBox.TabIndex = 144;
             this.FTPOKBox.Text = "192.168.1.100";
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(420, 1085);
+            this.label31.Location = new System.Drawing.Point(336, 975);
             this.label31.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(132, 17);
+            this.label31.Size = new System.Drawing.Size(111, 13);
             this.label31.TabIndex = 143;
             this.label31.Text = "FTP正常状态报文：";
             // 
             // FTPNOKBox
             // 
-            this.FTPNOKBox.Location = new System.Drawing.Point(548, 1117);
+            this.FTPNOKBox.Location = new System.Drawing.Point(438, 1001);
             this.FTPNOKBox.Margin = new System.Windows.Forms.Padding(2);
             this.FTPNOKBox.Name = "FTPNOKBox";
-            this.FTPNOKBox.Size = new System.Drawing.Size(143, 22);
+            this.FTPNOKBox.Size = new System.Drawing.Size(115, 20);
             this.FTPNOKBox.TabIndex = 146;
             this.FTPNOKBox.Text = "192.168.1.100";
             // 
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(420, 1119);
+            this.label32.Location = new System.Drawing.Point(336, 1002);
             this.label32.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(132, 17);
+            this.label32.Size = new System.Drawing.Size(111, 13);
             this.label32.TabIndex = 145;
             this.label32.Text = "FTP异常状态报文：";
             // 
             // HTTPNOKBox
             // 
-            this.HTTPNOKBox.Location = new System.Drawing.Point(838, 1117);
+            this.HTTPNOKBox.Location = new System.Drawing.Point(670, 1001);
             this.HTTPNOKBox.Margin = new System.Windows.Forms.Padding(2);
             this.HTTPNOKBox.Name = "HTTPNOKBox";
-            this.HTTPNOKBox.Size = new System.Drawing.Size(143, 22);
+            this.HTTPNOKBox.Size = new System.Drawing.Size(115, 20);
             this.HTTPNOKBox.TabIndex = 150;
             this.HTTPNOKBox.Text = "192.168.1.100";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(701, 1118);
+            this.label33.Location = new System.Drawing.Point(561, 1001);
             this.label33.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(143, 17);
+            this.label33.Size = new System.Drawing.Size(120, 13);
             this.label33.TabIndex = 149;
             this.label33.Text = "HTTP异常状态报文：";
             // 
             // HTTPOKBox
             // 
-            this.HTTPOKBox.Location = new System.Drawing.Point(838, 1084);
+            this.HTTPOKBox.Location = new System.Drawing.Point(670, 974);
             this.HTTPOKBox.Margin = new System.Windows.Forms.Padding(2);
             this.HTTPOKBox.Name = "HTTPOKBox";
-            this.HTTPOKBox.Size = new System.Drawing.Size(143, 22);
+            this.HTTPOKBox.Size = new System.Drawing.Size(115, 20);
             this.HTTPOKBox.TabIndex = 148;
             this.HTTPOKBox.Text = "192.168.1.100";
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(701, 1085);
+            this.label34.Location = new System.Drawing.Point(561, 975);
             this.label34.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(143, 17);
+            this.label34.Size = new System.Drawing.Size(120, 13);
             this.label34.TabIndex = 147;
             this.label34.Text = "HTTP正常状态报文：";
             // 
             // CaptionEnableCheck
             // 
             this.CaptionEnableCheck.AutoSize = true;
-            this.CaptionEnableCheck.Location = new System.Drawing.Point(515, 317);
+            this.CaptionEnableCheck.Location = new System.Drawing.Point(412, 244);
             this.CaptionEnableCheck.Margin = new System.Windows.Forms.Padding(2);
             this.CaptionEnableCheck.Name = "CaptionEnableCheck";
-            this.CaptionEnableCheck.Size = new System.Drawing.Size(142, 21);
+            this.CaptionEnableCheck.Size = new System.Drawing.Size(122, 17);
             this.CaptionEnableCheck.TabIndex = 151;
             this.CaptionEnableCheck.Text = "是否添加图片水印";
             this.CaptionEnableCheck.UseVisualStyleBackColor = true;
@@ -1542,12 +1557,12 @@
             // 
             // CaptionFormatBox
             // 
-            this.CaptionFormatBox.Location = new System.Drawing.Point(675, 340);
+            this.CaptionFormatBox.Location = new System.Drawing.Point(540, 262);
             this.CaptionFormatBox.Margin = new System.Windows.Forms.Padding(2);
             this.CaptionFormatBox.Multiline = true;
             this.CaptionFormatBox.Name = "CaptionFormatBox";
             this.CaptionFormatBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.CaptionFormatBox.Size = new System.Drawing.Size(295, 48);
+            this.CaptionFormatBox.Size = new System.Drawing.Size(237, 39);
             this.CaptionFormatBox.TabIndex = 152;
             this.CaptionFormatBox.Text = "设备名：#N1\r\n时间戳：#yyyy#MM#dd#HH#mm#ss";
             // 
@@ -1558,19 +1573,19 @@
             this.captionOptionList.Items.AddRange(new object[] {
             "包含中文字符",
             "仅英文字符"});
-            this.captionOptionList.Location = new System.Drawing.Point(515, 364);
+            this.captionOptionList.Location = new System.Drawing.Point(412, 281);
             this.captionOptionList.Margin = new System.Windows.Forms.Padding(2);
             this.captionOptionList.Name = "captionOptionList";
-            this.captionOptionList.Size = new System.Drawing.Size(142, 24);
+            this.captionOptionList.Size = new System.Drawing.Size(114, 21);
             this.captionOptionList.TabIndex = 153;
             // 
             // PackageBorderCheck
             // 
             this.PackageBorderCheck.AutoSize = true;
-            this.PackageBorderCheck.Location = new System.Drawing.Point(518, 969);
+            this.PackageBorderCheck.Location = new System.Drawing.Point(414, 880);
             this.PackageBorderCheck.Margin = new System.Windows.Forms.Padding(2);
             this.PackageBorderCheck.Name = "PackageBorderCheck";
-            this.PackageBorderCheck.Size = new System.Drawing.Size(114, 21);
+            this.PackageBorderCheck.Size = new System.Drawing.Size(98, 17);
             this.PackageBorderCheck.TabIndex = 155;
             this.PackageBorderCheck.Text = "显示包裹边框";
             this.PackageBorderCheck.UseVisualStyleBackColor = true;
@@ -1578,10 +1593,10 @@
             // 
             // calibrateBtn
             // 
-            this.calibrateBtn.Location = new System.Drawing.Point(640, 965);
+            this.calibrateBtn.Location = new System.Drawing.Point(514, 877);
             this.calibrateBtn.Margin = new System.Windows.Forms.Padding(2);
             this.calibrateBtn.Name = "calibrateBtn";
-            this.calibrateBtn.Size = new System.Drawing.Size(76, 28);
+            this.calibrateBtn.Size = new System.Drawing.Size(61, 22);
             this.calibrateBtn.TabIndex = 156;
             this.calibrateBtn.Text = "标定";
             this.calibrateBtn.UseVisualStyleBackColor = true;
@@ -1590,10 +1605,10 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(516, 997);
+            this.label36.Location = new System.Drawing.Point(413, 903);
             this.label36.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(78, 17);
+            this.label36.Size = new System.Drawing.Size(67, 13);
             this.label36.TabIndex = 157;
             this.label36.Text = "坐标信息：";
             // 
@@ -1615,38 +1630,38 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.PosCombo.Location = new System.Drawing.Point(641, 995);
+            this.PosCombo.Location = new System.Drawing.Point(515, 901);
             this.PosCombo.Margin = new System.Windows.Forms.Padding(2);
             this.PosCombo.Name = "PosCombo";
-            this.PosCombo.Size = new System.Drawing.Size(75, 24);
+            this.PosCombo.Size = new System.Drawing.Size(61, 21);
             this.PosCombo.TabIndex = 158;
             // 
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(516, 1021);
+            this.label37.Location = new System.Drawing.Point(413, 924);
             this.label37.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(522, 17);
+            this.label37.Size = new System.Drawing.Size(418, 13);
             this.label37.TabIndex = 159;
             this.label37.Text = "坐标信息格式:        体积测量编号（0或1）;X1;Y1;Z1;X2;Y2;Z2;X3;Y3;Z3;X4;Y4;Z4";
             // 
             // HttpCheckUrlBox
             // 
-            this.HttpCheckUrlBox.Location = new System.Drawing.Point(641, 619);
+            this.HttpCheckUrlBox.Location = new System.Drawing.Point(504, 479);
             this.HttpCheckUrlBox.Margin = new System.Windows.Forms.Padding(2);
             this.HttpCheckUrlBox.Name = "HttpCheckUrlBox";
-            this.HttpCheckUrlBox.Size = new System.Drawing.Size(246, 22);
+            this.HttpCheckUrlBox.Size = new System.Drawing.Size(198, 20);
             this.HttpCheckUrlBox.TabIndex = 161;
             this.HttpCheckUrlBox.Text = "http://ip/service/upload/image";
             // 
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(513, 622);
+            this.label38.Location = new System.Drawing.Point(410, 482);
             this.label38.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(66, 17);
+            this.label38.Size = new System.Drawing.Size(54, 13);
             this.label38.TabIndex = 160;
             this.label38.Text = "校验url：";
             // 
@@ -1668,57 +1683,57 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.DimWgtCombo.Location = new System.Drawing.Point(162, 925);
+            this.DimWgtCombo.Location = new System.Drawing.Point(130, 838);
             this.DimWgtCombo.Margin = new System.Windows.Forms.Padding(2);
             this.DimWgtCombo.Name = "DimWgtCombo";
-            this.DimWgtCombo.Size = new System.Drawing.Size(75, 24);
+            this.DimWgtCombo.Size = new System.Drawing.Size(61, 21);
             this.DimWgtCombo.TabIndex = 163;
             // 
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(35, 929);
+            this.label39.Location = new System.Drawing.Point(28, 841);
             this.label39.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(106, 17);
+            this.label39.Size = new System.Drawing.Size(91, 13);
             this.label39.TabIndex = 162;
             this.label39.Text = "体积重量信息：";
             // 
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(251, 929);
+            this.label40.Location = new System.Drawing.Point(201, 841);
             this.label40.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(142, 17);
+            this.label40.Size = new System.Drawing.Size(118, 13);
             this.label40.TabIndex = 164;
             this.label40.Text = "(格式：长;宽;高;重量)";
             // 
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(514, 738);
+            this.label41.Location = new System.Drawing.Point(411, 576);
             this.label41.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(106, 17);
+            this.label41.Size = new System.Drawing.Size(91, 13);
             this.label41.TabIndex = 165;
             this.label41.Text = "多代码分隔符：";
             // 
             // delimiterBox
             // 
-            this.delimiterBox.Location = new System.Drawing.Point(641, 736);
+            this.delimiterBox.Location = new System.Drawing.Point(504, 573);
             this.delimiterBox.Margin = new System.Windows.Forms.Padding(2);
             this.delimiterBox.Name = "delimiterBox";
-            this.delimiterBox.Size = new System.Drawing.Size(246, 22);
+            this.delimiterBox.Size = new System.Drawing.Size(198, 20);
             this.delimiterBox.TabIndex = 166;
             this.delimiterBox.Text = "+";
             // 
             // FtpResetBtn
             // 
-            this.FtpResetBtn.Location = new System.Drawing.Point(761, 401);
+            this.FtpResetBtn.Location = new System.Drawing.Point(609, 311);
             this.FtpResetBtn.Margin = new System.Windows.Forms.Padding(2);
             this.FtpResetBtn.Name = "FtpResetBtn";
-            this.FtpResetBtn.Size = new System.Drawing.Size(66, 32);
+            this.FtpResetBtn.Size = new System.Drawing.Size(53, 26);
             this.FtpResetBtn.TabIndex = 167;
             this.FtpResetBtn.Text = "Reset";
             this.FtpResetBtn.UseVisualStyleBackColor = true;
@@ -1726,10 +1741,10 @@
             // 
             // HttpResetBtn
             // 
-            this.HttpResetBtn.Location = new System.Drawing.Point(821, 576);
+            this.HttpResetBtn.Location = new System.Drawing.Point(648, 451);
             this.HttpResetBtn.Margin = new System.Windows.Forms.Padding(2);
             this.HttpResetBtn.Name = "HttpResetBtn";
-            this.HttpResetBtn.Size = new System.Drawing.Size(66, 32);
+            this.HttpResetBtn.Size = new System.Drawing.Size(53, 26);
             this.HttpResetBtn.TabIndex = 168;
             this.HttpResetBtn.Text = "Reset";
             this.HttpResetBtn.UseVisualStyleBackColor = true;
@@ -1744,10 +1759,10 @@
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(35, 218);
+            this.label42.Location = new System.Drawing.Point(28, 208);
             this.label42.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(89, 17);
+            this.label42.Size = new System.Drawing.Size(74, 13);
             this.label42.TabIndex = 169;
             this.label42.Text = "DMBS数量：";
             // 
@@ -1760,10 +1775,10 @@
             "4",
             "5",
             "6"});
-            this.BottomCamNoCombo1.Location = new System.Drawing.Point(162, 214);
+            this.BottomCamNoCombo1.Location = new System.Drawing.Point(130, 205);
             this.BottomCamNoCombo1.Margin = new System.Windows.Forms.Padding(2);
             this.BottomCamNoCombo1.Name = "BottomCamNoCombo1";
-            this.BottomCamNoCombo1.Size = new System.Drawing.Size(114, 24);
+            this.BottomCamNoCombo1.Size = new System.Drawing.Size(92, 21);
             this.BottomCamNoCombo1.TabIndex = 170;
             // 
             // BottomCamNoCombo2
@@ -1775,19 +1790,19 @@
             "4",
             "5",
             "6"});
-            this.BottomCamNoCombo2.Location = new System.Drawing.Point(162, 391);
+            this.BottomCamNoCombo2.Location = new System.Drawing.Point(130, 360);
             this.BottomCamNoCombo2.Margin = new System.Windows.Forms.Padding(2);
             this.BottomCamNoCombo2.Name = "BottomCamNoCombo2";
-            this.BottomCamNoCombo2.Size = new System.Drawing.Size(114, 24);
+            this.BottomCamNoCombo2.Size = new System.Drawing.Size(92, 21);
             this.BottomCamNoCombo2.TabIndex = 172;
             // 
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(34, 394);
+            this.label43.Location = new System.Drawing.Point(27, 362);
             this.label43.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(89, 17);
+            this.label43.Size = new System.Drawing.Size(74, 13);
             this.label43.TabIndex = 171;
             this.label43.Text = "DMBS数量：";
             // 
@@ -1800,19 +1815,19 @@
             "4",
             "5",
             "6"});
-            this.BottomCamNoCombo3.Location = new System.Drawing.Point(162, 570);
+            this.BottomCamNoCombo3.Location = new System.Drawing.Point(130, 516);
             this.BottomCamNoCombo3.Margin = new System.Windows.Forms.Padding(2);
             this.BottomCamNoCombo3.Name = "BottomCamNoCombo3";
-            this.BottomCamNoCombo3.Size = new System.Drawing.Size(114, 24);
+            this.BottomCamNoCombo3.Size = new System.Drawing.Size(92, 21);
             this.BottomCamNoCombo3.TabIndex = 174;
             // 
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(34, 572);
+            this.label44.Location = new System.Drawing.Point(27, 518);
             this.label44.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(89, 17);
+            this.label44.Size = new System.Drawing.Size(74, 13);
             this.label44.TabIndex = 173;
             this.label44.Text = "DMBS数量：";
             // 
@@ -1825,29 +1840,29 @@
             "4",
             "5",
             "6"});
-            this.BottomCamNoCombo4.Location = new System.Drawing.Point(162, 752);
+            this.BottomCamNoCombo4.Location = new System.Drawing.Point(130, 674);
             this.BottomCamNoCombo4.Margin = new System.Windows.Forms.Padding(2);
             this.BottomCamNoCombo4.Name = "BottomCamNoCombo4";
-            this.BottomCamNoCombo4.Size = new System.Drawing.Size(114, 24);
+            this.BottomCamNoCombo4.Size = new System.Drawing.Size(92, 21);
             this.BottomCamNoCombo4.TabIndex = 176;
             // 
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(34, 755);
+            this.label45.Location = new System.Drawing.Point(27, 676);
             this.label45.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(89, 17);
+            this.label45.Size = new System.Drawing.Size(74, 13);
             this.label45.TabIndex = 175;
             this.label45.Text = "DMBS数量：";
             // 
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(35, 247);
+            this.label46.Location = new System.Drawing.Point(28, 232);
             this.label46.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(92, 17);
+            this.label46.Size = new System.Drawing.Size(79, 13);
             this.label46.TabIndex = 177;
             this.label46.Text = "供包台区域：";
             // 
@@ -1857,10 +1872,10 @@
             this.InductIDCombo1.FormattingEnabled = true;
             this.InductIDCombo1.Items.AddRange(new object[] {
             "禁用融合"});
-            this.InductIDCombo1.Location = new System.Drawing.Point(162, 245);
+            this.InductIDCombo1.Location = new System.Drawing.Point(130, 230);
             this.InductIDCombo1.Margin = new System.Windows.Forms.Padding(2);
             this.InductIDCombo1.Name = "InductIDCombo1";
-            this.InductIDCombo1.Size = new System.Drawing.Size(114, 24);
+            this.InductIDCombo1.Size = new System.Drawing.Size(92, 21);
             this.InductIDCombo1.TabIndex = 178;
             // 
             // InductIDCombo2
@@ -1869,19 +1884,19 @@
             this.InductIDCombo2.FormattingEnabled = true;
             this.InductIDCombo2.Items.AddRange(new object[] {
             "禁用融合"});
-            this.InductIDCombo2.Location = new System.Drawing.Point(162, 422);
+            this.InductIDCombo2.Location = new System.Drawing.Point(130, 385);
             this.InductIDCombo2.Margin = new System.Windows.Forms.Padding(2);
             this.InductIDCombo2.Name = "InductIDCombo2";
-            this.InductIDCombo2.Size = new System.Drawing.Size(114, 24);
+            this.InductIDCombo2.Size = new System.Drawing.Size(92, 21);
             this.InductIDCombo2.TabIndex = 180;
             // 
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(33, 424);
+            this.label47.Location = new System.Drawing.Point(26, 386);
             this.label47.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(92, 17);
+            this.label47.Size = new System.Drawing.Size(79, 13);
             this.label47.TabIndex = 179;
             this.label47.Text = "供包台区域：";
             // 
@@ -1891,19 +1906,19 @@
             this.InductIDCombo3.FormattingEnabled = true;
             this.InductIDCombo3.Items.AddRange(new object[] {
             "禁用融合"});
-            this.InductIDCombo3.Location = new System.Drawing.Point(162, 601);
+            this.InductIDCombo3.Location = new System.Drawing.Point(130, 541);
             this.InductIDCombo3.Margin = new System.Windows.Forms.Padding(2);
             this.InductIDCombo3.Name = "InductIDCombo3";
-            this.InductIDCombo3.Size = new System.Drawing.Size(114, 24);
+            this.InductIDCombo3.Size = new System.Drawing.Size(92, 21);
             this.InductIDCombo3.TabIndex = 182;
             // 
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(34, 602);
+            this.label48.Location = new System.Drawing.Point(27, 542);
             this.label48.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(92, 17);
+            this.label48.Size = new System.Drawing.Size(79, 13);
             this.label48.TabIndex = 181;
             this.label48.Text = "供包台区域：";
             // 
@@ -1913,28 +1928,28 @@
             this.InductIDCombo4.FormattingEnabled = true;
             this.InductIDCombo4.Items.AddRange(new object[] {
             "禁用融合"});
-            this.InductIDCombo4.Location = new System.Drawing.Point(162, 783);
+            this.InductIDCombo4.Location = new System.Drawing.Point(130, 698);
             this.InductIDCombo4.Margin = new System.Windows.Forms.Padding(2);
             this.InductIDCombo4.Name = "InductIDCombo4";
-            this.InductIDCombo4.Size = new System.Drawing.Size(114, 24);
+            this.InductIDCombo4.Size = new System.Drawing.Size(92, 21);
             this.InductIDCombo4.TabIndex = 184;
             // 
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(34, 785);
+            this.label49.Location = new System.Drawing.Point(27, 700);
             this.label49.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(92, 17);
+            this.label49.Size = new System.Drawing.Size(79, 13);
             this.label49.TabIndex = 183;
             this.label49.Text = "供包台区域：";
             // 
             // InductFtpRootButton
             // 
-            this.InductFtpRootButton.Location = new System.Drawing.Point(895, 61);
+            this.InductFtpRootButton.Location = new System.Drawing.Point(716, 25);
             this.InductFtpRootButton.Margin = new System.Windows.Forms.Padding(2);
             this.InductFtpRootButton.Name = "InductFtpRootButton";
-            this.InductFtpRootButton.Size = new System.Drawing.Size(42, 24);
+            this.InductFtpRootButton.Size = new System.Drawing.Size(34, 19);
             this.InductFtpRootButton.TabIndex = 190;
             this.InductFtpRootButton.Text = "...";
             this.InductFtpRootButton.UseVisualStyleBackColor = true;
@@ -1943,30 +1958,30 @@
             // InductFtpRootBox
             // 
             this.InductFtpRootBox.Enabled = false;
-            this.InductFtpRootBox.Location = new System.Drawing.Point(638, 62);
+            this.InductFtpRootBox.Location = new System.Drawing.Point(510, 24);
             this.InductFtpRootBox.Margin = new System.Windows.Forms.Padding(2);
             this.InductFtpRootBox.Name = "InductFtpRootBox";
-            this.InductFtpRootBox.Size = new System.Drawing.Size(246, 22);
+            this.InductFtpRootBox.Size = new System.Drawing.Size(198, 20);
             this.InductFtpRootBox.TabIndex = 189;
             this.InductFtpRootBox.Text = "D:\\InductImages";
             // 
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(512, 63);
+            this.label50.Location = new System.Drawing.Point(410, 27);
             this.label50.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(120, 17);
+            this.label50.Size = new System.Drawing.Size(103, 13);
             this.label50.TabIndex = 188;
             this.label50.Text = "供包台图片路径：";
             // 
             // label51
             // 
             this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(512, 89);
+            this.label51.Location = new System.Drawing.Point(410, 54);
             this.label51.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(458, 17);
+            this.label51.Size = new System.Drawing.Size(382, 13);
             this.label51.TabIndex = 191;
             this.label51.Text = "供包台图片命名格式：_0,序列号_1,读码器名称_2,时间戳_3,结果_4,条码";
             // 
@@ -1986,19 +2001,19 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.ResultCombo.Location = new System.Drawing.Point(162, 830);
+            this.ResultCombo.Location = new System.Drawing.Point(130, 742);
             this.ResultCombo.Margin = new System.Windows.Forms.Padding(2);
             this.ResultCombo.Name = "ResultCombo";
-            this.ResultCombo.Size = new System.Drawing.Size(75, 24);
+            this.ResultCombo.Size = new System.Drawing.Size(61, 21);
             this.ResultCombo.TabIndex = 193;
             // 
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(36, 826);
+            this.label52.Location = new System.Drawing.Point(29, 739);
             this.label52.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(106, 34);
+            this.label52.Size = new System.Drawing.Size(91, 26);
             this.label52.TabIndex = 192;
             this.label52.Text = "主线结果信息：\r\n(GR/MR/NR)";
             // 
@@ -2018,19 +2033,19 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.BarcodeCombo.Location = new System.Drawing.Point(162, 862);
+            this.BarcodeCombo.Location = new System.Drawing.Point(130, 774);
             this.BarcodeCombo.Margin = new System.Windows.Forms.Padding(2);
             this.BarcodeCombo.Name = "BarcodeCombo";
-            this.BarcodeCombo.Size = new System.Drawing.Size(75, 24);
+            this.BarcodeCombo.Size = new System.Drawing.Size(61, 21);
             this.BarcodeCombo.TabIndex = 195;
             // 
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(35, 866);
+            this.label53.Location = new System.Drawing.Point(28, 777);
             this.label53.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(106, 17);
+            this.label53.Size = new System.Drawing.Size(91, 13);
             this.label53.TabIndex = 194;
             this.label53.Text = "主线条码信息：";
             // 
@@ -2039,10 +2054,11 @@
             this.textBox3.BackColor = System.Drawing.SystemColors.Control;
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(22, 94);
+            this.textBox3.Location = new System.Drawing.Point(18, 109);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(465, 719);
+            this.textBox3.Size = new System.Drawing.Size(372, 620);
             this.textBox3.TabIndex = 196;
             // 
             // textBox4
@@ -2050,10 +2066,11 @@
             this.textBox4.BackColor = System.Drawing.SystemColors.Control;
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(22, 819);
+            this.textBox4.Location = new System.Drawing.Point(18, 733);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(465, 137);
+            this.textBox4.Size = new System.Drawing.Size(372, 138);
             this.textBox4.TabIndex = 197;
             // 
             // textBox5
@@ -2061,10 +2078,11 @@
             this.textBox5.BackColor = System.Drawing.SystemColors.Control;
             this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox5.Enabled = false;
-            this.textBox5.Location = new System.Drawing.Point(22, 1051);
+            this.textBox5.Location = new System.Drawing.Point(18, 948);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(2);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(1078, 101);
+            this.textBox5.Size = new System.Drawing.Size(863, 81);
             this.textBox5.TabIndex = 198;
             // 
             // textBox6
@@ -2072,10 +2090,11 @@
             this.textBox6.BackColor = System.Drawing.SystemColors.Control;
             this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(507, 962);
+            this.textBox6.Location = new System.Drawing.Point(406, 875);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(2);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(593, 83);
+            this.textBox6.Size = new System.Drawing.Size(475, 67);
             this.textBox6.TabIndex = 199;
             // 
             // textBox7
@@ -2083,10 +2102,11 @@
             this.textBox7.BackColor = System.Drawing.SystemColors.Control;
             this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox7.Enabled = false;
-            this.textBox7.Location = new System.Drawing.Point(507, 573);
+            this.textBox7.Location = new System.Drawing.Point(406, 448);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(2);
             this.textBox7.Multiline = true;
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(593, 383);
+            this.textBox7.Size = new System.Drawing.Size(475, 423);
             this.textBox7.TabIndex = 200;
             // 
             // textBox8
@@ -2094,10 +2114,11 @@
             this.textBox8.BackColor = System.Drawing.SystemColors.Control;
             this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox8.Enabled = false;
-            this.textBox8.Location = new System.Drawing.Point(507, 397);
+            this.textBox8.Location = new System.Drawing.Point(406, 308);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(2);
             this.textBox8.Multiline = true;
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(329, 171);
+            this.textBox8.Size = new System.Drawing.Size(264, 137);
             this.textBox8.TabIndex = 201;
             // 
             // textBox9
@@ -2105,10 +2126,11 @@
             this.textBox9.BackColor = System.Drawing.SystemColors.Control;
             this.textBox9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox9.Enabled = false;
-            this.textBox9.Location = new System.Drawing.Point(507, 314);
+            this.textBox9.Location = new System.Drawing.Point(406, 241);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(2);
             this.textBox9.Multiline = true;
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(593, 79);
+            this.textBox9.Size = new System.Drawing.Size(475, 64);
             this.textBox9.TabIndex = 202;
             // 
             // textBox10
@@ -2116,10 +2138,11 @@
             this.textBox10.BackColor = System.Drawing.SystemColors.Control;
             this.textBox10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox10.Enabled = false;
-            this.textBox10.Location = new System.Drawing.Point(507, 148);
+            this.textBox10.Location = new System.Drawing.Point(406, 109);
+            this.textBox10.Margin = new System.Windows.Forms.Padding(2);
             this.textBox10.Multiline = true;
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(593, 161);
+            this.textBox10.Size = new System.Drawing.Size(475, 129);
             this.textBox10.TabIndex = 203;
             // 
             // textBox11
@@ -2127,18 +2150,19 @@
             this.textBox11.BackColor = System.Drawing.SystemColors.Control;
             this.textBox11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox11.Enabled = false;
-            this.textBox11.Location = new System.Drawing.Point(507, 58);
+            this.textBox11.Location = new System.Drawing.Point(406, 14);
+            this.textBox11.Margin = new System.Windows.Forms.Padding(2);
             this.textBox11.Multiline = true;
             this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(593, 86);
+            this.textBox11.Size = new System.Drawing.Size(475, 91);
             this.textBox11.TabIndex = 204;
             // 
             // InductCommBtn
             // 
-            this.InductCommBtn.Location = new System.Drawing.Point(941, 59);
+            this.InductCommBtn.Location = new System.Drawing.Point(753, 24);
             this.InductCommBtn.Margin = new System.Windows.Forms.Padding(2);
             this.InductCommBtn.Name = "InductCommBtn";
-            this.InductCommBtn.Size = new System.Drawing.Size(138, 28);
+            this.InductCommBtn.Size = new System.Drawing.Size(110, 22);
             this.InductCommBtn.TabIndex = 205;
             this.InductCommBtn.Text = "供包台通讯配置";
             this.InductCommBtn.UseVisualStyleBackColor = true;
@@ -2147,10 +2171,10 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(251, 834);
+            this.label54.Location = new System.Drawing.Point(201, 745);
             this.label54.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(120, 17);
+            this.label54.Size = new System.Drawing.Size(103, 13);
             this.label54.TabIndex = 206;
             this.label54.Text = "主线小车号信息：";
             // 
@@ -2170,19 +2194,19 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.TrayIDCombo.Location = new System.Drawing.Point(392, 830);
+            this.TrayIDCombo.Location = new System.Drawing.Point(314, 742);
             this.TrayIDCombo.Margin = new System.Windows.Forms.Padding(2);
             this.TrayIDCombo.Name = "TrayIDCombo";
-            this.TrayIDCombo.Size = new System.Drawing.Size(75, 24);
+            this.TrayIDCombo.Size = new System.Drawing.Size(61, 21);
             this.TrayIDCombo.TabIndex = 207;
             // 
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(251, 866);
+            this.label55.Location = new System.Drawing.Point(201, 777);
             this.label55.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(120, 17);
+            this.label55.Size = new System.Drawing.Size(103, 13);
             this.label55.TabIndex = 208;
             this.label55.Text = "主线时间戳信息：";
             // 
@@ -2202,28 +2226,28 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.SorterTimeStampCombo.Location = new System.Drawing.Point(392, 862);
+            this.SorterTimeStampCombo.Location = new System.Drawing.Point(314, 774);
             this.SorterTimeStampCombo.Margin = new System.Windows.Forms.Padding(2);
             this.SorterTimeStampCombo.Name = "SorterTimeStampCombo";
-            this.SorterTimeStampCombo.Size = new System.Drawing.Size(75, 24);
+            this.SorterTimeStampCombo.Size = new System.Drawing.Size(61, 21);
             this.SorterTimeStampCombo.TabIndex = 209;
             // 
             // FtpFileNameBox
             // 
-            this.FtpFileNameBox.Location = new System.Drawing.Point(614, 235);
+            this.FtpFileNameBox.Location = new System.Drawing.Point(491, 179);
             this.FtpFileNameBox.Margin = new System.Windows.Forms.Padding(2);
             this.FtpFileNameBox.Name = "FtpFileNameBox";
-            this.FtpFileNameBox.Size = new System.Drawing.Size(379, 22);
+            this.FtpFileNameBox.Size = new System.Drawing.Size(304, 20);
             this.FtpFileNameBox.TabIndex = 211;
             this.FtpFileNameBox.Text = "N0_N1_N2_N3_N4_N5_N6_N7_N8_N9_N10_N11";
             // 
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(512, 237);
+            this.label56.Location = new System.Drawing.Point(410, 181);
             this.label56.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(106, 17);
+            this.label56.Size = new System.Drawing.Size(91, 13);
             this.label56.TabIndex = 210;
             this.label56.Text = "远程图片命名：";
             // 
@@ -2243,28 +2267,28 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.BoxIDCombo.Location = new System.Drawing.Point(162, 894);
+            this.BoxIDCombo.Location = new System.Drawing.Point(130, 805);
             this.BoxIDCombo.Margin = new System.Windows.Forms.Padding(2);
             this.BoxIDCombo.Name = "BoxIDCombo";
-            this.BoxIDCombo.Size = new System.Drawing.Size(75, 24);
+            this.BoxIDCombo.Size = new System.Drawing.Size(61, 21);
             this.BoxIDCombo.TabIndex = 213;
             // 
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(35, 898);
+            this.label57.Location = new System.Drawing.Point(28, 808);
             this.label57.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(120, 17);
+            this.label57.Size = new System.Drawing.Size(103, 13);
             this.label57.TabIndex = 212;
             this.label57.Text = "主线索引号信息：";
             // 
             // FtpResetBtn2
             // 
-            this.FtpResetBtn2.Location = new System.Drawing.Point(1028, 401);
+            this.FtpResetBtn2.Location = new System.Drawing.Point(822, 311);
             this.FtpResetBtn2.Margin = new System.Windows.Forms.Padding(2);
             this.FtpResetBtn2.Name = "FtpResetBtn2";
-            this.FtpResetBtn2.Size = new System.Drawing.Size(66, 32);
+            this.FtpResetBtn2.Size = new System.Drawing.Size(53, 26);
             this.FtpResetBtn2.TabIndex = 224;
             this.FtpResetBtn2.Text = "Reset";
             this.FtpResetBtn2.UseVisualStyleBackColor = true;
@@ -2274,96 +2298,96 @@
             // 
             this.ConnectStatusLabel2.AutoSize = true;
             this.ConnectStatusLabel2.BackColor = System.Drawing.SystemColors.GrayText;
-            this.ConnectStatusLabel2.Location = new System.Drawing.Point(995, 408);
+            this.ConnectStatusLabel2.Location = new System.Drawing.Point(796, 316);
             this.ConnectStatusLabel2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ConnectStatusLabel2.Name = "ConnectStatusLabel2";
             this.ConnectStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ConnectStatusLabel2.Size = new System.Drawing.Size(24, 17);
+            this.ConnectStatusLabel2.Size = new System.Drawing.Size(19, 13);
             this.ConnectStatusLabel2.TabIndex = 223;
             this.ConnectStatusLabel2.Text = "    ";
             // 
             // PasswordBox2
             // 
-            this.PasswordBox2.Location = new System.Drawing.Point(956, 536);
+            this.PasswordBox2.Location = new System.Drawing.Point(765, 419);
             this.PasswordBox2.Margin = new System.Windows.Forms.Padding(2);
             this.PasswordBox2.Name = "PasswordBox2";
-            this.PasswordBox2.Size = new System.Drawing.Size(137, 22);
+            this.PasswordBox2.Size = new System.Drawing.Size(110, 20);
             this.PasswordBox2.TabIndex = 222;
             // 
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(848, 539);
+            this.label29.Location = new System.Drawing.Point(678, 421);
             this.label29.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(50, 17);
+            this.label29.Size = new System.Drawing.Size(43, 13);
             this.label29.TabIndex = 221;
             this.label29.Text = "密码：";
             // 
             // UserBox2
             // 
-            this.UserBox2.Location = new System.Drawing.Point(956, 504);
+            this.UserBox2.Location = new System.Drawing.Point(765, 393);
             this.UserBox2.Margin = new System.Windows.Forms.Padding(2);
             this.UserBox2.Name = "UserBox2";
-            this.UserBox2.Size = new System.Drawing.Size(137, 22);
+            this.UserBox2.Size = new System.Drawing.Size(110, 20);
             this.UserBox2.TabIndex = 220;
             this.UserBox2.Text = "herbert";
             // 
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(848, 507);
+            this.label58.Location = new System.Drawing.Point(678, 396);
             this.label58.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(64, 17);
+            this.label58.Size = new System.Drawing.Size(55, 13);
             this.label58.TabIndex = 219;
             this.label58.Text = "用户名：";
             // 
             // PortBox2
             // 
-            this.PortBox2.Location = new System.Drawing.Point(956, 471);
+            this.PortBox2.Location = new System.Drawing.Point(765, 367);
             this.PortBox2.Margin = new System.Windows.Forms.Padding(2);
             this.PortBox2.Name = "PortBox2";
-            this.PortBox2.Size = new System.Drawing.Size(137, 22);
+            this.PortBox2.Size = new System.Drawing.Size(110, 20);
             this.PortBox2.TabIndex = 218;
             this.PortBox2.Text = "21";
             // 
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(848, 473);
+            this.label59.Location = new System.Drawing.Point(678, 368);
             this.label59.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(50, 17);
+            this.label59.Size = new System.Drawing.Size(43, 13);
             this.label59.TabIndex = 217;
             this.label59.Text = "端口：";
             // 
             // ServerIPBox2
             // 
-            this.ServerIPBox2.Location = new System.Drawing.Point(956, 441);
+            this.ServerIPBox2.Location = new System.Drawing.Point(765, 343);
             this.ServerIPBox2.Margin = new System.Windows.Forms.Padding(2);
             this.ServerIPBox2.Name = "ServerIPBox2";
-            this.ServerIPBox2.Size = new System.Drawing.Size(137, 22);
+            this.ServerIPBox2.Size = new System.Drawing.Size(110, 20);
             this.ServerIPBox2.TabIndex = 216;
             this.ServerIPBox2.Text = "192.168.1.100";
             // 
             // label60
             // 
             this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(848, 443);
+            this.label60.Location = new System.Drawing.Point(678, 344);
             this.label60.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(75, 17);
+            this.label60.Size = new System.Drawing.Size(63, 13);
             this.label60.TabIndex = 215;
             this.label60.Text = "服务器ip：";
             // 
             // UploadCheck2
             // 
             this.UploadCheck2.AutoSize = true;
-            this.UploadCheck2.Location = new System.Drawing.Point(850, 407);
+            this.UploadCheck2.Location = new System.Drawing.Point(680, 316);
             this.UploadCheck2.Margin = new System.Windows.Forms.Padding(2);
             this.UploadCheck2.Name = "UploadCheck2";
-            this.UploadCheck2.Size = new System.Drawing.Size(114, 21);
+            this.UploadCheck2.Size = new System.Drawing.Size(98, 17);
             this.UploadCheck2.TabIndex = 214;
             this.UploadCheck2.Text = "中邮多路输出";
             this.UploadCheck2.UseVisualStyleBackColor = true;
@@ -2374,38 +2398,39 @@
             this.textBox15.BackColor = System.Drawing.SystemColors.Control;
             this.textBox15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox15.Enabled = false;
-            this.textBox15.Location = new System.Drawing.Point(842, 397);
+            this.textBox15.Location = new System.Drawing.Point(674, 308);
+            this.textBox15.Margin = new System.Windows.Forms.Padding(2);
             this.textBox15.Multiline = true;
             this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(258, 171);
+            this.textBox15.Size = new System.Drawing.Size(207, 137);
             this.textBox15.TabIndex = 225;
             // 
             // FtpFileNameBox2
             // 
-            this.FtpFileNameBox2.Location = new System.Drawing.Point(614, 262);
+            this.FtpFileNameBox2.Location = new System.Drawing.Point(491, 201);
             this.FtpFileNameBox2.Margin = new System.Windows.Forms.Padding(2);
             this.FtpFileNameBox2.Name = "FtpFileNameBox2";
-            this.FtpFileNameBox2.Size = new System.Drawing.Size(379, 22);
+            this.FtpFileNameBox2.Size = new System.Drawing.Size(304, 20);
             this.FtpFileNameBox2.TabIndex = 227;
             this.FtpFileNameBox2.Text = "N0_N1_N2_N3_N4_N5_N6_N7_N8_N9_N10_N11";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(512, 264);
+            this.label7.Location = new System.Drawing.Point(410, 202);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(106, 17);
+            this.label7.Size = new System.Drawing.Size(91, 13);
             this.label7.TabIndex = 226;
             this.label7.Text = "多路复用命名：";
             // 
             // BarcodeImgEnableCheck
             // 
             this.BarcodeImgEnableCheck.AutoSize = true;
-            this.BarcodeImgEnableCheck.Location = new System.Drawing.Point(36, 969);
+            this.BarcodeImgEnableCheck.Location = new System.Drawing.Point(29, 880);
             this.BarcodeImgEnableCheck.Margin = new System.Windows.Forms.Padding(2);
             this.BarcodeImgEnableCheck.Name = "BarcodeImgEnableCheck";
-            this.BarcodeImgEnableCheck.Size = new System.Drawing.Size(114, 21);
+            this.BarcodeImgEnableCheck.Size = new System.Drawing.Size(98, 17);
             this.BarcodeImgEnableCheck.TabIndex = 228;
             this.BarcodeImgEnableCheck.Text = "局部图片启用";
             this.BarcodeImgEnableCheck.UseVisualStyleBackColor = true;
@@ -2414,10 +2439,10 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(33, 1021);
+            this.label35.Location = new System.Drawing.Point(26, 922);
             this.label35.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(296, 17);
+            this.label35.Size = new System.Drawing.Size(234, 13);
             this.label35.TabIndex = 231;
             this.label35.Text = "坐标信息格式:         X1;Y1;X2;Y2;X3;Y3;X4;Y4";
             // 
@@ -2439,19 +2464,19 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.BarcodePosCombo.Location = new System.Drawing.Point(162, 995);
+            this.BarcodePosCombo.Location = new System.Drawing.Point(130, 901);
             this.BarcodePosCombo.Margin = new System.Windows.Forms.Padding(2);
             this.BarcodePosCombo.Name = "BarcodePosCombo";
-            this.BarcodePosCombo.Size = new System.Drawing.Size(75, 24);
+            this.BarcodePosCombo.Size = new System.Drawing.Size(61, 21);
             this.BarcodePosCombo.TabIndex = 230;
             // 
             // label61
             // 
             this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(33, 997);
+            this.label61.Location = new System.Drawing.Point(26, 903);
             this.label61.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(106, 17);
+            this.label61.Size = new System.Drawing.Size(91, 13);
             this.label61.TabIndex = 229;
             this.label61.Text = "条码坐标信息：";
             // 
@@ -2460,10 +2485,11 @@
             this.textBox2.BackColor = System.Drawing.SystemColors.Control;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(22, 962);
+            this.textBox2.Location = new System.Drawing.Point(18, 875);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(465, 83);
+            this.textBox2.Size = new System.Drawing.Size(372, 67);
             this.textBox2.TabIndex = 232;
             // 
             // BarcodeImgModeCombo
@@ -2473,19 +2499,19 @@
             this.BarcodeImgModeCombo.Items.AddRange(new object[] {
             "拼接",
             "不拼接"});
-            this.BarcodeImgModeCombo.Location = new System.Drawing.Point(162, 967);
+            this.BarcodeImgModeCombo.Location = new System.Drawing.Point(130, 879);
             this.BarcodeImgModeCombo.Margin = new System.Windows.Forms.Padding(2);
             this.BarcodeImgModeCombo.Name = "BarcodeImgModeCombo";
-            this.BarcodeImgModeCombo.Size = new System.Drawing.Size(75, 24);
+            this.BarcodeImgModeCombo.Size = new System.Drawing.Size(61, 21);
             this.BarcodeImgModeCombo.TabIndex = 233;
             // 
             // TopOnlyCheck1
             // 
             this.TopOnlyCheck1.AutoSize = true;
-            this.TopOnlyCheck1.Location = new System.Drawing.Point(322, 100);
+            this.TopOnlyCheck1.Location = new System.Drawing.Point(258, 114);
             this.TopOnlyCheck1.Margin = new System.Windows.Forms.Padding(2);
             this.TopOnlyCheck1.Name = "TopOnlyCheck1";
-            this.TopOnlyCheck1.Size = new System.Drawing.Size(142, 21);
+            this.TopOnlyCheck1.Size = new System.Drawing.Size(122, 17);
             this.TopOnlyCheck1.TabIndex = 234;
             this.TopOnlyCheck1.Text = "成功读取只存顶面";
             this.TopOnlyCheck1.UseVisualStyleBackColor = true;
@@ -2494,10 +2520,10 @@
             // TopOnlyCheck2
             // 
             this.TopOnlyCheck2.AutoSize = true;
-            this.TopOnlyCheck2.Location = new System.Drawing.Point(322, 274);
+            this.TopOnlyCheck2.Location = new System.Drawing.Point(258, 266);
             this.TopOnlyCheck2.Margin = new System.Windows.Forms.Padding(2);
             this.TopOnlyCheck2.Name = "TopOnlyCheck2";
-            this.TopOnlyCheck2.Size = new System.Drawing.Size(142, 21);
+            this.TopOnlyCheck2.Size = new System.Drawing.Size(122, 17);
             this.TopOnlyCheck2.TabIndex = 235;
             this.TopOnlyCheck2.Text = "成功读取只存顶面";
             this.TopOnlyCheck2.UseVisualStyleBackColor = true;
@@ -2506,10 +2532,10 @@
             // TopOnlyCheck3
             // 
             this.TopOnlyCheck3.AutoSize = true;
-            this.TopOnlyCheck3.Location = new System.Drawing.Point(322, 452);
+            this.TopOnlyCheck3.Location = new System.Drawing.Point(258, 422);
             this.TopOnlyCheck3.Margin = new System.Windows.Forms.Padding(2);
             this.TopOnlyCheck3.Name = "TopOnlyCheck3";
-            this.TopOnlyCheck3.Size = new System.Drawing.Size(142, 21);
+            this.TopOnlyCheck3.Size = new System.Drawing.Size(122, 17);
             this.TopOnlyCheck3.TabIndex = 236;
             this.TopOnlyCheck3.Text = "成功读取只存顶面";
             this.TopOnlyCheck3.UseVisualStyleBackColor = true;
@@ -2518,10 +2544,10 @@
             // TopOnlyCheck4
             // 
             this.TopOnlyCheck4.AutoSize = true;
-            this.TopOnlyCheck4.Location = new System.Drawing.Point(322, 632);
+            this.TopOnlyCheck4.Location = new System.Drawing.Point(258, 578);
             this.TopOnlyCheck4.Margin = new System.Windows.Forms.Padding(2);
             this.TopOnlyCheck4.Name = "TopOnlyCheck4";
-            this.TopOnlyCheck4.Size = new System.Drawing.Size(142, 21);
+            this.TopOnlyCheck4.Size = new System.Drawing.Size(122, 17);
             this.TopOnlyCheck4.TabIndex = 237;
             this.TopOnlyCheck4.Text = "成功读取只存顶面";
             this.TopOnlyCheck4.UseVisualStyleBackColor = true;
@@ -2543,55 +2569,55 @@
             "#N9",
             "#N10",
             "#N11"});
-            this.SorterStationNoCombo.Location = new System.Drawing.Point(392, 894);
+            this.SorterStationNoCombo.Location = new System.Drawing.Point(314, 805);
             this.SorterStationNoCombo.Margin = new System.Windows.Forms.Padding(2);
             this.SorterStationNoCombo.Name = "SorterStationNoCombo";
-            this.SorterStationNoCombo.Size = new System.Drawing.Size(75, 24);
+            this.SorterStationNoCombo.Size = new System.Drawing.Size(61, 21);
             this.SorterStationNoCombo.TabIndex = 239;
             // 
             // label62
             // 
             this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(251, 898);
+            this.label62.Location = new System.Drawing.Point(201, 808);
             this.label62.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(120, 17);
+            this.label62.Size = new System.Drawing.Size(103, 13);
             this.label62.TabIndex = 238;
             this.label62.Text = "主线工站号信息：";
             // 
             // InductorStation1NoBox
             // 
-            this.InductorStation1NoBox.Location = new System.Drawing.Point(638, 112);
+            this.InductorStation1NoBox.Location = new System.Drawing.Point(511, 78);
             this.InductorStation1NoBox.Margin = new System.Windows.Forms.Padding(2);
             this.InductorStation1NoBox.Name = "InductorStation1NoBox";
-            this.InductorStation1NoBox.Size = new System.Drawing.Size(137, 22);
+            this.InductorStation1NoBox.Size = new System.Drawing.Size(110, 20);
             this.InductorStation1NoBox.TabIndex = 241;
             // 
             // label63
             // 
             this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(513, 115);
+            this.label63.Location = new System.Drawing.Point(410, 80);
             this.label63.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(134, 17);
+            this.label63.Size = new System.Drawing.Size(115, 13);
             this.label63.TabIndex = 240;
             this.label63.Text = "供包台一区工站号：";
             // 
             // InductorStation2NoBox
             // 
-            this.InductorStation2NoBox.Location = new System.Drawing.Point(942, 112);
+            this.InductorStation2NoBox.Location = new System.Drawing.Point(755, 78);
             this.InductorStation2NoBox.Margin = new System.Windows.Forms.Padding(2);
             this.InductorStation2NoBox.Name = "InductorStation2NoBox";
-            this.InductorStation2NoBox.Size = new System.Drawing.Size(137, 22);
+            this.InductorStation2NoBox.Size = new System.Drawing.Size(110, 20);
             this.InductorStation2NoBox.TabIndex = 243;
             // 
             // label64
             // 
             this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(817, 115);
+            this.label64.Location = new System.Drawing.Point(654, 80);
             this.label64.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(134, 17);
+            this.label64.Size = new System.Drawing.Size(115, 13);
             this.label64.TabIndex = 242;
             this.label64.Text = "供包台二区工站号：";
             // 
@@ -2602,19 +2628,19 @@
             this.UploadModeList.Items.AddRange(new object[] {
             "ftp",
             "sftp"});
-            this.UploadModeList.Location = new System.Drawing.Point(619, 404);
+            this.UploadModeList.Location = new System.Drawing.Point(495, 313);
             this.UploadModeList.Margin = new System.Windows.Forms.Padding(2);
             this.UploadModeList.Name = "UploadModeList";
-            this.UploadModeList.Size = new System.Drawing.Size(87, 24);
+            this.UploadModeList.Size = new System.Drawing.Size(70, 21);
             this.UploadModeList.TabIndex = 244;
             // 
             // ExtCaptionEnableCheck
             // 
             this.ExtCaptionEnableCheck.AutoSize = true;
-            this.ExtCaptionEnableCheck.Location = new System.Drawing.Point(515, 340);
+            this.ExtCaptionEnableCheck.Location = new System.Drawing.Point(412, 262);
             this.ExtCaptionEnableCheck.Margin = new System.Windows.Forms.Padding(2);
             this.ExtCaptionEnableCheck.Name = "ExtCaptionEnableCheck";
-            this.ExtCaptionEnableCheck.Size = new System.Drawing.Size(114, 21);
+            this.ExtCaptionEnableCheck.Size = new System.Drawing.Size(98, 17);
             this.ExtCaptionEnableCheck.TabIndex = 245;
             this.ExtCaptionEnableCheck.Text = "外部水印信息";
             this.ExtCaptionEnableCheck.UseVisualStyleBackColor = true;
@@ -2622,10 +2648,10 @@
             // 
             // ExtCaptionCommBtn
             // 
-            this.ExtCaptionCommBtn.Location = new System.Drawing.Point(976, 317);
+            this.ExtCaptionCommBtn.Location = new System.Drawing.Point(781, 244);
             this.ExtCaptionCommBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ExtCaptionCommBtn.Name = "ExtCaptionCommBtn";
-            this.ExtCaptionCommBtn.Size = new System.Drawing.Size(117, 72);
+            this.ExtCaptionCommBtn.Size = new System.Drawing.Size(94, 58);
             this.ExtCaptionCommBtn.TabIndex = 246;
             this.ExtCaptionCommBtn.Text = "外部水印通讯配置";
             this.ExtCaptionCommBtn.UseVisualStyleBackColor = true;
@@ -2640,19 +2666,19 @@
             "10",
             "20",
             "30"});
-            this.ExtDelayCombo1.Location = new System.Drawing.Point(391, 214);
+            this.ExtDelayCombo1.Location = new System.Drawing.Point(313, 205);
             this.ExtDelayCombo1.Margin = new System.Windows.Forms.Padding(2);
             this.ExtDelayCombo1.Name = "ExtDelayCombo1";
-            this.ExtDelayCombo1.Size = new System.Drawing.Size(65, 24);
+            this.ExtDelayCombo1.Size = new System.Drawing.Size(53, 21);
             this.ExtDelayCombo1.TabIndex = 248;
             // 
             // label65
             // 
             this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(287, 218);
+            this.label65.Location = new System.Drawing.Point(230, 208);
             this.label65.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(106, 17);
+            this.label65.Size = new System.Drawing.Size(91, 13);
             this.label65.TabIndex = 247;
             this.label65.Text = "外部水印等待：";
             // 
@@ -2665,19 +2691,19 @@
             "10",
             "20",
             "30"});
-            this.ExtDelayCombo2.Location = new System.Drawing.Point(391, 391);
+            this.ExtDelayCombo2.Location = new System.Drawing.Point(313, 360);
             this.ExtDelayCombo2.Margin = new System.Windows.Forms.Padding(2);
             this.ExtDelayCombo2.Name = "ExtDelayCombo2";
-            this.ExtDelayCombo2.Size = new System.Drawing.Size(65, 24);
+            this.ExtDelayCombo2.Size = new System.Drawing.Size(53, 21);
             this.ExtDelayCombo2.TabIndex = 250;
             // 
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(287, 394);
+            this.label66.Location = new System.Drawing.Point(230, 362);
             this.label66.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(106, 17);
+            this.label66.Size = new System.Drawing.Size(91, 13);
             this.label66.TabIndex = 249;
             this.label66.Text = "外部水印等待：";
             // 
@@ -2690,19 +2716,19 @@
             "10",
             "20",
             "30"});
-            this.ExtDelayCombo3.Location = new System.Drawing.Point(391, 571);
+            this.ExtDelayCombo3.Location = new System.Drawing.Point(313, 517);
             this.ExtDelayCombo3.Margin = new System.Windows.Forms.Padding(2);
             this.ExtDelayCombo3.Name = "ExtDelayCombo3";
-            this.ExtDelayCombo3.Size = new System.Drawing.Size(65, 24);
+            this.ExtDelayCombo3.Size = new System.Drawing.Size(53, 21);
             this.ExtDelayCombo3.TabIndex = 252;
             // 
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(287, 575);
+            this.label67.Location = new System.Drawing.Point(230, 520);
             this.label67.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(106, 17);
+            this.label67.Size = new System.Drawing.Size(91, 13);
             this.label67.TabIndex = 251;
             this.label67.Text = "外部水印等待：";
             // 
@@ -2715,76 +2741,76 @@
             "10",
             "20",
             "30"});
-            this.ExtDelayCombo4.Location = new System.Drawing.Point(391, 753);
+            this.ExtDelayCombo4.Location = new System.Drawing.Point(313, 674);
             this.ExtDelayCombo4.Margin = new System.Windows.Forms.Padding(2);
             this.ExtDelayCombo4.Name = "ExtDelayCombo4";
-            this.ExtDelayCombo4.Size = new System.Drawing.Size(65, 24);
+            this.ExtDelayCombo4.Size = new System.Drawing.Size(53, 21);
             this.ExtDelayCombo4.TabIndex = 254;
             // 
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(287, 757);
+            this.label68.Location = new System.Drawing.Point(230, 678);
             this.label68.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(106, 17);
+            this.label68.Size = new System.Drawing.Size(91, 13);
             this.label68.TabIndex = 253;
             this.label68.Text = "外部水印等待：";
             // 
             // regexMachineCodeBox
             // 
-            this.regexMachineCodeBox.Location = new System.Drawing.Point(976, 675);
+            this.regexMachineCodeBox.Location = new System.Drawing.Point(781, 524);
             this.regexMachineCodeBox.Margin = new System.Windows.Forms.Padding(2);
             this.regexMachineCodeBox.Name = "regexMachineCodeBox";
-            this.regexMachineCodeBox.Size = new System.Drawing.Size(111, 22);
+            this.regexMachineCodeBox.Size = new System.Drawing.Size(90, 20);
             this.regexMachineCodeBox.TabIndex = 256;
             this.regexMachineCodeBox.Text = "SACA1";
             // 
             // label69
             // 
             this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(901, 678);
+            this.label69.Location = new System.Drawing.Point(721, 526);
             this.label69.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(78, 17);
+            this.label69.Size = new System.Drawing.Size(67, 13);
             this.label69.TabIndex = 255;
             this.label69.Text = "正则编码：";
             // 
             // regexMasterPortBox1
             // 
-            this.regexMasterPortBox1.Location = new System.Drawing.Point(904, 801);
+            this.regexMasterPortBox1.Location = new System.Drawing.Point(714, 597);
             this.regexMasterPortBox1.Margin = new System.Windows.Forms.Padding(2);
             this.regexMasterPortBox1.Name = "regexMasterPortBox1";
-            this.regexMasterPortBox1.Size = new System.Drawing.Size(43, 22);
+            this.regexMasterPortBox1.Size = new System.Drawing.Size(35, 20);
             this.regexMasterPortBox1.TabIndex = 260;
             this.regexMasterPortBox1.Text = "21";
             // 
             // label70
             // 
             this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(889, 803);
+            this.label70.Location = new System.Drawing.Point(702, 598);
             this.label70.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(22, 17);
+            this.label70.Size = new System.Drawing.Size(19, 13);
             this.label70.TabIndex = 259;
             this.label70.Text = "：";
             // 
             // regexMasterIPBox1
             // 
-            this.regexMasterIPBox1.Location = new System.Drawing.Point(641, 801);
+            this.regexMasterIPBox1.Location = new System.Drawing.Point(504, 597);
             this.regexMasterIPBox1.Margin = new System.Windows.Forms.Padding(2);
             this.regexMasterIPBox1.Name = "regexMasterIPBox1";
-            this.regexMasterIPBox1.Size = new System.Drawing.Size(246, 22);
+            this.regexMasterIPBox1.Size = new System.Drawing.Size(198, 20);
             this.regexMasterIPBox1.TabIndex = 258;
             this.regexMasterIPBox1.Text = "192.168.1.100";
             // 
             // regexSta1Check
             // 
             this.regexSta1Check.AutoSize = true;
-            this.regexSta1Check.Location = new System.Drawing.Point(516, 801);
+            this.regexSta1Check.Location = new System.Drawing.Point(413, 599);
             this.regexSta1Check.Margin = new System.Windows.Forms.Padding(2);
             this.regexSta1Check.Name = "regexSta1Check";
-            this.regexSta1Check.Size = new System.Drawing.Size(72, 21);
+            this.regexSta1Check.Size = new System.Drawing.Size(62, 17);
             this.regexSta1Check.TabIndex = 261;
             this.regexSta1Check.Text = "主机一";
             this.regexSta1Check.UseVisualStyleBackColor = true;
@@ -2793,10 +2819,10 @@
             // regexSta2Check
             // 
             this.regexSta2Check.AutoSize = true;
-            this.regexSta2Check.Location = new System.Drawing.Point(516, 833);
+            this.regexSta2Check.Location = new System.Drawing.Point(413, 624);
             this.regexSta2Check.Margin = new System.Windows.Forms.Padding(2);
             this.regexSta2Check.Name = "regexSta2Check";
-            this.regexSta2Check.Size = new System.Drawing.Size(72, 21);
+            this.regexSta2Check.Size = new System.Drawing.Size(62, 17);
             this.regexSta2Check.TabIndex = 265;
             this.regexSta2Check.Text = "主机二";
             this.regexSta2Check.UseVisualStyleBackColor = true;
@@ -2804,39 +2830,39 @@
             // 
             // regexMasterPortBox2
             // 
-            this.regexMasterPortBox2.Location = new System.Drawing.Point(904, 832);
+            this.regexMasterPortBox2.Location = new System.Drawing.Point(714, 622);
             this.regexMasterPortBox2.Margin = new System.Windows.Forms.Padding(2);
             this.regexMasterPortBox2.Name = "regexMasterPortBox2";
-            this.regexMasterPortBox2.Size = new System.Drawing.Size(43, 22);
+            this.regexMasterPortBox2.Size = new System.Drawing.Size(35, 20);
             this.regexMasterPortBox2.TabIndex = 264;
             this.regexMasterPortBox2.Text = "21";
             // 
             // label71
             // 
             this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(889, 834);
+            this.label71.Location = new System.Drawing.Point(702, 623);
             this.label71.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(22, 17);
+            this.label71.Size = new System.Drawing.Size(19, 13);
             this.label71.TabIndex = 263;
             this.label71.Text = "：";
             // 
             // regexMasterIPBox2
             // 
-            this.regexMasterIPBox2.Location = new System.Drawing.Point(641, 832);
+            this.regexMasterIPBox2.Location = new System.Drawing.Point(504, 622);
             this.regexMasterIPBox2.Margin = new System.Windows.Forms.Padding(2);
             this.regexMasterIPBox2.Name = "regexMasterIPBox2";
-            this.regexMasterIPBox2.Size = new System.Drawing.Size(246, 22);
+            this.regexMasterIPBox2.Size = new System.Drawing.Size(198, 20);
             this.regexMasterIPBox2.TabIndex = 262;
             this.regexMasterIPBox2.Text = "192.168.1.100";
             // 
             // regexSta3Check
             // 
             this.regexSta3Check.AutoSize = true;
-            this.regexSta3Check.Location = new System.Drawing.Point(515, 865);
+            this.regexSta3Check.Location = new System.Drawing.Point(413, 649);
             this.regexSta3Check.Margin = new System.Windows.Forms.Padding(2);
             this.regexSta3Check.Name = "regexSta3Check";
-            this.regexSta3Check.Size = new System.Drawing.Size(72, 21);
+            this.regexSta3Check.Size = new System.Drawing.Size(62, 17);
             this.regexSta3Check.TabIndex = 269;
             this.regexSta3Check.Text = "主机三";
             this.regexSta3Check.UseVisualStyleBackColor = true;
@@ -2844,39 +2870,39 @@
             // 
             // regexMasterPortBox3
             // 
-            this.regexMasterPortBox3.Location = new System.Drawing.Point(903, 864);
+            this.regexMasterPortBox3.Location = new System.Drawing.Point(713, 647);
             this.regexMasterPortBox3.Margin = new System.Windows.Forms.Padding(2);
             this.regexMasterPortBox3.Name = "regexMasterPortBox3";
-            this.regexMasterPortBox3.Size = new System.Drawing.Size(43, 22);
+            this.regexMasterPortBox3.Size = new System.Drawing.Size(35, 20);
             this.regexMasterPortBox3.TabIndex = 268;
             this.regexMasterPortBox3.Text = "21";
             // 
             // label72
             // 
             this.label72.AutoSize = true;
-            this.label72.Location = new System.Drawing.Point(888, 866);
+            this.label72.Location = new System.Drawing.Point(701, 649);
             this.label72.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(22, 17);
+            this.label72.Size = new System.Drawing.Size(19, 13);
             this.label72.TabIndex = 267;
             this.label72.Text = "：";
             // 
             // regexMasterIPBox3
             // 
-            this.regexMasterIPBox3.Location = new System.Drawing.Point(640, 864);
+            this.regexMasterIPBox3.Location = new System.Drawing.Point(503, 647);
             this.regexMasterIPBox3.Margin = new System.Windows.Forms.Padding(2);
             this.regexMasterIPBox3.Name = "regexMasterIPBox3";
-            this.regexMasterIPBox3.Size = new System.Drawing.Size(246, 22);
+            this.regexMasterIPBox3.Size = new System.Drawing.Size(198, 20);
             this.regexMasterIPBox3.TabIndex = 266;
             this.regexMasterIPBox3.Text = "192.168.1.100";
             // 
             // regexSta4Check
             // 
             this.regexSta4Check.AutoSize = true;
-            this.regexSta4Check.Location = new System.Drawing.Point(515, 897);
+            this.regexSta4Check.Location = new System.Drawing.Point(413, 674);
             this.regexSta4Check.Margin = new System.Windows.Forms.Padding(2);
             this.regexSta4Check.Name = "regexSta4Check";
-            this.regexSta4Check.Size = new System.Drawing.Size(72, 21);
+            this.regexSta4Check.Size = new System.Drawing.Size(62, 17);
             this.regexSta4Check.TabIndex = 273;
             this.regexSta4Check.Text = "主机四";
             this.regexSta4Check.UseVisualStyleBackColor = true;
@@ -2884,39 +2910,39 @@
             // 
             // regexMasterPortBox4
             // 
-            this.regexMasterPortBox4.Location = new System.Drawing.Point(903, 896);
+            this.regexMasterPortBox4.Location = new System.Drawing.Point(713, 673);
             this.regexMasterPortBox4.Margin = new System.Windows.Forms.Padding(2);
             this.regexMasterPortBox4.Name = "regexMasterPortBox4";
-            this.regexMasterPortBox4.Size = new System.Drawing.Size(43, 22);
+            this.regexMasterPortBox4.Size = new System.Drawing.Size(35, 20);
             this.regexMasterPortBox4.TabIndex = 272;
             this.regexMasterPortBox4.Text = "21";
             // 
             // label73
             // 
             this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(888, 898);
+            this.label73.Location = new System.Drawing.Point(701, 674);
             this.label73.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(22, 17);
+            this.label73.Size = new System.Drawing.Size(19, 13);
             this.label73.TabIndex = 271;
             this.label73.Text = "：";
             // 
             // regexMasterIPBox4
             // 
-            this.regexMasterIPBox4.Location = new System.Drawing.Point(640, 896);
+            this.regexMasterIPBox4.Location = new System.Drawing.Point(503, 673);
             this.regexMasterIPBox4.Margin = new System.Windows.Forms.Padding(2);
             this.regexMasterIPBox4.Name = "regexMasterIPBox4";
-            this.regexMasterIPBox4.Size = new System.Drawing.Size(246, 22);
+            this.regexMasterIPBox4.Size = new System.Drawing.Size(198, 20);
             this.regexMasterIPBox4.TabIndex = 270;
             this.regexMasterIPBox4.Text = "192.168.1.100";
             // 
             // DWSEnableCheck
             // 
             this.DWSEnableCheck.AutoSize = true;
-            this.DWSEnableCheck.Location = new System.Drawing.Point(507, 21);
+            this.DWSEnableCheck.Location = new System.Drawing.Point(22, 83);
             this.DWSEnableCheck.Margin = new System.Windows.Forms.Padding(2);
             this.DWSEnableCheck.Name = "DWSEnableCheck";
-            this.DWSEnableCheck.Size = new System.Drawing.Size(146, 21);
+            this.DWSEnableCheck.Size = new System.Drawing.Size(124, 17);
             this.DWSEnableCheck.TabIndex = 274;
             this.DWSEnableCheck.Text = "是否启用DWS界面";
             this.DWSEnableCheck.UseVisualStyleBackColor = true;
@@ -2925,10 +2951,10 @@
             // NRAnalysisEnableCheck
             // 
             this.NRAnalysisEnableCheck.AutoSize = true;
-            this.NRAnalysisEnableCheck.Location = new System.Drawing.Point(675, 317);
+            this.NRAnalysisEnableCheck.Location = new System.Drawing.Point(540, 244);
             this.NRAnalysisEnableCheck.Margin = new System.Windows.Forms.Padding(2);
             this.NRAnalysisEnableCheck.Name = "NRAnalysisEnableCheck";
-            this.NRAnalysisEnableCheck.Size = new System.Drawing.Size(100, 21);
+            this.NRAnalysisEnableCheck.Size = new System.Drawing.Size(86, 17);
             this.NRAnalysisEnableCheck.TabIndex = 275;
             this.NRAnalysisEnableCheck.Text = "未读取分类";
             this.NRAnalysisEnableCheck.UseVisualStyleBackColor = true;
@@ -2940,30 +2966,30 @@
             this.LangCombo.Items.AddRange(new object[] {
             "Chinese",
             "English"});
-            this.LangCombo.Location = new System.Drawing.Point(173, 23);
+            this.LangCombo.Location = new System.Drawing.Point(144, 19);
             this.LangCombo.Margin = new System.Windows.Forms.Padding(2);
             this.LangCombo.Name = "LangCombo";
-            this.LangCombo.Size = new System.Drawing.Size(181, 24);
+            this.LangCombo.Size = new System.Drawing.Size(146, 21);
             this.LangCombo.TabIndex = 277;
             this.LangCombo.SelectedIndexChanged += new System.EventHandler(this.LangCombo_SelectedIndexChanged);
             // 
             // label74
             // 
             this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(19, 26);
+            this.label74.Location = new System.Drawing.Point(19, 22);
             this.label74.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(78, 17);
+            this.label74.Size = new System.Drawing.Size(67, 13);
             this.label74.TabIndex = 278;
             this.label74.Text = "当前语言：";
             // 
             // EncryptionEnableCheck
             // 
             this.EncryptionEnableCheck.AutoSize = true;
-            this.EncryptionEnableCheck.Location = new System.Drawing.Point(662, 21);
+            this.EncryptionEnableCheck.Location = new System.Drawing.Point(144, 83);
             this.EncryptionEnableCheck.Margin = new System.Windows.Forms.Padding(2);
             this.EncryptionEnableCheck.Name = "EncryptionEnableCheck";
-            this.EncryptionEnableCheck.Size = new System.Drawing.Size(114, 21);
+            this.EncryptionEnableCheck.Size = new System.Drawing.Size(98, 17);
             this.EncryptionEnableCheck.TabIndex = 279;
             this.EncryptionEnableCheck.Text = "是否图片加密";
             this.EncryptionEnableCheck.UseVisualStyleBackColor = true;
@@ -2972,10 +2998,10 @@
             // GridLineEnableCheck
             // 
             this.GridLineEnableCheck.AutoSize = true;
-            this.GridLineEnableCheck.Location = new System.Drawing.Point(779, 317);
+            this.GridLineEnableCheck.Location = new System.Drawing.Point(623, 244);
             this.GridLineEnableCheck.Margin = new System.Windows.Forms.Padding(2);
             this.GridLineEnableCheck.Name = "GridLineEnableCheck";
-            this.GridLineEnableCheck.Size = new System.Drawing.Size(86, 21);
+            this.GridLineEnableCheck.Size = new System.Drawing.Size(74, 17);
             this.GridLineEnableCheck.TabIndex = 280;
             this.GridLineEnableCheck.Text = "显示网格";
             this.GridLineEnableCheck.UseVisualStyleBackColor = true;
@@ -2983,22 +3009,186 @@
             // 
             // GridConfigBtn
             // 
-            this.GridConfigBtn.Location = new System.Drawing.Point(863, 316);
+            this.GridConfigBtn.Location = new System.Drawing.Point(690, 243);
             this.GridConfigBtn.Margin = new System.Windows.Forms.Padding(2);
             this.GridConfigBtn.Name = "GridConfigBtn";
-            this.GridConfigBtn.Size = new System.Drawing.Size(30, 23);
+            this.GridConfigBtn.Size = new System.Drawing.Size(24, 18);
             this.GridConfigBtn.TabIndex = 288;
             this.GridConfigBtn.Text = "...";
             this.GridConfigBtn.UseVisualStyleBackColor = true;
             this.GridConfigBtn.Click += new System.EventHandler(this.GridConfigBtn_Click_1);
             // 
+            // JDAIResetBtn
+            // 
+            this.JDAIResetBtn.Location = new System.Drawing.Point(647, 695);
+            this.JDAIResetBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.JDAIResetBtn.Name = "JDAIResetBtn";
+            this.JDAIResetBtn.Size = new System.Drawing.Size(53, 26);
+            this.JDAIResetBtn.TabIndex = 291;
+            this.JDAIResetBtn.Text = "Reset";
+            this.JDAIResetBtn.UseVisualStyleBackColor = true;
+            this.JDAIResetBtn.Click += new System.EventHandler(this.JDAIResetBtn_Click);
+            // 
+            // JDAIConnectStatusLabel
+            // 
+            this.JDAIConnectStatusLabel.AutoSize = true;
+            this.JDAIConnectStatusLabel.BackColor = System.Drawing.SystemColors.GrayText;
+            this.JDAIConnectStatusLabel.Location = new System.Drawing.Point(621, 702);
+            this.JDAIConnectStatusLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.JDAIConnectStatusLabel.Name = "JDAIConnectStatusLabel";
+            this.JDAIConnectStatusLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.JDAIConnectStatusLabel.Size = new System.Drawing.Size(19, 13);
+            this.JDAIConnectStatusLabel.TabIndex = 290;
+            this.JDAIConnectStatusLabel.Text = "    ";
+            // 
+            // JDAICheck
+            // 
+            this.JDAICheck.AutoSize = true;
+            this.JDAICheck.Location = new System.Drawing.Point(413, 701);
+            this.JDAICheck.Margin = new System.Windows.Forms.Padding(2);
+            this.JDAICheck.Name = "JDAICheck";
+            this.JDAICheck.Size = new System.Drawing.Size(84, 17);
+            this.JDAICheck.TabIndex = 289;
+            this.JDAICheck.Text = "是否AI补码";
+            this.JDAICheck.UseVisualStyleBackColor = true;
+            this.JDAICheck.CheckedChanged += new System.EventHandler(this.JDAICheck_CheckedChanged);
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(411, 725);
+            this.label76.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(64, 13);
+            this.label76.TabIndex = 292;
+            this.label76.Text = "AI补码url：";
+            // 
+            // JDAIUrlBox
+            // 
+            this.JDAIUrlBox.Location = new System.Drawing.Point(504, 722);
+            this.JDAIUrlBox.Margin = new System.Windows.Forms.Padding(2);
+            this.JDAIUrlBox.Name = "JDAIUrlBox";
+            this.JDAIUrlBox.Size = new System.Drawing.Size(198, 20);
+            this.JDAIUrlBox.TabIndex = 293;
+            this.JDAIUrlBox.Text = "http://ip/service/upload/image";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(411, 748);
+            this.label77.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(51, 13);
+            this.label77.TabIndex = 294;
+            this.label77.Text = "wcsUrl：";
+            // 
+            // wcsUrlBox
+            // 
+            this.wcsUrlBox.Location = new System.Drawing.Point(504, 746);
+            this.wcsUrlBox.Margin = new System.Windows.Forms.Padding(2);
+            this.wcsUrlBox.Name = "wcsUrlBox";
+            this.wcsUrlBox.Size = new System.Drawing.Size(198, 20);
+            this.wcsUrlBox.TabIndex = 295;
+            this.wcsUrlBox.Text = "http://ip/service/upload/image";
+            // 
+            // DeviceNo1Box
+            // 
+            this.DeviceNo1Box.Location = new System.Drawing.Point(504, 770);
+            this.DeviceNo1Box.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceNo1Box.Name = "DeviceNo1Box";
+            this.DeviceNo1Box.Size = new System.Drawing.Size(198, 20);
+            this.DeviceNo1Box.TabIndex = 297;
+            this.DeviceNo1Box.Text = "deviceNo1";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(411, 772);
+            this.label75.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(71, 13);
+            this.label75.TabIndex = 296;
+            this.label75.Text = "deviceNo1：";
+            // 
+            // DeviceNo2Box
+            // 
+            this.DeviceNo2Box.Location = new System.Drawing.Point(504, 794);
+            this.DeviceNo2Box.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceNo2Box.Name = "DeviceNo2Box";
+            this.DeviceNo2Box.Size = new System.Drawing.Size(198, 20);
+            this.DeviceNo2Box.TabIndex = 299;
+            this.DeviceNo2Box.Text = "deviceNo2";
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(411, 796);
+            this.label78.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(71, 13);
+            this.label78.TabIndex = 298;
+            this.label78.Text = "deviceNo2：";
+            // 
+            // DeviceNo3Box
+            // 
+            this.DeviceNo3Box.Location = new System.Drawing.Point(504, 818);
+            this.DeviceNo3Box.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceNo3Box.Name = "DeviceNo3Box";
+            this.DeviceNo3Box.Size = new System.Drawing.Size(198, 20);
+            this.DeviceNo3Box.TabIndex = 301;
+            this.DeviceNo3Box.Text = "deviceNo3";
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(411, 820);
+            this.label79.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(71, 13);
+            this.label79.TabIndex = 300;
+            this.label79.Text = "deviceNo3：";
+            // 
+            // DeviceNo4Box
+            // 
+            this.DeviceNo4Box.Location = new System.Drawing.Point(504, 842);
+            this.DeviceNo4Box.Margin = new System.Windows.Forms.Padding(2);
+            this.DeviceNo4Box.Name = "DeviceNo4Box";
+            this.DeviceNo4Box.Size = new System.Drawing.Size(198, 20);
+            this.DeviceNo4Box.TabIndex = 303;
+            this.DeviceNo4Box.Text = "deviceNo4";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(411, 844);
+            this.label80.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(71, 13);
+            this.label80.TabIndex = 302;
+            this.label80.Text = "deviceNo4：";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1183, 1055);
+            this.ClientSize = new System.Drawing.Size(946, 676);
+            this.Controls.Add(this.DeviceNo4Box);
+            this.Controls.Add(this.label80);
+            this.Controls.Add(this.DeviceNo3Box);
+            this.Controls.Add(this.label79);
+            this.Controls.Add(this.DeviceNo2Box);
+            this.Controls.Add(this.label78);
+            this.Controls.Add(this.DeviceNo1Box);
+            this.Controls.Add(this.label75);
+            this.Controls.Add(this.wcsUrlBox);
+            this.Controls.Add(this.label77);
+            this.Controls.Add(this.JDAIUrlBox);
+            this.Controls.Add(this.label76);
+            this.Controls.Add(this.JDAIResetBtn);
+            this.Controls.Add(this.JDAIConnectStatusLabel);
+            this.Controls.Add(this.JDAICheck);
             this.Controls.Add(this.GridConfigBtn);
             this.Controls.Add(this.GridLineEnableCheck);
             this.Controls.Add(this.EncryptionEnableCheck);
@@ -3449,6 +3639,21 @@
         private System.Windows.Forms.CheckBox EncryptionEnableCheck;
         private System.Windows.Forms.CheckBox GridLineEnableCheck;
         private System.Windows.Forms.Button GridConfigBtn;
+        private System.Windows.Forms.Button JDAIResetBtn;
+        private System.Windows.Forms.Label JDAIConnectStatusLabel;
+        private System.Windows.Forms.CheckBox JDAICheck;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.TextBox JDAIUrlBox;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.TextBox wcsUrlBox;
+        private System.Windows.Forms.TextBox DeviceNo1Box;
+        private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.TextBox DeviceNo2Box;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.TextBox DeviceNo3Box;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.TextBox DeviceNo4Box;
+        private System.Windows.Forms.Label label80;
     }
 }
 

@@ -34,6 +34,10 @@ namespace 存图助手标准版
         public int AllowUpload = -1;//-1:未定义；0：不允许；1：允许
         public bool uploaded = false;
         public bool upload2 = false;
+        public List<string> JDAIFullFileName = new List<string>(20);
+        public readonly object JD_AI_INFO_LOCK = new object();
+        public bool JDAIUploaded = false;
+        volatile public int boxid = -1;
         public MasterImage(string N0, string N2, string N3, string N4, string N5, string N6, string N7, string N8, string N9, string N10, string N11, DateTime timestamp, DateTime triggertimestamp)
         {
             this.N0 = N0;

@@ -30,7 +30,8 @@ ReadStatus tinyint,
 InfoIntact tinyint,
 ParcelID varchar(10),
 Destination varchar(10),
-INDEX _barcode(Barcode),
+INDEX _barcode(Barcode) WITH PARSER ngram,
+INDEX _destination(Destination) WITH PARSER ngram,
 PRIMARY KEY(TimeStamp)
 );
 

@@ -138,6 +138,23 @@ namespace DWSInterface
                 }
             }
         }
+        private string _searchdesttitle;
+        public string SearchDestTitle
+        {
+            get
+            {
+                return _searchdesttitle;
+            }
+
+            set
+            {
+                if (_searchdesttitle != value)
+                {
+                    _searchdesttitle = value;
+                    OnPropertyChanged("SearchDestTitle");
+                }
+            }
+        }
         private string _querytitle;
         public string QueryTitle
         {
@@ -339,6 +356,23 @@ namespace DWSInterface
                 {
                     _barcode = value;
                     OnPropertyChanged("Barcode");
+                }
+            }
+        }
+        private string _dest;
+        public string Destination
+        {
+            get
+            {
+                return _dest;
+            }
+
+            set
+            {
+                if (_dest != value)
+                {
+                    _dest = value;
+                    OnPropertyChanged("Destination");
                 }
             }
         }

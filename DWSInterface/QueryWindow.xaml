@@ -23,8 +23,10 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="6*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4.5*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Horizontal">
@@ -40,14 +42,25 @@
                     <TextBox Text="{Binding Barcode, Mode=OneWayToSource}" Width="400"  Margin="0,-1,0,0" VerticalAlignment="Center" Foreground="Black" FontSize="15"/>
                 </StackPanel>
             </Grid>
+            <Grid Grid.Column="3">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{Binding SearchDestTitle}" Margin="0,-1,0,0" VerticalAlignment="Center" Foreground="white" FontSize="15"/>
+                    <TextBox Text="{Binding Destination, Mode=OneWayToSource}" Width="200"  Margin="0,-1,0,0" VerticalAlignment="Center" Foreground="Black" FontSize="15"/>
+                </StackPanel>
+            </Grid>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="998*"/>
+                <ColumnDefinition Width="16*"/>
+                <ColumnDefinition Width="195*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="18.5*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <DataGrid x:Name="DataGridHis" RowHeaderWidth="0" GridLinesVisibility="None" BorderThickness="0" Grid.Row="0" ItemsSource="{Binding TempSource, Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid x:Name="DataGridHis" RowHeaderWidth="0" GridLinesVisibility="None" BorderThickness="0" Grid.Row="0" ItemsSource="{Binding TempSource, Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" Grid.ColumnSpan="3" Margin="0,0,-0.4,14" Grid.RowSpan="2">
                 <DataGrid.Resources>
                     <Style TargetType="ScrollViewer">
                         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
@@ -59,7 +72,7 @@
                     <Style x:Key="contentstyle" TargetType="{x:Type TextBlock}">
                         <Setter Property="TextAlignment" Value="Center" />
                         <Setter Property="VerticalAlignment" Value="Center"/>
-                        
+
                     </Style>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -93,7 +106,7 @@
                                 <TextBlock Text="{Binding DataContext.DestTitle,RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
                             </DataTemplate>
                         </DataGridTextColumn.HeaderTemplate>
-                    </DataGridTextColumn> 
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="" CanUserSort="False" Binding="{Binding Length}" Width="2*" ElementStyle="{StaticResource contentstyle}">
                         <DataGridTextColumn.HeaderTemplate>
                             <DataTemplate>
@@ -151,7 +164,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <local:Pager Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" PageTitle="{Binding PageTitle}" TotalTitle="{Binding TotalTitle}" TotalPage="{Binding TotalPage}" CurrentPage="{Binding CurrentPage, Mode=TwoWay}">
+            <local:Pager Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" PageTitle="{Binding PageTitle}" TotalTitle="{Binding TotalTitle}" TotalPage="{Binding TotalPage}" CurrentPage="{Binding CurrentPage, Mode=TwoWay}" Grid.ColumnSpan="3" Margin="0,3,-0.4,2.8">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="FirstPage">
                         <i:InvokeCommandAction Command="{Binding FirstPageCommand}" />
@@ -167,14 +180,14 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </local:Pager>
-            <Button Grid.Row="2" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding QueryTitle}" FontSize="15" Click="Button_Click">
+            <Button Grid.Row="2" Content="{Binding QueryTitle}" FontSize="15" Click="Button_Click"  HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  Width="100">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="8"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <TextBlock Grid.Row="2" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="{Binding ReadRate}" Foreground="White">
+            <TextBlock Grid.Row="2" Width="250" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="15" Text="{Binding ReadRate}" Foreground="White" Margin="500,4,0,4.8">
 
             </TextBlock>
         </Grid>

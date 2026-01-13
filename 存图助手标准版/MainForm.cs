@@ -29,12 +29,8 @@ using Cognex.VisionPro.ImageFile;
 #else
 using OpenVinoSharp;
 using OpenCvSharp.Dnn;
-using OpenVinoSharp.Extensions;
 using OpenVinoSharp.Extensions.utility;
-using OpenVinoSharp.Extensions.model;
-using OpenVinoSharp.Extensions.result;
 using OpenVinoSharp.Extensions.process;
-using OpenVinoSharp.preprocess;
 #endif
 
 namespace 存图助手标准版
@@ -117,6 +113,10 @@ namespace 存图助手标准版
         private static Thread threadresidual3 = new Thread(new ParameterizedThreadStart(HandleResidualExtCaptionImage));
         private static Thread threadresidual4 = new Thread(new ParameterizedThreadStart(HandleResidualExtCaptionImage));
         private static Thread threadDWSProcess = new Thread(MonitorDWSProcess);
+        internal Thread JDAIThread1 = null;
+        internal Thread JDAIThread2 = null;
+        internal Thread JDAIThread3 = null;
+        internal Thread JDAIThread4 = null;
         //private Thread CaptionThread1 = null;
         //private Thread CaptionThread2 = null;
         //private Thread CaptionThread3 = null;
@@ -306,6 +306,10 @@ namespace 存图助手标准版
         private readonly Object HTTPInfoSta3_2Lock = new Object();
         private readonly Object HTTPInfoSta4_1Lock = new Object();
         private readonly Object HTTPInfoSta4_2Lock = new Object();
+        private readonly Object JDAIArrayLock1 = new Object();
+        private readonly Object JDAIArrayLock2 = new Object();
+        private readonly Object JDAIArrayLock3 = new Object();
+        private readonly Object JDAIArrayLock4 = new Object();
         internal static string DoublePattern = @"^\d+(.\d+)?$";
         internal static string DaysPattern = @"^\d+$";
         private string NonSpacePattern = @"^\S+$";
@@ -318,6 +322,7 @@ namespace 存图助手标准版
         long deleteRawImage = 25000;//ftp根目录下图片的生命周期ms
         long deleteRawImageInductor = 10000;//ftp根目录下图片的生命周期ms
         long MstTimeOut = 20000;//MasterArray中MasterImage对象的生命周期ms
+        long JDAITimeOut = 5000;//JD AI补码超时
         long ExtCaptionBoxTimeOut1 = 5000;//ExtCaptionBoxList中对象过5秒后无论图片是否齐全均直接处理
         long ExtCaptionBoxTimeOut2 = 5000;//ExtCaptionBoxList中对象过5秒后无论图片是否齐全均直接处理
         long ExtCaptionBoxTimeOut3 = 5000;//ExtCaptionBoxList中对象过5秒后无论图片是否齐全均直接处理
@@ -346,6 +351,7 @@ namespace 存图助手标准版
         private bool Sta3On = false;
         private bool Sta4On = false;
         private bool NoReadAnalysisEnable = false;
+        private bool JDAIEnable = false;
         private bool captionEnable = false;
         internal static bool extCaptionEnable = false;
         DateTime LastDeleteFileTimeStamp = DateTime.MinValue;
@@ -362,6 +368,7 @@ namespace 存图助手标准版
         private string DefaultSubFolder = "#None";
         private static string inductor_sorter_temp_url;
         private string NR_Raw;
+        private string JD_AI_TempFolder_url;
         private string barcode_stitch_url1;
         private string barcode_stitch_url2;
         private string barcode_stitch_url3;
@@ -403,6 +410,12 @@ namespace 存图助手标准版
         private string systemLog_FTP4 = "FTP4";
         private string systemLog_FTP5 = "FTP5";
         private string systemLog_FTP6 = "FTP6";
+        private string JDAIUrl;
+        private string JDAIwcsUrl;
+        private string deviceNo1;
+        private string deviceNo2;
+        private string deviceNo3;
+        private string deviceNo4;
         private string HttpCheckUrl;
         private string HttpUploadUrl;
         private string HttpRegexUrl;
@@ -460,6 +473,10 @@ namespace 存图助手标准版
         private List<BarcodeStitchObject> BarcodeStitchArray3 = new List<BarcodeStitchObject>(100);
         private List<BarcodeStitchObject> BarcodeStitchArray4 = new List<BarcodeStitchObject>(100);
         private List<BarcodeStitchObject> BarcodeStitchArray5 = new List<BarcodeStitchObject>(100);
+        private List<MasterImage> JDAIArray1 = new List<MasterImage>(100);
+        private List<MasterImage> JDAIArray2 = new List<MasterImage>(100);
+        private List<MasterImage> JDAIArray3 = new List<MasterImage>(100);
+        private List<MasterImage> JDAIArray4 = new List<MasterImage>(100);
         private ArrayList HTTPArraySta1_1 = new ArrayList(100);
         private ArrayList HTTPArraySta1_2 = new ArrayList(100);
         private ArrayList HTTPArraySta2_1 = new ArrayList(100);
@@ -2254,6 +2271,16 @@ namespace 存图助手标准版
                         UploadCheck2.Checked = false;
                         upload2 = false;
                     }
+                    if (ConfigurationManager.AppSettings["JDAIEnable"] == "true")
+                    {
+                        JDAICheck.Checked = true;
+                        JDAIEnable = true;
+                    }
+                    else if (ConfigurationManager.AppSettings["JDAIEnable"] == "false")
+                    {
+                        JDAICheck.Checked = false;
+                        JDAIEnable = false;
+                    }
                     if (ConfigurationManager.AppSettings["httpUpload"] == "true")
                     {
                         HTTPUploadCheck.Checked = true;
@@ -2482,6 +2509,7 @@ namespace 存图助手标准版
                     ConnectStatusLabel.BackColor = Color.White;
                     ConnectStatusLabel2.BackColor = Color.White;
                     HttpConnectStatusLabel.BackColor = Color.White;
+                    JDAIConnectStatusLabel.BackColor = Color.White;
                     FtpKeepAlive = ConfigurationManager.AppSettings["FtpKeepAlive"];//每次开机访问配置文件，获取是否keepalive
                     AdminUser = ConfigurationManager.AppSettings["AdminUser"];//每次开机访问配置文件，获取Admin用户名
                     AdminPassword = ConfigurationManager.AppSettings["AdminPassword"];//每次开机访问配置文件，获取Admin密码
@@ -2548,6 +2576,12 @@ namespace 存图助手标准版
                     HTTPNOKBox.Text = ConfigurationManager.AppSettings["HTTPNOKMes"];//每次开机访问配置文件，获取HTTPNOK报文
                     regexMachineCodeBox.Text = ConfigurationManager.AppSettings["regexMachineCode"];//每次开机访问配置文件，获取regexMachineCode
                     machineCodeBox.Text = ConfigurationManager.AppSettings["machineCode"];//每次开机访问配置文件，获取machineCode
+                    JDAIUrlBox.Text = ConfigurationManager.AppSettings["JDAIUrl"];//每次开机访问配置文件，JDAIUrl
+                    wcsUrlBox.Text = ConfigurationManager.AppSettings["wcsUrl"];//每次开机访问配置文件，wcsUrl
+                    DeviceNo1Box.Text = ConfigurationManager.AppSettings["DeviceNo1"];//每次开机访问配置文件，DeviceNo1
+                    DeviceNo2Box.Text = ConfigurationManager.AppSettings["DeviceNo2"];//每次开机访问配置文件，DeviceNo2
+                    DeviceNo3Box.Text = ConfigurationManager.AppSettings["DeviceNo3"];//每次开机访问配置文件，DeviceNo3
+                    DeviceNo4Box.Text = ConfigurationManager.AppSettings["DeviceNo4"];//每次开机访问配置文件，DeviceNo4
                     HttpCheckUrlBox.Text = ConfigurationManager.AppSettings["HttpCheckUrl"];//每次开机访问配置文件，获取HttpCheckUrl
                     HttpUploadUrlBox.Text = ConfigurationManager.AppSettings["HttpUploadUrl"];//每次开机访问配置文件，获取HttpUploadUrl
                     HttpRegexUrlBox.Text = ConfigurationManager.AppSettings["HttpRegexUrl"];//每次开机访问配置文件，获取HttpRegexUrl
@@ -2721,6 +2755,12 @@ namespace 存图助手标准版
                     //siteCode = siteCodeBox.Text;
                     regexMachineCode = regexMachineCodeBox.Text;
                     machineCodeFormat = machineCodeBox.Text;
+                    JDAIUrl = JDAIUrlBox.Text;
+                    JDAIwcsUrl = wcsUrlBox.Text;
+                    deviceNo1 = DeviceNo1Box.Text;
+                    deviceNo2 = DeviceNo2Box.Text;
+                    deviceNo3 = DeviceNo3Box.Text;
+                    deviceNo4 = DeviceNo4Box.Text;
                     HttpCheckUrl = HttpCheckUrlBox.Text;
                     HttpUploadUrl = HttpUploadUrlBox.Text;
                     HttpRegexUrl = HttpRegexUrlBox.Text;
@@ -2773,6 +2813,7 @@ namespace 存图助手标准版
                     disk = FtpRoot1.Substring(0, 2);
                     //disk = StorageRoot1.Substring(0, 2);
                     NR_Raw = disk + "\\SIH\\NR_Raw";
+                    JD_AI_TempFolder_url = disk + "\\SIH\\JDAI";
                     barcode_stitch_url1 = disk + "\\SIH\\TopStitch1";
                     barcode_stitch_url2 = disk + "\\SIH\\TopStitch2";
                     barcode_stitch_url3 = disk + "\\SIH\\TopStitch3";
@@ -3224,6 +3265,12 @@ namespace 存图助手标准版
                 HttpRegexUrlBox.Enabled = false;
                 regexMachineCodeBox.Enabled = false;
                 machineCodeBox.Enabled = false;
+                JDAIUrlBox.Enabled = false;
+                wcsUrlBox.Enabled = false;
+                DeviceNo1Box.Enabled = false;
+                DeviceNo2Box.Enabled = false;
+                DeviceNo3Box.Enabled = false;
+                DeviceNo4Box.Enabled = false;
                 HttpCheckUrlBox.Enabled = false;
                 HttpUploadUrlBox.Enabled = false;
                 SCADAIPBox.Enabled = false;
@@ -3480,18 +3527,26 @@ namespace 存图助手标准版
                     threadresidual2.Start(ext_caption_url2);
                     threadresidual3.Start(ext_caption_url3);
                     threadresidual4.Start(ext_caption_url4);
-                /*
-                    CaptionThread1 = new Thread(new ParameterizedThreadStart(AddCaptionInThreadMethod));
-                    CaptionThread2 = new Thread(new ParameterizedThreadStart(AddCaptionInThreadMethod));
-                    CaptionThread3 = new Thread(new ParameterizedThreadStart(AddCaptionInThreadMethod));
-                    CaptionThread4 = new Thread(new ParameterizedThreadStart(AddCaptionInThreadMethod));
-                    CaptionThread5 = new Thread(new ParameterizedThreadStart(AddCaptionInThreadMethod));
-                    CaptionThread1.Start(caption_url1);
-                    CaptionThread2.Start(caption_url2);
-                    CaptionThread3.Start(caption_url3);
-                    CaptionThread4.Start(caption_url4);
-                    CaptionThread5.Start(caption_url5);
-                */
+                    JDAIThread1 = new Thread(new ParameterizedThreadStart(HandleJDAIArray));
+                    JDAIThread2 = new Thread(new ParameterizedThreadStart(HandleJDAIArray));
+                    JDAIThread3 = new Thread(new ParameterizedThreadStart(HandleJDAIArray));
+                    JDAIThread4 = new Thread(new ParameterizedThreadStart(HandleJDAIArray));
+                    JDAIThread1.Start(Tuple.Create(JDAIArray1, LogContentArray1, JDAIArrayLock1, 1, CamCount1, systemLog_Station1));
+                    JDAIThread2.Start(Tuple.Create(JDAIArray2, LogContentArray2, JDAIArrayLock2, 2, CamCount2, systemLog_Station2));
+                    JDAIThread3.Start(Tuple.Create(JDAIArray3, LogContentArray3, JDAIArrayLock3, 3, CamCount3, systemLog_Station3));
+                    JDAIThread4.Start(Tuple.Create(JDAIArray4, LogContentArray4, JDAIArrayLock4, 4, CamCount4, systemLog_Station4));
+                    /*
+                        CaptionThread1 = new Thread(new ParameterizedThreadStart(AddCaptionInThreadMethod));
+                        CaptionThread2 = new Thread(new ParameterizedThreadStart(AddCaptionInThreadMethod));
+                        CaptionThread3 = new Thread(new ParameterizedThreadStart(AddCaptionInThreadMethod));
+                        CaptionThread4 = new Thread(new ParameterizedThreadStart(AddCaptionInThreadMethod));
+                        CaptionThread5 = new Thread(new ParameterizedThreadStart(AddCaptionInThreadMethod));
+                        CaptionThread1.Start(caption_url1);
+                        CaptionThread2.Start(caption_url2);
+                        CaptionThread3.Start(caption_url3);
+                        CaptionThread4.Start(caption_url4);
+                        CaptionThread5.Start(caption_url5);
+                    */
                 }
                 else
                 {
@@ -3528,6 +3583,12 @@ namespace 存图助手标准版
                     HttpRegexUrlBox.Enabled = true;
                     regexMachineCodeBox.Enabled = true;
                     machineCodeBox.Enabled = true;
+                    JDAIUrlBox.Enabled = true;
+                    wcsUrlBox.Enabled = true;
+                    DeviceNo1Box.Enabled = true;
+                    DeviceNo2Box.Enabled = true;
+                    DeviceNo3Box.Enabled = true;
+                    DeviceNo4Box.Enabled = true;
                     HttpCheckUrlBox.Enabled = true;
                     HttpUploadUrlBox.Enabled = true;
                     regexMasterIPBox1.Enabled = true;
@@ -3826,7 +3887,7 @@ namespace 存图助手标准版
             bool flag10 = Regex.IsMatch(ImageRootBox4.Text, UrlPattern) || !Sta4On;
             bool flag11 = !CheckDuplication(FtpRoots);
             bool flag12 = !CheckDuplication(StorageRoots);
-            bool flag13 = HttpUploadUrlBox.Text.StartsWith(@"http://") && HttpCheckUrlBox.Text.StartsWith(@"http://") && HttpRegexUrlBox.Text.StartsWith(@"http://");
+            bool flag13 = HttpUploadUrlBox.Text.StartsWith(@"http://") && HttpCheckUrlBox.Text.StartsWith(@"http://") && HttpRegexUrlBox.Text.StartsWith(@"http://") && JDAIUrlBox.Text.StartsWith(@"http://") && wcsUrlBox.Text.StartsWith(@"http://");
             bool flag14 = Regex.IsMatch(InductFtpRootBox.Text, UrlPattern);
             bool allflag = flag1 && flag2 && flag3 && flag4 && flag5 && flag6 && flag7 && flag8 && flag9 && flag10 && flag11 && flag12 && flag13 && flag14;
             try
@@ -3850,6 +3911,12 @@ namespace 存图助手标准版
                             config.AppSettings.Settings["HttpRegexUrl"].Value = HttpRegexUrlBox.Text;
                             config.AppSettings.Settings["regexMachineCode"].Value = regexMachineCodeBox.Text;
                             config.AppSettings.Settings["machineCode"].Value = machineCodeBox.Text;
+                            config.AppSettings.Settings["JDAIUrl"].Value = JDAIUrlBox.Text;
+                            config.AppSettings.Settings["wcsUrl"].Value = wcsUrlBox.Text;
+                            config.AppSettings.Settings["DeviceNo1"].Value = DeviceNo1Box.Text;
+                            config.AppSettings.Settings["DeviceNo2"].Value = DeviceNo2Box.Text;
+                            config.AppSettings.Settings["DeviceNo3"].Value = DeviceNo3Box.Text;
+                            config.AppSettings.Settings["DeviceNo4"].Value = DeviceNo4Box.Text;
                             config.AppSettings.Settings["HttpCheckUrl"].Value = HttpCheckUrlBox.Text;
                             config.AppSettings.Settings["HttpUploadUrl"].Value = HttpUploadUrlBox.Text;
                             config.AppSettings.Settings["PicStorDays"].Value = PicStorDaysText.Text;
@@ -3941,6 +4008,12 @@ namespace 存图助手标准版
                     //siteCode = siteCodeBox.Text;
                     regexMachineCode = regexMachineCodeBox.Text;
                     machineCodeFormat = machineCodeBox.Text;
+                    JDAIUrl = JDAIUrlBox.Text;
+                    JDAIwcsUrl = wcsUrlBox.Text;
+                    deviceNo1 = DeviceNo1Box.Text;
+                    deviceNo2 = DeviceNo2Box.Text;
+                    deviceNo3 = DeviceNo3Box.Text;
+                    deviceNo4 = DeviceNo4Box.Text;
                     HttpCheckUrl = HttpCheckUrlBox.Text;
                     HttpUploadUrl = HttpUploadUrlBox.Text;
                     FtpFileNameFormat = FtpFileNameBox.Text;
@@ -3994,6 +4067,7 @@ namespace 存图助手标准版
                     disk = FtpRoot1.Substring(0, 2);
                     //disk = StorageRoot1.Substring(0, 2);
                     NR_Raw = disk + "\\SIH\\NR_Raw";
+                    JD_AI_TempFolder_url = disk + "\\SIH\\JDAI";
                     barcode_stitch_url1 = disk + "\\SIH\\TopStitch1";
                     barcode_stitch_url2 = disk + "\\SIH\\TopStitch2";
                     barcode_stitch_url3 = disk + "\\SIH\\TopStitch3";
@@ -4106,6 +4180,12 @@ namespace 存图助手标准版
                     HttpRegexUrlBox.Enabled = false;
                     regexMachineCodeBox.Enabled = false;
                     machineCodeBox.Enabled = false;
+                    JDAIUrlBox.Enabled = false;
+                    wcsUrlBox.Enabled = false;
+                    DeviceNo1Box.Enabled = false;
+                    DeviceNo2Box.Enabled = false;
+                    DeviceNo3Box.Enabled = false;
+                    DeviceNo4Box.Enabled = false;
                     HttpCheckUrlBox.Enabled = false;
                     HttpUploadUrlBox.Enabled = false;
                     FtpFileNameBox.Enabled = false;
@@ -4571,6 +4651,7 @@ namespace 存图助手标准版
                         deletefiles(ftp_temp_url5, 2);
                         deletefiles(ftp_temp_url6, 2);
                         deletefiles(NR_Raw, 2);
+                        deletefiles(JD_AI_TempFolder_url, 1);
                         deletefiles(barcode_stitch_url1, 2);
                         deletefiles(barcode_stitch_url2, 2);
                         deletefiles(barcode_stitch_url3, 2);
@@ -5599,6 +5680,7 @@ namespace 存图助手标准版
         public delegate void SetLabelDelegate();
         public delegate void SetLabelDelegate2();
         public delegate void HttpSetLabelDelegate();
+        public delegate void JDAISetLabelDelegate();
         public delegate void MoveFile();
         public delegate void DoNothing();
         public void DoNothingFunction()
@@ -5638,6 +5720,18 @@ namespace 存图助手标准版
         public void HttpSetLabelGreen()
         {
             HttpConnectStatusLabel.BackColor = Color.Green;
+        }
+        public void JDAISetLabelGray()
+        {
+            JDAIConnectStatusLabel.BackColor = Color.Gray;
+        }
+        public void JDAISetLabelWhite()
+        {
+            JDAIConnectStatusLabel.BackColor = Color.White;
+        }
+        public void JDAISetLabelGreen()
+        {
+            JDAIConnectStatusLabel.BackColor = Color.Green;
         }
         public static void AddLog(string logcontent, ArrayList LogContentArray)
         {
@@ -9635,6 +9729,245 @@ namespace 存图助手标准版
                 }
             }
         }
+        internal bool JDAIUpload(MasterImage mst, int tunnelNo, out long uploaded_size, out string errMsg, out string response)
+        {
+            response = "";
+            uploaded_size = 0;
+            errMsg = "";
+            mst.JDAIUploaded = true;
+            bool flag = false;
+            Uri uri = new Uri(JDAIUrl);
+            HttpWebRequest httpReq = null;
+            Stream postStream = null;
+            
+            string urlraw = JDAIUrl.Substring(JDAIUrl.IndexOf("http://") + 7);
+            string host = "";
+            string deviceNo = deviceNo1;
+            int taskNo = -1;
+            string[] imagePaths = { };
+            if (urlraw.IndexOf(@"/") > -1)
+            {
+                host = urlraw.Substring(0, urlraw.IndexOf(@"/"));
+            }
+            else
+            {
+                host = urlraw;
+            }
+            
+            
+            lock (mst.JD_AI_INFO_LOCK) 
+            {
+                imagePaths = new string[mst.JDAIFullFileName.Count];
+                for (int i = 0; i < mst.JDAIFullFileName.Count; i++)
+                {
+                    imagePaths[i] = mst.JDAIFullFileName[i];
+                }
+                taskNo = mst.boxid;
+            }
+            if (tunnelNo == 1)
+            {
+                deviceNo = deviceNo1;
+            }
+            else if (tunnelNo == 2)
+            {
+                deviceNo = deviceNo2;
+            }
+            else if (tunnelNo == 3)
+            {
+                deviceNo = deviceNo3;
+            }
+            else if (tunnelNo == 4)
+            {
+                deviceNo = deviceNo4;
+            }
+            var jsonObject = new { deviceNo = deviceNo, taskNo = taskNo, imagePaths = imagePaths, wcsUrl = JDAIwcsUrl};
+            StringBuilder jsonstr = new StringBuilder(JsonConvert.SerializeObject(jsonObject));
+            byte[] jsonstrbyte = Encoding.UTF8.GetBytes(jsonstr.ToString());
+
+
+            try
+            {
+                httpReq = (HttpWebRequest)WebRequest.Create(uri);
+                httpReq.Host = host;
+                httpReq.ServicePoint.Expect100Continue = false;
+                httpReq.ServicePoint.ConnectionLimit = 512;
+                httpReq.AllowAutoRedirect = true;
+                httpReq.KeepAlive = false;
+                httpReq.Method = "POST";
+                httpReq.AllowWriteStreamBuffering = false;
+                httpReq.Timeout = 3000;
+                httpReq.ContentType = "application/json";
+                httpReq.ContentLength = jsonstrbyte.Length;
+                postStream = httpReq.GetRequestStream();
+                postStream.Write(jsonstrbyte, 0, jsonstrbyte.Length);
+                postStream.Close();
+                uploaded_size += jsonstrbyte.Length;
+                flag = true;
+            }
+            catch(Exception ex)
+            {
+                flag = false;
+                errMsg += "JDAI Error when writing request stream: " + ex.Message + "!!";
+            }
+            finally
+            {
+                if (postStream != null)
+                {
+                    postStream.Dispose();
+                }
+                if (httpReq != null)
+                {
+                    httpReq.Abort();
+                }
+            }
+            return flag;
+        }
+        internal void HandleJDAIArray(object obj)
+        {
+            Tuple<List<MasterImage>, ArrayList, Object, int, int, string> par = obj as Tuple<List<MasterImage>, ArrayList, Object, int, int, string>;
+            List<MasterImage> JDAIArray = par.Item1;
+            ArrayList LogContentArray = par.Item2;
+            Object JDAIArrayLock = par.Item3;
+            int stationNo = par.Item4;
+            int CamCount = par.Item5;
+            
+            string Response = "";
+            long uploaded_size = 0;
+            string errMsg = "";
+            string logcontent = "";
+            string GroupID = "-1";
+            string JDAIArrayName = "JDAIArray1";
+            if (JDAIArray == JDAIArray1)
+            {
+                JDAIArrayName = "JDAIArray1";
+            }
+            else if (JDAIArray == JDAIArray2)
+            {
+                JDAIArrayName = "JDAIArray2";
+            }
+            else if (JDAIArray == JDAIArray3)
+            {
+                JDAIArrayName = "JDAIArray3";
+            }
+            else if (JDAIArray == JDAIArray4)
+            {
+                JDAIArrayName = "JDAIArray4";
+            }
+            while (true)
+            {
+                Thread.Sleep(5);
+                int count = 0;
+                lock (JDAIArrayLock)
+                {
+                    count = JDAIArray.Count;
+                }
+                if (count > 1000)
+                {
+                    logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "Count of items in JDAIArray " + JDAIArrayName + ": " + count;
+                    AddLog(logcontent, LogContentArray);
+                }
+                while (count > 1000)
+                {
+                    string ID = "";
+                    lock (JDAIArrayLock)
+                    {
+                        if (JDAIArray[0] is MasterImage)
+                        {
+                            MasterImage delmst = JDAIArray[0] as MasterImage;
+                            ID = delmst.N0;
+                        }
+                        JDAIArray.RemoveAt(0);
+                    }
+                    logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "Too many items in JDAIArray so the earliest item has been deleted.GroupID = " + ID;
+                    AddLog(logcontent, LogContentArray);
+                }
+                if (count > 0)
+                {
+                    if (stationNo == 1)
+                    {
+                        CamCount = CamCount1;
+                    }
+                    else if (stationNo == 2)
+                    {
+                        CamCount = CamCount2;
+                    }
+                    else if (stationNo == 3)
+                    {
+                        CamCount = CamCount3;
+                    }
+                    else if (stationNo == 4)
+                    {
+                        CamCount = CamCount4;
+                    }
+                }
+                for (int i = 0; i < count; i++)
+                {
+                    MasterImage mst;
+                    lock (JDAIArrayLock)
+                    {
+                        mst = JDAIArray[i] as MasterImage;
+                    }
+                    if (mst is MasterImage)
+                    {
+                        GroupID = mst.N0;
+                        DateTime now = DateTime.Now;
+                        if (((long)(now - mst.TimeStamp).TotalMilliseconds > JDAITimeOut || mst.JDAIFullFileName.Count >= CamCount) && !mst.JDAIUploaded)
+                        {
+                            logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "GroupID: " + GroupID + " JD_AI Uploading! Totally " + mst.JDAIFullFileName.Count + " images";
+                            AddLog(logcontent, LogContentArray);
+                            if (JDAIUpload(mst, stationNo, out uploaded_size, out errMsg, out Response))//上传成功，回复正常
+                            {
+                                logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "GroupID: " + GroupID + " JD_AI uploaded successfully! " + uploaded_size + "bytes transmitted! Response: " + Response;
+                                AddLog(logcontent, LogContentArray);
+                                
+                                if (JDAIConnectStatusLabel.InvokeRequired)
+                                {
+                                    if (!JDAIConnectStatusLabel.IsDisposed)
+                                    {
+                                        JDAIConnectStatusLabel.Invoke(new JDAISetLabelDelegate(JDAISetLabelGreen));
+                                    }
+                                }
+                                
+                            }
+                            else
+                            {
+                                logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "GroupID: " + GroupID + " JD_AI uploaded unsuccessfully! " + "Response: " + Response.Substring(0, Math.Min(Response.Length, 100)) + " ErrMsg: " + errMsg;
+                                AddLog(logcontent, LogContentArray);
+                                
+                                if (JDAIConnectStatusLabel.InvokeRequired)
+                                {
+                                    if (!JDAIConnectStatusLabel.IsDisposed)
+                                    {
+                                        JDAIConnectStatusLabel.Invoke(new JDAISetLabelDelegate(JDAISetLabelGray));
+                                    }
+                                }
+                                
+                            }
+                        }
+                        if (mst.JDAIUploaded || (long)(now - mst.TimeStamp).TotalMilliseconds > JDAITimeOut)
+                        {
+                            string reason = "";
+                            lock (JDAIArrayLock)
+                            {
+                                JDAIArray.Remove(mst);
+                                i--;
+                                count = JDAIArray.Count;
+                            }
+                            if (mst.JDAIUploaded)
+                            {
+                                reason = "image has been uploaded!";
+                            }
+                            else
+                            {
+                                reason = "JDAITimeout reached!";
+                            }
+                            logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "GroupID: " + GroupID + " has been deleted from " + JDAIArrayName + " for reason: " + reason + " " + count + " items left in array";
+                            AddLog(logcontent, LogContentArray);
+                        }
+                    }
+                }
+            }
+        }
         public static void HandleResidualExtCaptionImage(object Folder)
         {
             try
@@ -12043,10 +12376,14 @@ namespace 存图助手标准版
                             从机图片：_0,N0_1,N1_2,xx_3,xx_4,xx_5,xx_6,xx_7,xx_8,xx_9,xx_10,xx_11,xx
                             */
                             ArrayList HttpArray = HTTPArraySta1_1;
+                            List<MasterImage> JDAIArray = JDAIArray1;
+                            Object JDAIArrayLock = JDAIArrayLock1;
                             Object HttpInfoLock = HTTPInfoSta1_1Lock;
                             Object HttpArrayLock = HTTPArraySta1_1Lock;
                             if (MasterArray == MasterArraySta1)
                             {
+                                JDAIArray = JDAIArray1;
+                                JDAIArrayLock = JDAIArrayLock1;
                                 if (Convert.ToInt64(N0) % 2 == 0)
                                 {
                                     HttpArray = HTTPArraySta1_1;
@@ -12062,6 +12399,8 @@ namespace 存图助手标准版
                             }
                             else if (MasterArray == MasterArraySta2)
                             {
+                                JDAIArray = JDAIArray2;
+                                JDAIArrayLock = JDAIArrayLock2;
                                 if (Convert.ToInt64(N0) % 2 == 0)
                                 {
                                     HttpArray = HTTPArraySta2_1;
@@ -12077,6 +12416,8 @@ namespace 存图助手标准版
                             }
                             else if (MasterArray == MasterArraySta3)
                             {
+                                JDAIArray = JDAIArray3;
+                                JDAIArrayLock = JDAIArrayLock3;
                                 if (Convert.ToInt64(N0) % 2 == 0)
                                 {
                                     HttpArray = HTTPArraySta3_1;
@@ -12092,6 +12433,8 @@ namespace 存图助手标准版
                             }
                             else if (MasterArray == MasterArraySta4)
                             {
+                                JDAIArray = JDAIArray4;
+                                JDAIArrayLock = JDAIArrayLock4;
                                 if (Convert.ToInt64(N0) % 2 == 0)
                                 {
                                     HttpArray = HTTPArraySta4_1;
@@ -12123,7 +12466,7 @@ namespace 存图助手标准版
                                         TriggerTimestamp = file.CreationTime;
                                     }
                                 }
-                                ArrayList resultArray = MasterImageFiletoArray(TriggerTimestamp,Timestamp, CamCount, file, MasterArray, HttpArray, MasterArrayLock, HttpArrayLock, N0, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, StationLogDir, LogContentArray, InductID);
+                                ArrayList resultArray = MasterImageFiletoArray(TriggerTimestamp,Timestamp, CamCount, file, MasterArray, HttpArray, MasterArrayLock, HttpArrayLock, N0, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, StationLogDir, LogContentArray, InductID, JDAIArray,JDAIArrayLock);
                                 if (resultArray[0] is MasterImage)
                                 {
                                     CurrentMaster = resultArray[0] as MasterImage;
@@ -12263,7 +12606,7 @@ namespace 存图助手标准版
                                     BarcodeStitchArray = BarcodeStitchArray1;
                                     BarcodeStitchArrayLock = BarcodeStitchArrayLock1;
                                 }
-                                int handleresult = HandleImage(file, delimiter, StorageRoot, extension, ftp_temp_url, http_temp_url, caption_temp_url, stitch_temp_url, BottomStitchArray, BottomStitchArrayLock, BarcodeStitchArray, BarcodeStitchArrayLock, barcode_stitch_temp_url, TriggerTimestamp, SubFolders, FileNameFormat, FtpFileNameFormat, HttpFileNameFormat, N0, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, StationLogDir, MasterArray, LogContentArray, CurrentMaster, InductID, barcodepos);
+                                int handleresult = HandleImage(file, delimiter, StorageRoot, extension, ftp_temp_url, http_temp_url, caption_temp_url, stitch_temp_url, BottomStitchArray, BottomStitchArrayLock, BarcodeStitchArray, BarcodeStitchArrayLock, barcode_stitch_temp_url, TriggerTimestamp, SubFolders, FileNameFormat, FtpFileNameFormat, HttpFileNameFormat, N0, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, StationLogDir, MasterArray, LogContentArray, CurrentMaster, InductID, barcodepos, JD_AI_TempFolder_url);
                                 if (handleresult == 1)
                                 {
                                     if (N1.StartsWith("UP"))
@@ -12306,7 +12649,7 @@ namespace 存图助手标准版
             }
             catch (Exception ex) { }
         }
-        private int HandleImage(FileInfo file, string delimiter, string StorageRoot, string extension, string ftp_temp_url, string http_temp_url, string caption_temp_url, string stitch_temp_url, List<BottomStitchObject> BottomStitchArray, Object BottomStitchArrayLock, List<BarcodeStitchObject> BarcodeStitchArray, Object BarcodeStitchArrayLock, string barcode_stitch_url, DateTime Timestamp, string[] SubFolders, string FileNameFormat, string FtpFileNameFormat, string HttpFileNameFormat, string N0, string N1, string N2, string N3, string N4, string N5, string N6, string N7, string N8, string N9, string N10, string N11,string StationLogDir, ArrayList MasterArray, ArrayList LogContentArray, MasterImage currentmaster, string InductID,string barcodepos)
+        private int HandleImage(FileInfo file, string delimiter, string StorageRoot, string extension, string ftp_temp_url, string http_temp_url, string caption_temp_url, string stitch_temp_url, List<BottomStitchObject> BottomStitchArray, Object BottomStitchArrayLock, List<BarcodeStitchObject> BarcodeStitchArray, Object BarcodeStitchArrayLock, string barcode_stitch_url, DateTime Timestamp, string[] SubFolders, string FileNameFormat, string FtpFileNameFormat, string HttpFileNameFormat, string N0, string N1, string N2, string N3, string N4, string N5, string N6, string N7, string N8, string N9, string N10, string N11,string StationLogDir, ArrayList MasterArray, ArrayList LogContentArray, MasterImage currentmaster, string InductID, string barcodepos, string JD_AI_url)
         {
             //string logpath = "";
             List<ExtCaptionBox> ExtCaptionBoxList = ExtCaptionBoxList1;
@@ -12338,8 +12681,10 @@ namespace 存图助手标准版
             string N12 = "1";
             string BottomStitchArrayName = "BottomStitchArray1";
             string BarcodeStitchArrayName = "BarcodeStitchArray1";
+            int CamCount = 0;
             if (StorageRoot == StorageRoot1 && MasterArray == MasterArraySta1)
             {
+                CamCount = CamCount1;
                 N12 = "1";
                 TopOnlyOnRead = TopOnlyOnRead1;
                 extCaptionDir = ext_caption_url1;
@@ -12348,6 +12693,7 @@ namespace 存图助手标准版
             }
             else if (StorageRoot == StorageRoot2 && MasterArray == MasterArraySta2)
             {
+                CamCount = CamCount2;
                 N12 = "2";
                 TopOnlyOnRead = TopOnlyOnRead2;
                 extCaptionDir = ext_caption_url2;
@@ -12356,6 +12702,7 @@ namespace 存图助手标准版
             }
             else if (StorageRoot == StorageRoot3 && MasterArray == MasterArraySta3)
             {
+                CamCount = CamCount3;
                 N12 = "3";
                 TopOnlyOnRead = TopOnlyOnRead3;
                 extCaptionDir = ext_caption_url3;
@@ -12364,6 +12711,7 @@ namespace 存图助手标准版
             }
             else if (StorageRoot == StorageRoot4 && MasterArray == MasterArraySta4)
             {
+                CamCount = CamCount4;
                 N12 = "4";
                 TopOnlyOnRead = TopOnlyOnRead4;
                 extCaptionDir = ext_caption_url4;
@@ -12372,6 +12720,7 @@ namespace 存图助手标准版
             }
             else
             {
+                CamCount = CamCount1;
                 N12 = "1";
                 TopOnlyOnRead = false;
                 extCaptionDir = ext_caption_url1;
@@ -12693,8 +13042,59 @@ namespace 存图助手标准版
                         bool flag2 = N1 == N2 && BarcodeImgEnable && N2 != "None" && !currentmaster.BarcodeImagePresent;
                         bool flag22 = BarcodeImgEnable && BarcodeImgMode != "拼接" && BarcodeImgMode != "stitched" && N2 != "None" && !(N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
                         bool flag3 = (!TopOnlyOnRead || N2 == "None") && (N1.StartsWith("LF") || N1.StartsWith("LB") || N1.StartsWith("RF") || N1.StartsWith("RB") || N1.StartsWith("DN") || N1.StartsWith("TF") || N1.StartsWith("TB") || N1.StartsWith("LT") || N1.StartsWith("RT"));
+                        
                         if (flag1 || flag22 || flag3)//要处理的图片
                         {
+                            if (JDAIEnable)
+                            {
+                                if (N2 == "None")
+                                {
+                                    int CurrentCount = 0;
+                                    string JDAIFilename = N0 + "_" + N1 + "_" + N12 + "_" + Year + Month + Day + Hour + Minute + Second + Millisecond + ".jpg";
+                                    string boxidtext = SorterBoxIDFormat;
+                                    boxidtext = boxidtext.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
+                                    boxidtext = boxidtext.Replace("#N0", N0).Replace("#N1", N1.Replace("Master", "").Replace("master", "")).Replace("#N2", N2).Replace("#N3", N3).Replace("#N4", N4).Replace("#N5", N5).Replace("#N6", N6);
+                                    boxidtext = boxidtext.Replace("#None", "");
+                                    if (currentmaster.boxid == -1)
+                                    {
+                                        try
+                                        {
+                                            currentmaster.boxid = Convert.ToInt32(boxidtext);
+                                        }
+                                        catch { }
+                                    }
+                                    lock (currentmaster.JD_AI_INFO_LOCK)
+                                    {
+                                        CurrentCount = currentmaster.JDAIFullFileName.Count;
+                                    }
+                                    if (CurrentCount < CamCount)
+                                    {
+                                        try
+                                        {
+                                            if (!Directory.Exists(JD_AI_url))
+                                            {
+                                                Directory.CreateDirectory(JD_AI_url);
+                                            }
+                                            file.Refresh();
+                                            if (file.Exists)
+                                            {
+                                                file.CopyTo(JD_AI_url + "\\" + JDAIFilename, false);
+                                            }
+                                            if (File.Exists(JD_AI_url + "\\" + JDAIFilename))
+                                            {
+                                                lock (currentmaster.JD_AI_INFO_LOCK)
+                                                {
+                                                    currentmaster.JDAIFullFileName.Add(JD_AI_url + "\\" + JDAIFilename);
+                                                }
+                                            }
+                                        }
+                                        catch
+                                        {
+
+                                        }
+                                    }
+                                }
+                            }
                             if (!captionEnable)//不加水印，直接移动到storageRoot和ftp_temp_url
                             {
                                 FtpFileName = FtpFileName.Replace("#N7", N7).Replace("#N8", N8).Replace("#N9", N9).Replace("#N10", N10).Replace("#N11", N11);
@@ -13638,27 +14038,32 @@ namespace 存图助手标准版
             ReturnArray.Add(handleflag);
             return ReturnArray;
         }
-        private ArrayList MasterImageFiletoArray(DateTime TriggerTimestamp, DateTime Timestamp,int CamCount, FileInfo file, ArrayList MasterArray, ArrayList HttpArray, Object MasterArrayLock, Object HttpArrayLock, string N0, string N1, string N2, string N3, string N4, string N5, string N6, string N7, string N8, string N9, string N10, string N11, string StationLogDir, ArrayList LogContentArray, string InductID)
+        private ArrayList MasterImageFiletoArray(DateTime TriggerTimestamp, DateTime Timestamp,int CamCount, FileInfo file, ArrayList MasterArray, ArrayList HttpArray, Object MasterArrayLock, Object HttpArrayLock, string N0, string N1, string N2, string N3, string N4, string N5, string N6, string N7, string N8, string N9, string N10, string N11, string StationLogDir, ArrayList LogContentArray, string InductID, List<MasterImage> JDAIArray, object JDAIArrayLock)
         {
             string logpath = "";
             string logcontent = "";
             string SystemLogDirectory = systemLog_dir + "\\" + StationLogDir;
             string MasterName = "MasterArraySta1";
+            string JDAIArrayName = "JDAIArray1";
             if (MasterArray == MasterArraySta1)
             {
                 MasterName = "MasterArraySta1";
+                JDAIArrayName = "JDAIArray1";
             }
             else if (MasterArray == MasterArraySta2)
             {
                 MasterName = "MasterArraySta2";
+                JDAIArrayName = "JDAIArray2";
             }
             else if (MasterArray == MasterArraySta3)
             {
                 MasterName = "MasterArraySta3";
+                JDAIArrayName = "JDAIArray3";
             }
             else if (MasterArray == MasterArraySta4)
             {
                 MasterName = "MasterArraySta4";
+                JDAIArrayName = "JDAIArray4";
             }
             bool handleflag = false;
             ArrayList ReturnArray = new ArrayList();
@@ -13682,6 +14087,15 @@ namespace 存图助手标准版
                 }
                 logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "GroupID: " + master.N0 + " is not found in " + MasterName + " so a new master is created " + file.Name + " is the current file!";
                 AddLog(logcontent, LogContentArray);
+                if (JDAIEnable && N2 == "None")
+                {
+                    lock (JDAIArrayLock)
+                    {
+                        JDAIArray.Add(master);
+                    }
+                    logcontent = "[" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + "] " + "GroupID: " + master.N0 + " added to " + JDAIArrayName + "! " + file.Name + " is the current file!";
+                    AddLog(logcontent, LogContentArray);
+                }
                 if (httpUpload && !captionEnable && InductID != "一区" && InductID != "二区" && !(N2 !="None" && BarcodeImgEnable && (BarcodeImgMode == "拼接" || BarcodeImgMode == "stitched")))//启用局部读码图片拼接或启用水印或者打开供包台绑定功能的工位暂时不把master加入HttpArray
                 {
                     lock (HttpArrayLock)
@@ -17442,10 +17856,17 @@ namespace 存图助手标准版
                 label68.Text = "外部水印等待：";
                 label69.Text = "正则编码：";
                 label74.Text = "当前语言：";
+                label75.Text = "deviceNo1：";
+                label76.Text = "AI补码url：";
+                label77.Text = "wcsUrl：";
+                label78.Text = "deviceNo2：";
+                label79.Text = "deviceNo3：";
+                label80.Text = "deviceNo4：";
                 UploadCheck.Text = "图片服务器";
                 Stop.Text = "停止";
                 Start.Text = "开始";
                 LogEnableCheck.Text = "是否启用日志";
+                JDAICheck.Text = "是否AI补码";
                 HTTPUploadCheck.Text = "是否上传HTTP服务器";
                 UploadStatusCheck.Text = "是否上传状态报文";
                 CaptionEnableCheck.Text = "是否添加图片水印";
@@ -17619,10 +18040,17 @@ namespace 存图助手标准版
                 label68.Text = "ExtCapTimeout：";
                 label69.Text = "RegCode：";
                 label74.Text = "Lang：";
+                label75.Text = "deviceNo1：";
+                label76.Text = "JDAIurl：";
+                label77.Text = "wcsUrl：";
+                label78.Text = "deviceNo2：";
+                label79.Text = "deviceNo3：";
+                label80.Text = "deviceNo4：";
                 UploadCheck.Text = "FTPServer";
                 Stop.Text = "Stop";
                 Start.Text = "Start";
                 LogEnableCheck.Text = "LogEnable";
+                JDAICheck.Text = "JDAIEnable";
                 HTTPUploadCheck.Text = "HTTPEnable";
                 UploadStatusCheck.Text = "ScadaEnable";
                 CaptionEnableCheck.Text = "Caption";
@@ -18130,6 +18558,35 @@ namespace 存图助手标准版
         private void GridConfigBtn_Click_1(object sender, EventArgs e)
         {
             gs.ShowDialog();
+        }
+
+        private void JDAIResetBtn_Click(object sender, EventArgs e)
+        {
+            JDAISetLabelWhite();
+        }
+
+        private void JDAICheck_CheckedChanged(object sender, EventArgs e)
+        {
+            lock (OpenConfigLock)
+            {
+                try
+                {
+                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    if (JDAICheck.Checked)
+                    {
+                        config.AppSettings.Settings["JDAIEnable"].Value = "true";
+                        JDAIEnable = true;
+                    }
+                    else
+                    {
+                        config.AppSettings.Settings["JDAIEnable"].Value = "false";
+                        JDAIEnable = false;
+                    }
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+                catch (Exception ex) { }
+            }
         }
     }
 }

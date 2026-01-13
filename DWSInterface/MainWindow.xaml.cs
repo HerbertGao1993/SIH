@@ -578,7 +578,7 @@ namespace DWSInterface
             MainWindowViewModel.ResetTitle = "清零";
             MainWindowViewModel.LHWTitle = "长*宽*高 mm";
             MainWindowViewModel.TrackIDTitle = "索引号";
-            MainWindowViewModel.ChuteTitle = "格口";
+            MainWindowViewModel.ChuteTitle = "目的地";
             MainWindowViewModel.WeightTitle = "重量 kg";
             MainWindowViewModel.VolumeTitle = "体积 mm³";
             MainWindowViewModel.QueryTitle = "查询";
@@ -589,7 +589,7 @@ namespace DWSInterface
             qw.qvm.ReadRate = "读取率: ";
             qw.qvm.IDTitle = "序号";
             qw.qvm.BarcodeTitle = "条码";
-            qw.qvm.DestTitle = "格口";
+            qw.qvm.DestTitle = "目的地";
             qw.qvm.LengthTitle = "长(mm)";
             qw.qvm.WidthTitle = "宽(mm)";
             qw.qvm.HeightTitle = "高(mm)";
@@ -599,6 +599,7 @@ namespace DWSInterface
             qw.qvm.PicTitle = "显示图片";
             qw.qvm.SearchTimeTitle = "起止时间: ";
             qw.qvm.SearchCodeTitle = "条码: ";
+            qw.qvm.SearchDestTitle = "目的地: ";
             qw.qvm.QueryTitle = "查询";
             qw.qvm.TotalTitle = "共";
             qw.qvm.PageTitle = "页";
@@ -835,7 +836,7 @@ namespace DWSInterface
                 MainWindowViewModel.ResetTitle = "Reset";
                 MainWindowViewModel.LHWTitle = "L*W*H mm";
                 MainWindowViewModel.TrackIDTitle = "ID";
-                MainWindowViewModel.ChuteTitle = "Chute";
+                MainWindowViewModel.ChuteTitle = "Destination";
                 MainWindowViewModel.WeightTitle = "Weight kg";
                 MainWindowViewModel.VolumeTitle = "Volume mm³";
                 MainWindowViewModel.QueryTitle = "Query";
@@ -852,7 +853,7 @@ namespace DWSInterface
                 qw.qvm.ReadRate = "ReadRate" + qw.qvm.ReadRate.Substring(qw.qvm.ReadRate.IndexOf(": "));
                 qw.qvm.IDTitle = "ID";
                 qw.qvm.BarcodeTitle = "Barcode";
-                qw.qvm.DestTitle = "Chute";
+                qw.qvm.DestTitle = "Destination";
                 qw.qvm.LengthTitle = "Length(mm)";
                 qw.qvm.WidthTitle = "Width(mm)";
                 qw.qvm.HeightTitle = "Height(mm)";
@@ -862,6 +863,7 @@ namespace DWSInterface
                 qw.qvm.PicTitle = "Image";
                 qw.qvm.SearchTimeTitle = "Timespan: ";
                 qw.qvm.SearchCodeTitle = "Barcode: ";
+                qw.qvm.SearchDestTitle = "Destination: ";
                 qw.qvm.QueryTitle = "Query";
                 qw.qvm.TotalTitle = "of";
                 qw.qvm.PageTitle = "";
@@ -872,7 +874,7 @@ namespace DWSInterface
                 MainWindowViewModel.ResetTitle = "Reset";
                 MainWindowViewModel.LHWTitle = "L*W*H mm";
                 MainWindowViewModel.TrackIDTitle = "ID";
-                MainWindowViewModel.ChuteTitle = "Chute";
+                MainWindowViewModel.ChuteTitle = "Destinație";
                 MainWindowViewModel.WeightTitle = "Greutate kg";
                 MainWindowViewModel.VolumeTitle = "Volum mm³";
                 MainWindowViewModel.QueryTitle = "Căută";
@@ -899,6 +901,7 @@ namespace DWSInterface
                 qw.qvm.PicTitle = "Imagine";
                 qw.qvm.SearchTimeTitle = "Timp: ";
                 qw.qvm.SearchCodeTitle = "Cod de bară: ";
+                qw.qvm.SearchDestTitle = "Destinație: ";
                 qw.qvm.QueryTitle = "Căută";
                 qw.qvm.TotalTitle = "of";
                 qw.qvm.PageTitle = "";
@@ -909,7 +912,7 @@ namespace DWSInterface
                 MainWindowViewModel.ResetTitle = "清零";
                 MainWindowViewModel.LHWTitle = "长*宽*高 mm";
                 MainWindowViewModel.TrackIDTitle = "索引号";
-                MainWindowViewModel.ChuteTitle = "格口";
+                MainWindowViewModel.ChuteTitle = "目的地";
                 MainWindowViewModel.WeightTitle = "重量 kg";
                 MainWindowViewModel.VolumeTitle = "体积 mm³";
                 MainWindowViewModel.QueryTitle = "查询";
@@ -926,7 +929,7 @@ namespace DWSInterface
                 qw.qvm.ReadRate = "读取率" + qw.qvm.ReadRate.Substring(qw.qvm.ReadRate.IndexOf(": "));
                 qw.qvm.IDTitle = "序号";
                 qw.qvm.BarcodeTitle = "条码";
-                qw.qvm.DestTitle = "格口";
+                qw.qvm.DestTitle = "目的地";
                 qw.qvm.LengthTitle = "长(mm)";
                 qw.qvm.WidthTitle = "宽(mm)";
                 qw.qvm.HeightTitle = "高(mm)";
@@ -936,6 +939,7 @@ namespace DWSInterface
                 qw.qvm.PicTitle = "显示图片";
                 qw.qvm.SearchTimeTitle = "起止时间: ";
                 qw.qvm.SearchCodeTitle = "条码: ";
+                qw.qvm.SearchDestTitle = "目的地: ";
                 qw.qvm.QueryTitle = "查询";
                 qw.qvm.TotalTitle = "共";
                 qw.qvm.PageTitle = "页";

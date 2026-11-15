@@ -20,6 +20,8 @@ namespace Calib
 {
     public partial class Form1 : Form
     {
+        private bool isSLX = false;
+        private SLXCalibrationResult slxResult = null;
         private string NumsPattern = @"^\d+$";
         private string lastdir = Application.StartupPath;
         private CogIDTool mTool = null;
@@ -98,7 +100,7 @@ namespace Calib
             mTool.RunParams.ProcessingMode = CogIDProcessingModeConstants.IDMax;
             mTool.RunParams.DataMatrix.PerspectiveEnabled = true;
             //mTool.RunParams.DataMatrix.PrintDeformation = CogIDPrintDeformationConstants.Moderate;
-            mTool.RunParams.NumToFind = 80;
+            mTool.RunParams.NumToFind = 150;
             mTool.RunParams.AllowPartialResults = true;
             mTool.RunParams.Timeout = 4000;
             mTool.RunParams.TimeoutEnabled = true;
@@ -136,9 +138,9 @@ namespace Calib
                 if (e.Delta > 0)
                 {
                     ratio += ratioStep;
-                    if (ratio > 5) // 放大上限
+                    if (ratio > 10) // 放大上限
                     {
-                        ratio = 5;
+                        ratio = 10;
                     }
 
                     this.changePictureBoxSize(ratio, true);
@@ -664,6 +666,217 @@ namespace Calib
         {
             preview(mat6);
         }
+        private void ParseCalibPoints(List<string> Codes, List<Point2d> C, List<Point2d> P, List<Point2d> Pratio,double imgratio)
+        {
+            for (int i = 0; i < Codes.Count; i++)
+            {
+                try
+                {
+                    string pos = Codes[i].Split(' ')[0];
+                    string[] xy = pos.Split(',');
+                    double x = 5.0*Convert.ToDouble(xy[0]);
+                    double y = 5.0 * Convert.ToDouble(xy[1]);
+                    C.Add(new Point2d(x, y));
+                }
+                catch
+                {
+
+                }
+            }
+            for (int i = 0; i < P.Count; i++)
+            {
+                Pratio.Add(P[i] * imgratio);
+            }
+        }
+        private void Cal_DMBS(List<Point2d> C1, List<Point2d> C2, List<Point2d> C3, List<Point2d> C4, List<Point2d> C5, List<Point2d> C6, List<Point2d> P11ratio, List<Point2d> P21ratio, List<Point2d> P31ratio, List<Point2d> P41ratio, List<Point2d> P51ratio, List<Point2d> P61ratio)
+        {
+            Mat From1toWorld = null;
+            Mat From1ratiotoWorld = null;
+            if (P11.Count > 4 && C1.Count > 4 && P11ratio.Count > 4 && P11.Count == C1.Count && P11ratio.Count == C1.Count)
+            {
+                From1toWorld = Cv2.FindHomography(P11, C1, HomographyMethods.Rho);
+                From1ratiotoWorld = Cv2.FindHomography(P11ratio, C1, HomographyMethods.Rho);
+                
+            }
+            else
+            {
+                MessageBox.Show("图片一标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Mat From2toWorld = null;
+            Mat From2ratiotoWorld = null;
+            if (P21.Count > 4 && C2.Count > 4 && P21ratio.Count > 4 && P21.Count == C2.Count && P21ratio.Count == C2.Count)
+            {
+                From2toWorld = Cv2.FindHomography(P21, C2, HomographyMethods.Rho);
+                From2ratiotoWorld = Cv2.FindHomography(P21ratio, C2, HomographyMethods.Rho);
+                
+            }
+            else
+            {
+                MessageBox.Show("图片二标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Mat From3toWorld = null;
+            Mat From3ratiotoWorld = null;
+            if (P31.Count > 4 && C3.Count > 4 && P31ratio.Count > 4 && P31.Count == C3.Count && P31ratio.Count == C3.Count)
+            {
+                From3toWorld = Cv2.FindHomography(P31, C3, HomographyMethods.Rho);
+                From3ratiotoWorld = Cv2.FindHomography(P31ratio, C3, HomographyMethods.Rho);
+            }
+            else
+            {
+
+                MessageBox.Show("图片三标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            Mat From4toWorld = null;
+            Mat From4ratiotoWorld = null;
+            if (P41.Count > 4 && C4.Count > 4 && P41ratio.Count > 4 && P41.Count == C4.Count && P41ratio.Count == C4.Count)
+            {
+                From4toWorld = Cv2.FindHomography(P41, C4, HomographyMethods.Rho);
+                From4ratiotoWorld = Cv2.FindHomography(P41ratio, C4, HomographyMethods.Rho);
+            }
+            else
+            {
+
+                MessageBox.Show("图片四标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            Mat From5toWorld = null;
+            Mat From5ratiotoWorld = null;
+            if (P51.Count > 4 && C5.Count > 4 && P51ratio.Count > 4 && P51.Count == C5.Count && P51ratio.Count == C5.Count)
+            {
+                From5toWorld = Cv2.FindHomography(P51, C5, HomographyMethods.Rho);
+                From5ratiotoWorld = Cv2.FindHomography(P51ratio, C5, HomographyMethods.Rho);
+            }
+            else
+            {
+                if (mat5 != null)
+                {
+                    MessageBox.Show("图片五标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            Mat From6toWorld = null;
+            Mat From6ratiotoWorld = null;
+            if (P61.Count > 4 && C6.Count > 4 && P61ratio.Count > 4 && P61.Count == C6.Count && P61ratio.Count == C6.Count)
+            {
+                From6toWorld = Cv2.FindHomography(P61, C6, HomographyMethods.Rho);
+                From6ratiotoWorld = Cv2.FindHomography(P61ratio, C6, HomographyMethods.Rho);
+            }
+            else
+            {
+                if (mat6 != null)
+                {
+                    MessageBox.Show("图片六标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            if (From1toWorld != null && From1ratiotoWorld != null && From2toWorld != null && From2ratiotoWorld != null)
+            {
+                H12 = From1toWorld.Inv() * From2toWorld;
+                H12ratio = From1ratiotoWorld.Inv() * From2ratiotoWorld;
+            }
+            if (From2toWorld != null && From2ratiotoWorld != null && From3toWorld != null && From3ratiotoWorld != null)
+            {
+                H23 = From2toWorld.Inv() * From3toWorld;
+                H23ratio = From2ratiotoWorld.Inv() * From3ratiotoWorld;
+            }
+            if (From3toWorld != null && From3ratiotoWorld != null && From4toWorld != null && From4ratiotoWorld != null)
+            {
+                H34 = From3toWorld.Inv() * From4toWorld;
+                H34ratio = From3ratiotoWorld.Inv() * From4ratiotoWorld;
+            }
+            if (From4toWorld != null && From4ratiotoWorld != null && From5toWorld != null && From5ratiotoWorld != null)
+            {
+                H45 = From4toWorld.Inv() * From5toWorld;
+                H45ratio = From4ratiotoWorld.Inv() * From5ratiotoWorld;
+            }
+            if (From5toWorld != null && From5ratiotoWorld != null && From6toWorld != null && From6ratiotoWorld != null)
+            {
+                H56 = From5toWorld.Inv() * From6toWorld;
+                H56ratio = From5ratiotoWorld.Inv() * From6ratiotoWorld;
+            }
+            Mat[] H = { H12, H23, H34, H45, H56 };
+            Mat[] mats = { mat1, mat2, mat3, mat4, mat5, mat6 };
+            CalResultBox.Text = "";
+            CalResultBox.Text += "H12 : " + MattoString(H12ratio) + "\r\n";
+            CalResultBox.Text += "H23 : " + MattoString(H23ratio) + "\r\n";
+            CalResultBox.Text += "H34 : " + MattoString(H34ratio) + "\r\n";
+            CalResultBox.Text += "H45 : " + MattoString(H45ratio) + "\r\n";
+            CalResultBox.Text += "H56 : " + MattoString(H56ratio) + "\r\n";
+            if (mat1 != null)
+            {
+                Mat warp = null;
+                try
+                {
+                    warp = new Mat(mat1.Rows, 4 * mat1.Cols, MatType.CV_8UC1);
+                    for (int i = mats.Length - 1; i > 0; i--)
+                    {
+                        if (mats[i] != null && H[i - 1] != null && H[i - 1] != defaultMat)
+                        {
+                            warp[0, Math.Min(warp.Rows, mats[i].Rows), 0, mats[i].Cols] = mats[i][0, Math.Min(warp.Rows, mats[i].Rows), 0, mats[i].Cols];
+                            Cv2.WarpPerspective(warp, warp, H[i - 1], warp.Size());
+                        }
+                    }
+                    warp[0, mat1.Rows, 0, mat1.Cols] = mat1;
+                    preview(warp);
+                    //Cv2.ImWrite("D:\\测试图片\\tttt\\full.jpg", warp, new ImageEncodingParam(ImwriteFlags.JpegQuality, 90));
+                }
+                catch { }
+                finally
+                {
+                    if (warp != null)
+                    {
+                        warp.Dispose();
+                    }
+                }
+            }
+            else
+            {
+                preview(null);
+            }
+        }
+        private void calib_SLXBS(List<Point2d> C1, List<Point2d> C2, List<Point2d> C3, List<Point2d> C4, List<Point2d> C5, List<Point2d> C6)
+        {
+            Mat stitchedResult = null;
+            List<List<Point2d>> uvLists = new List<List<Point2d>>(3);
+            List<List<Point2d>> xyLists = new List<List<Point2d>>(3);
+            List<Mat> matList = new List<Mat>(3);
+            if (C1.Count >= 10 && C2.Count >= 10 && P11.Count == C1.Count && P21.Count == C2.Count)
+            {
+                try
+                {
+                    uvLists.Add(P11);
+                    xyLists.Add(C1);
+                    uvLists.Add(P21);
+                    xyLists.Add(C2);
+                    matList.Add(mat1);
+                    matList.Add(mat2);
+                    if (C3.Count >= 10 && P31.Count == C3.Count)
+                    {
+                        uvLists.Add(P31);
+                        xyLists.Add(C3);
+                        matList.Add(mat3);
+                    }
+                    string mes = "";
+                    slxResult = SLXCalibrator.Calibrate(xyLists.ToArray(), uvLists.ToArray(), true, out mes);
+                    CalResultBox.Text = "";
+                    CalResultBox.Text = JsonConvert.SerializeObject(slxResult);
+                    var watch = System.Diagnostics.Stopwatch.StartNew();
+                    double meshSize = 0.5;
+                    stitchedResult = SLXStitcher.Stitch(matList.ToArray(), slxResult, meshSize);
+                    watch.Stop();
+                    long time = watch.ElapsedMilliseconds;
+                    preview(stitchedResult);
+                }
+                catch { preview(null); }
+                finally
+                {
+                    if (stitchedResult != null)
+                    {
+                        stitchedResult.Dispose();
+                    }
+                }
+
+            }
+        }
         private void StartCal_Btn_Click(object sender, EventArgs e)
         {
             try
@@ -685,26 +898,18 @@ namespace Calib
                 {
                     imgratio = 0.125;
                 }
-                List<Point2d> P121 = new List<Point2d>();
-                List<Point2d> P122 = new List<Point2d>();
-                List<Point2d> P232 = new List<Point2d>();
-                List<Point2d> P233 = new List<Point2d>();
-                List<Point2d> P343 = new List<Point2d>();
-                List<Point2d> P344 = new List<Point2d>();
-                List<Point2d> P454 = new List<Point2d>();
-                List<Point2d> P455 = new List<Point2d>();
-                List<Point2d> P565 = new List<Point2d>();
-                List<Point2d> P566 = new List<Point2d>();
-                List<Point2d> P121ratio = new List<Point2d>();
-                List<Point2d> P122ratio = new List<Point2d>();
-                List<Point2d> P232ratio = new List<Point2d>();
-                List<Point2d> P233ratio = new List<Point2d>();
-                List<Point2d> P343ratio = new List<Point2d>();
-                List<Point2d> P344ratio = new List<Point2d>();
-                List<Point2d> P454ratio = new List<Point2d>();
-                List<Point2d> P455ratio = new List<Point2d>();
-                List<Point2d> P565ratio = new List<Point2d>();
-                List<Point2d> P566ratio = new List<Point2d>();
+                List<Point2d> C1 = new List<Point2d>();
+                List<Point2d> C2 = new List<Point2d>();
+                List<Point2d> C3 = new List<Point2d>();
+                List<Point2d> C4 = new List<Point2d>();
+                List<Point2d> C5 = new List<Point2d>();
+                List<Point2d> C6 = new List<Point2d>();
+                List<Point2d> P11ratio = new List<Point2d>();
+                List<Point2d> P21ratio = new List<Point2d>();
+                List<Point2d> P31ratio = new List<Point2d>();
+                List<Point2d> P41ratio = new List<Point2d>();
+                List<Point2d> P51ratio = new List<Point2d>();
+                List<Point2d> P61ratio = new List<Point2d>();
                 if (H12 != null && H12 != defaultMat)
                 {
                     H12.Dispose();
@@ -755,209 +960,25 @@ namespace Calib
                     H56ratio.Dispose();
                     H56ratio = defaultMat;
                 }
-                for (int i = 0; i < Codes1.Count; i++)
+                if (slxResult != null)
                 {
-                    int j = Codes2.IndexOf(Codes1[i]);
-                    if (j > -1)
-                    {
-                        P121.Add(P11[i]);
-                        P122.Add(P21[j]);
-                        P121ratio.Add(P11[i] * imgratio);
-                        P122ratio.Add(P21[j] * imgratio);
-                        P121.Add(P12[i]);
-                        P122.Add(P22[j]);
-                        P121ratio.Add(P12[i] * imgratio);
-                        P122ratio.Add(P22[j] * imgratio);
-                        P121.Add(P13[i]);
-                        P122.Add(P23[j]);
-                        P121ratio.Add(P13[i] * imgratio);
-                        P122ratio.Add(P23[j] * imgratio);
-                        P121.Add(P14[i]);
-                        P122.Add(P24[j]);
-                        P121ratio.Add(P14[i] * imgratio);
-                        P122ratio.Add(P24[j] * imgratio);
-                    }
+                    slxResult = null;
                 }
-                for (int i = 0; i < Codes2.Count; i++)
+                ParseCalibPoints(Codes1, C1, P11, P11ratio, imgratio);
+                ParseCalibPoints(Codes2, C2, P21, P21ratio, imgratio);
+                ParseCalibPoints(Codes3, C3, P31, P31ratio, imgratio);
+                ParseCalibPoints(Codes4, C4, P41, P41ratio, imgratio);
+                ParseCalibPoints(Codes5, C5, P51, P51ratio, imgratio);
+                ParseCalibPoints(Codes6, C6, P61, P61ratio, imgratio);
+                if (mat1 != null && mat2 != null && mat3 != null && mat4 != null)
                 {
-                    int j = Codes3.IndexOf(Codes2[i]);
-                    if (j > -1)
-                    {
-                        P232.Add(P21[i]);
-                        P233.Add(P31[j]);
-                        P232ratio.Add(P21[i] * imgratio);
-                        P233ratio.Add(P31[j] * imgratio);
-                        P232.Add(P22[i]);
-                        P233.Add(P32[j]);
-                        P232ratio.Add(P22[i] * imgratio);
-                        P233ratio.Add(P32[j] * imgratio);
-                        P232.Add(P23[i]);
-                        P233.Add(P33[j]);
-                        P232ratio.Add(P23[i] * imgratio);
-                        P233ratio.Add(P33[j] * imgratio);
-                        P232.Add(P24[i]);
-                        P233.Add(P34[j]);
-                        P232ratio.Add(P24[i] * imgratio);
-                        P233ratio.Add(P34[j] * imgratio);
-                    }
+                    Cal_DMBS(C1, C2, C3, C4, C5, C6, P11ratio, P21ratio, P31ratio, P41ratio, P51ratio, P61ratio);
+                    isSLX = false;
                 }
-                for (int i = 0; i < Codes3.Count; i++)
+                else if (mat1 != null && mat2 != null  && mat4 == null && mat5 == null && mat6 == null)
                 {
-                    int j = Codes4.IndexOf(Codes3[i]);
-                    if (j > -1)
-                    {
-                        P343.Add(P31[i]);
-                        P344.Add(P41[j]);
-                        P343ratio.Add(P31[i] * imgratio);
-                        P344ratio.Add(P41[j] * imgratio);
-                        P343.Add(P32[i]);
-                        P344.Add(P42[j]);
-                        P343ratio.Add(P32[i] * imgratio);
-                        P344ratio.Add(P42[j] * imgratio);
-                        P343.Add(P33[i]);
-                        P344.Add(P43[j]);
-                        P343ratio.Add(P33[i] * imgratio);
-                        P344ratio.Add(P43[j] * imgratio);
-                        P343.Add(P34[i]);
-                        P344.Add(P44[j]);
-                        P343ratio.Add(P34[i] * imgratio);
-                        P344ratio.Add(P44[j] * imgratio);
-                    }
-                }
-                for (int i = 0; i < Codes4.Count; i++)
-                {
-                    int j = Codes5.IndexOf(Codes4[i]);
-                    if (j > -1)
-                    {
-                        P454.Add(P41[i]);
-                        P455.Add(P51[j]);
-                        P454ratio.Add(P41[i] * imgratio);
-                        P455ratio.Add(P51[j] * imgratio);
-                        P454.Add(P42[i]);
-                        P455.Add(P52[j]);
-                        P454ratio.Add(P42[i] * imgratio);
-                        P455ratio.Add(P52[j] * imgratio);
-                        P454.Add(P43[i]);
-                        P455.Add(P53[j]);
-                        P454ratio.Add(P43[i] * imgratio);
-                        P455ratio.Add(P53[j] * imgratio);
-                        P454.Add(P44[i]);
-                        P455.Add(P54[j]);
-                        P454ratio.Add(P44[i] * imgratio);
-                        P455ratio.Add(P54[j] * imgratio);
-                    }
-                }
-                for (int i = 0; i < Codes5.Count; i++)
-                {
-                    int j = Codes6.IndexOf(Codes5[i]);
-                    if (j > -1)
-                    {
-                        P565.Add(P51[i]);
-                        P566.Add(P61[j]);
-                        P565ratio.Add(P51[i] * imgratio);
-                        P566ratio.Add(P61[j] * imgratio);
-                        P565.Add(P52[i]);
-                        P566.Add(P62[j]);
-                        P565ratio.Add(P52[i] * imgratio);
-                        P566ratio.Add(P62[j] * imgratio);
-                        P565.Add(P53[i]);
-                        P566.Add(P63[j]);
-                        P565ratio.Add(P53[i] * imgratio);
-                        P566ratio.Add(P63[j] * imgratio);
-                        P565.Add(P54[i]);
-                        P566.Add(P64[j]);
-                        P565ratio.Add(P54[i] * imgratio);
-                        P566ratio.Add(P64[j] * imgratio);
-                    }
-                }
-                if (P122.Count >= 4 && P121.Count >= 4 && P122ratio.Count >= 4 && P121ratio.Count >= 4)
-                {
-                    H12 = Cv2.FindHomography(P122, P121, HomographyMethods.Rho);
-                    H12ratio = Cv2.FindHomography(P122ratio, P121ratio, HomographyMethods.Rho);
-                }
-                else
-                {
-                    MessageBox.Show("图片一与图片二之间标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                if (P233.Count >= 4 && P232.Count >= 4 && P233ratio.Count >= 4 && P232ratio.Count >= 4)
-                {
-                    H23 = Cv2.FindHomography(P233, P232, HomographyMethods.Rho);
-                    H23ratio = Cv2.FindHomography(P233ratio, P232ratio, HomographyMethods.Rho);
-                }
-                else
-                {
-                    MessageBox.Show("图片二与图片三之间标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                if (P344.Count >= 4 && P343.Count >= 4 && P344ratio.Count >= 4 && P343ratio.Count >= 4)
-                {
-                    H34 = Cv2.FindHomography(P344, P343, HomographyMethods.Rho);
-                    H34ratio = Cv2.FindHomography(P344ratio, P343ratio, HomographyMethods.Rho);
-                }
-                else
-                {
-                    MessageBox.Show("图片三与图片四之间标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                if (P455.Count >= 4 && P454.Count >= 4 && P455ratio.Count >= 4 && P454ratio.Count >= 4)
-                {
-                    H45 = Cv2.FindHomography(P455, P454, HomographyMethods.Rho);
-                    H45ratio = Cv2.FindHomography(P455ratio, P454ratio, HomographyMethods.Rho);
-                }
-                else
-                {
-                    if (mat5 != null)
-                    {
-                        MessageBox.Show("图片四与图片五之间标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                if (P566.Count >= 4 && P565.Count >= 4 && P566ratio.Count >= 4 && P565ratio.Count >= 4)
-                {
-                    H56 = Cv2.FindHomography(P566, P565, HomographyMethods.Rho);
-                    H56ratio = Cv2.FindHomography(P566ratio, P565ratio, HomographyMethods.Rho);
-                }
-                else
-                {
-                    if (mat5 != null && mat6 != null)
-                    {
-                        MessageBox.Show("图片五与图片六之间标定错误", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                Mat[] H = { H12, H23, H34, H45, H56 };
-                Mat[] mats = { mat1, mat2, mat3, mat4, mat5, mat6 };
-                CalResultBox.Text = "";
-                CalResultBox.Text += "H12 : " + MattoString(H12ratio) + "\r\n";
-                CalResultBox.Text += "H23 : " + MattoString(H23ratio) + "\r\n";
-                CalResultBox.Text += "H34 : " + MattoString(H34ratio) + "\r\n";
-                CalResultBox.Text += "H45 : " + MattoString(H45ratio) + "\r\n";
-                CalResultBox.Text += "H56 : " + MattoString(H56ratio) + "\r\n";
-                if (mat1 != null)
-                {
-                    Mat warp = null;
-                    try
-                    {
-                        warp = new Mat(mat1.Rows, 4 * mat1.Cols, MatType.CV_8UC1);
-                        for (int i = mats.Length - 1; i > 0; i--)
-                        {
-                            if (mats[i] != null && H[i - 1] != null && H[i - 1] != defaultMat)
-                            {
-                                warp[0, Math.Min(warp.Rows,mats[i].Rows), 0, mats[i].Cols] = mats[i][0, Math.Min(warp.Rows, mats[i].Rows), 0, mats[i].Cols];
-                                Cv2.WarpPerspective(warp, warp, H[i - 1], warp.Size());
-                            }
-                        }
-                        warp[0, mat1.Rows, 0, mat1.Cols] = mat1;
-                        preview(warp);
-                    }
-                    catch { }
-                    finally
-                    {
-                        if (warp != null)
-                        {
-                            warp.Dispose();
-                        }
-                    }
-                }
-                else
-                {
-                    preview(null);
+                    calib_SLXBS(C1, C2, C3, C4, C5, C6);
+                    isSLX = true;
                 }
             }
             catch { }
@@ -1010,8 +1031,6 @@ namespace Calib
             {
                 if (path != "")
                 {
-                    FileStream fs = null;
-                    StreamWriter sw = null;
                     try
                     {
                         if (!Directory.Exists(dir))
@@ -1022,150 +1041,167 @@ namespace Calib
                         {
                             System.IO.File.Delete(path);
                         }
-                        double[] H12array;
-                        double[] H23array;
-                        double[] H34array;
-                        double[] H45array;
-                        double[] H56array;
-                        int ol1 = 0;
-                        int ol2 = 0;
-                        int ol3 = 0;
-                        int ol4 = 0;
-                        int ol5 = 0;
-                        int ol6 = 0;
-                        if (Regex.IsMatch(ol1text.Text, NumsPattern))
+                    }
+                    catch { }
+                    if (!isSLX)
+                    {
+                        FileStream fs = null;
+                        StreamWriter sw = null;
+                        try
                         {
-                            try
+                            
+                            double[] H12array;
+                            double[] H23array;
+                            double[] H34array;
+                            double[] H45array;
+                            double[] H56array;
+                            int ol1 = 0;
+                            int ol2 = 0;
+                            int ol3 = 0;
+                            int ol4 = 0;
+                            int ol5 = 0;
+                            int ol6 = 0;
+                            if (Regex.IsMatch(ol1text.Text, NumsPattern))
                             {
-                                ol1 = Convert.ToInt32(Convert.ToInt32(ol1text.Text) * imgratio);
+                                try
+                                {
+                                    ol1 = Convert.ToInt32(Convert.ToInt32(ol1text.Text) * imgratio);
+                                }
+                                catch
+                                {
+                                    ol1 = 0;
+                                }
                             }
-                            catch
+                            else
                             {
                                 ol1 = 0;
                             }
-                        }
-                        else
-                        {
-                            ol1 = 0;
-                        }
-                        if (Regex.IsMatch(ol2text.Text, NumsPattern))
-                        {
-                            try
+                            if (Regex.IsMatch(ol2text.Text, NumsPattern))
                             {
-                                ol2 = Convert.ToInt32(Convert.ToInt32(ol2text.Text) * imgratio);
+                                try
+                                {
+                                    ol2 = Convert.ToInt32(Convert.ToInt32(ol2text.Text) * imgratio);
+                                }
+                                catch
+                                {
+                                    ol2 = 0;
+                                }
                             }
-                            catch
+                            else
                             {
                                 ol2 = 0;
                             }
-                        }
-                        else
-                        {
-                            ol2 = 0;
-                        }
-                        if (Regex.IsMatch(ol3text.Text, NumsPattern))
-                        {
-                            try
+                            if (Regex.IsMatch(ol3text.Text, NumsPattern))
                             {
-                                ol3 = Convert.ToInt32(Convert.ToInt32(ol3text.Text) * imgratio);
+                                try
+                                {
+                                    ol3 = Convert.ToInt32(Convert.ToInt32(ol3text.Text) * imgratio);
+                                }
+                                catch
+                                {
+                                    ol3 = 0;
+                                }
                             }
-                            catch
+                            else
                             {
                                 ol3 = 0;
                             }
-                        }
-                        else
-                        {
-                            ol3 = 0;
-                        }
-                        if (Regex.IsMatch(ol4text.Text, NumsPattern))
-                        {
-                            try
+                            if (Regex.IsMatch(ol4text.Text, NumsPattern))
                             {
-                                ol4 = Convert.ToInt32(Convert.ToInt32(ol4text.Text) * imgratio);
+                                try
+                                {
+                                    ol4 = Convert.ToInt32(Convert.ToInt32(ol4text.Text) * imgratio);
+                                }
+                                catch
+                                {
+                                    ol4 = 0;
+                                }
                             }
-                            catch
+                            else
                             {
                                 ol4 = 0;
                             }
-                        }
-                        else
-                        {
-                            ol4 = 0;
-                        }
-                        if (Regex.IsMatch(ol5text.Text, NumsPattern))
-                        {
-                            try
+                            if (Regex.IsMatch(ol5text.Text, NumsPattern))
                             {
-                                ol5 = Convert.ToInt32(Convert.ToInt32(ol5text.Text) * imgratio);
+                                try
+                                {
+                                    ol5 = Convert.ToInt32(Convert.ToInt32(ol5text.Text) * imgratio);
+                                }
+                                catch
+                                {
+                                    ol5 = 0;
+                                }
                             }
-                            catch
+                            else
                             {
                                 ol5 = 0;
                             }
-                        }
-                        else
-                        {
-                            ol5 = 0;
-                        }
-                        if (Regex.IsMatch(ol6text.Text, NumsPattern))
-                        {
-                            try
+                            if (Regex.IsMatch(ol6text.Text, NumsPattern))
                             {
-                                ol6 = Convert.ToInt32(Convert.ToInt32(ol6text.Text) * imgratio);
+                                try
+                                {
+                                    ol6 = Convert.ToInt32(Convert.ToInt32(ol6text.Text) * imgratio);
+                                }
+                                catch
+                                {
+                                    ol6 = 0;
+                                }
                             }
-                            catch
+                            else
                             {
                                 ol6 = 0;
                             }
-                        }
-                        else
-                        {
-                            ol6 = 0;
-                        }
-                        int[] overlaparray = { ol1, ol2, ol3, ol4, ol5, ol6 };
-                        if (H12ratio != null && H23ratio != null && H34ratio != null && H45ratio != null && H56ratio != null)
-                        {
-                            H12ratio.GetArray<double>(out H12array);
-                            H23ratio.GetArray<double>(out H23array);
-                            H34ratio.GetArray<double>(out H34array);
-                            H45ratio.GetArray<double>(out H45array);
-                            H56ratio.GetArray<double>(out H56array);
-                            var calibjsonObject = new
+                            int[] overlaparray = { ol1, ol2, ol3, ol4, ol5, ol6 };
+                            if (H12ratio != null && H23ratio != null && H34ratio != null && H45ratio != null && H56ratio != null)
                             {
-                                H12 = H12array,
-                                H23 = H23array,
-                                H34 = H34array,
-                                H45 = H45array,
-                                H56 = H56array,
-                                overlap = overlaparray
-                            };
-                            string jsonstr = JsonConvert.SerializeObject(calibjsonObject);
-                            fs = new FileStream(path, FileMode.Append, FileAccess.Write);
-                            sw = new StreamWriter(fs);
-                            sw.WriteLine(jsonstr);
-                            sw.Close();
-                            fs.Close();
-                            MessageBox.Show(StaCombo.Text + "标定结果保存成功", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                H12ratio.GetArray<double>(out H12array);
+                                H23ratio.GetArray<double>(out H23array);
+                                H34ratio.GetArray<double>(out H34array);
+                                H45ratio.GetArray<double>(out H45array);
+                                H56ratio.GetArray<double>(out H56array);
+                                var calibjsonObject = new
+                                {
+                                    H12 = H12array,
+                                    H23 = H23array,
+                                    H34 = H34array,
+                                    H45 = H45array,
+                                    H56 = H56array,
+                                    overlap = overlaparray
+                                };
+                                string jsonstr = JsonConvert.SerializeObject(calibjsonObject);
+                                fs = new FileStream(path, FileMode.Append, FileAccess.Write);
+                                sw = new StreamWriter(fs);
+                                sw.WriteLine(jsonstr);
+                                sw.Close();
+                                fs.Close();
+                                MessageBox.Show(StaCombo.Text + "标定结果保存成功", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show(StaCombo.Text + "标定结果保存失败\r\n无标定信息！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
-                        else
-                        { 
-                            MessageBox.Show(StaCombo.Text + "标定结果保存失败\r\n无标定信息！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(StaCombo.Text + "标定结果保存失败\r\n" + ex.StackTrace, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        finally
+                        {
+                            if (sw != null)
+                            {
+                                sw.Dispose();
+                            }
+                            if (fs != null)
+                            {
+                                fs.Dispose();
+                            }
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(StaCombo.Text + "标定结果保存失败\r\n" + ex.StackTrace, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        if (sw != null)
+                        if (slxResult != null)
                         {
-                            sw.Dispose();
-                        }
-                        if (fs != null)
-                        {
-                            fs.Dispose();
+                            SLXCalibrationResult.SaveToFile(slxResult, path);
                         }
                     }
                 }

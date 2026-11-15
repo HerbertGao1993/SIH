@@ -75,7 +75,7 @@ namespace Calib
             // 
             this.SelectImageBtn1.Cursor = System.Windows.Forms.Cursors.Default;
             this.SelectImageBtn1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.SelectImageBtn1.Location = new System.Drawing.Point(82, 671);
+            this.SelectImageBtn1.Location = new System.Drawing.Point(82, 774);
             this.SelectImageBtn1.Margin = new System.Windows.Forms.Padding(2);
             this.SelectImageBtn1.Name = "SelectImageBtn1";
             this.SelectImageBtn1.Size = new System.Drawing.Size(96, 30);
@@ -115,7 +115,7 @@ namespace Calib
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Calib.Properties.Resources.bottomscan;
-            this.pictureBox1.Location = new System.Drawing.Point(38, 564);
+            this.pictureBox1.Location = new System.Drawing.Point(38, 667);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(682, 52);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -132,7 +132,7 @@ namespace Calib
             this.PreviewBtn2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
             this.PreviewBtn2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PreviewBtn2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.PreviewBtn2.Location = new System.Drawing.Point(204, 612);
+            this.PreviewBtn2.Location = new System.Drawing.Point(204, 715);
             this.PreviewBtn2.Margin = new System.Windows.Forms.Padding(2);
             this.PreviewBtn2.Name = "PreviewBtn2";
             this.PreviewBtn2.Size = new System.Drawing.Size(50, 50);
@@ -152,7 +152,7 @@ namespace Calib
             this.PreviewBtn1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PreviewBtn1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.PreviewBtn1.ForeColor = System.Drawing.Color.Black;
-            this.PreviewBtn1.Location = new System.Drawing.Point(104, 612);
+            this.PreviewBtn1.Location = new System.Drawing.Point(104, 715);
             this.PreviewBtn1.Margin = new System.Windows.Forms.Padding(2);
             this.PreviewBtn1.Name = "PreviewBtn1";
             this.PreviewBtn1.Size = new System.Drawing.Size(50, 50);
@@ -164,7 +164,7 @@ namespace Calib
             // SAVE_Btn
             // 
             this.SAVE_Btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.SAVE_Btn.Location = new System.Drawing.Point(1068, 473);
+            this.SAVE_Btn.Location = new System.Drawing.Point(1316, 486);
             this.SAVE_Btn.Margin = new System.Windows.Forms.Padding(2);
             this.SAVE_Btn.Name = "SAVE_Btn";
             this.SAVE_Btn.Size = new System.Drawing.Size(121, 62);
@@ -176,7 +176,7 @@ namespace Calib
             // StartCal_Btn
             // 
             this.StartCal_Btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.StartCal_Btn.Location = new System.Drawing.Point(900, 473);
+            this.StartCal_Btn.Location = new System.Drawing.Point(1148, 486);
             this.StartCal_Btn.Margin = new System.Windows.Forms.Padding(2);
             this.StartCal_Btn.Name = "StartCal_Btn";
             this.StartCal_Btn.Size = new System.Drawing.Size(121, 62);
@@ -189,7 +189,7 @@ namespace Calib
             // 
             this.SelectImageBtn2.Cursor = System.Windows.Forms.Cursors.Default;
             this.SelectImageBtn2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.SelectImageBtn2.Location = new System.Drawing.Point(182, 671);
+            this.SelectImageBtn2.Location = new System.Drawing.Point(182, 774);
             this.SelectImageBtn2.Margin = new System.Windows.Forms.Padding(2);
             this.SelectImageBtn2.Name = "SelectImageBtn2";
             this.SelectImageBtn2.Size = new System.Drawing.Size(96, 30);
@@ -202,7 +202,7 @@ namespace Calib
             // 
             this.SelectImageBtn3.Cursor = System.Windows.Forms.Cursors.Default;
             this.SelectImageBtn3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.SelectImageBtn3.Location = new System.Drawing.Point(282, 671);
+            this.SelectImageBtn3.Location = new System.Drawing.Point(282, 774);
             this.SelectImageBtn3.Margin = new System.Windows.Forms.Padding(2);
             this.SelectImageBtn3.Name = "SelectImageBtn3";
             this.SelectImageBtn3.Size = new System.Drawing.Size(96, 30);
@@ -215,7 +215,7 @@ namespace Calib
             // 
             this.SelectImageBtn4.Cursor = System.Windows.Forms.Cursors.Default;
             this.SelectImageBtn4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.SelectImageBtn4.Location = new System.Drawing.Point(382, 671);
+            this.SelectImageBtn4.Location = new System.Drawing.Point(382, 774);
             this.SelectImageBtn4.Margin = new System.Windows.Forms.Padding(2);
             this.SelectImageBtn4.Name = "SelectImageBtn4";
             this.SelectImageBtn4.Size = new System.Drawing.Size(96, 30);
@@ -228,7 +228,7 @@ namespace Calib
             // 
             this.SelectImageBtn5.Cursor = System.Windows.Forms.Cursors.Default;
             this.SelectImageBtn5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.SelectImageBtn5.Location = new System.Drawing.Point(482, 671);
+            this.SelectImageBtn5.Location = new System.Drawing.Point(482, 774);
             this.SelectImageBtn5.Margin = new System.Windows.Forms.Padding(2);
             this.SelectImageBtn5.Name = "SelectImageBtn5";
             this.SelectImageBtn5.Size = new System.Drawing.Size(96, 30);
@@ -241,7 +241,7 @@ namespace Calib
             // 
             this.SelectImageBtn6.Cursor = System.Windows.Forms.Cursors.Default;
             this.SelectImageBtn6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.SelectImageBtn6.Location = new System.Drawing.Point(582, 671);
+            this.SelectImageBtn6.Location = new System.Drawing.Point(582, 774);
             this.SelectImageBtn6.Margin = new System.Windows.Forms.Padding(2);
             this.SelectImageBtn6.Name = "SelectImageBtn6";
             this.SelectImageBtn6.Size = new System.Drawing.Size(96, 30);
@@ -260,7 +260,7 @@ namespace Calib
             this.PreviewBtn6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
             this.PreviewBtn6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PreviewBtn6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.PreviewBtn6.Location = new System.Drawing.Point(604, 612);
+            this.PreviewBtn6.Location = new System.Drawing.Point(604, 715);
             this.PreviewBtn6.Margin = new System.Windows.Forms.Padding(2);
             this.PreviewBtn6.Name = "PreviewBtn6";
             this.PreviewBtn6.Size = new System.Drawing.Size(50, 50);
@@ -279,7 +279,7 @@ namespace Calib
             this.PreviewBtn5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
             this.PreviewBtn5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PreviewBtn5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.PreviewBtn5.Location = new System.Drawing.Point(504, 612);
+            this.PreviewBtn5.Location = new System.Drawing.Point(504, 715);
             this.PreviewBtn5.Margin = new System.Windows.Forms.Padding(2);
             this.PreviewBtn5.Name = "PreviewBtn5";
             this.PreviewBtn5.Size = new System.Drawing.Size(50, 50);
@@ -298,7 +298,7 @@ namespace Calib
             this.PreviewBtn3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
             this.PreviewBtn3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PreviewBtn3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.PreviewBtn3.Location = new System.Drawing.Point(304, 612);
+            this.PreviewBtn3.Location = new System.Drawing.Point(304, 715);
             this.PreviewBtn3.Margin = new System.Windows.Forms.Padding(2);
             this.PreviewBtn3.Name = "PreviewBtn3";
             this.PreviewBtn3.Size = new System.Drawing.Size(50, 50);
@@ -317,7 +317,7 @@ namespace Calib
             this.PreviewBtn4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Yellow;
             this.PreviewBtn4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PreviewBtn4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.PreviewBtn4.Location = new System.Drawing.Point(404, 612);
+            this.PreviewBtn4.Location = new System.Drawing.Point(404, 715);
             this.PreviewBtn4.Margin = new System.Windows.Forms.Padding(2);
             this.PreviewBtn4.Name = "PreviewBtn4";
             this.PreviewBtn4.Size = new System.Drawing.Size(50, 50);
@@ -328,7 +328,7 @@ namespace Calib
             // 
             // CalResultBox
             // 
-            this.CalResultBox.Location = new System.Drawing.Point(900, 86);
+            this.CalResultBox.Location = new System.Drawing.Point(1148, 99);
             this.CalResultBox.Multiline = true;
             this.CalResultBox.Name = "CalResultBox";
             this.CalResultBox.Size = new System.Drawing.Size(289, 346);
@@ -351,7 +351,7 @@ namespace Calib
             this.panel1.Controls.Add(this.CurrentPicBox);
             this.panel1.Location = new System.Drawing.Point(38, 99);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(821, 436);
+            this.panel1.Size = new System.Drawing.Size(1037, 543);
             this.panel1.TabIndex = 245;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CurrentPicBox_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.CurrentPicBox_MouseMove);
@@ -360,7 +360,7 @@ namespace Calib
             // 
             this.DeleteImageBtn6.Cursor = System.Windows.Forms.Cursors.Default;
             this.DeleteImageBtn6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.DeleteImageBtn6.Location = new System.Drawing.Point(582, 705);
+            this.DeleteImageBtn6.Location = new System.Drawing.Point(582, 808);
             this.DeleteImageBtn6.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteImageBtn6.Name = "DeleteImageBtn6";
             this.DeleteImageBtn6.Size = new System.Drawing.Size(96, 30);
@@ -373,7 +373,7 @@ namespace Calib
             // 
             this.DeleteImageBtn5.Cursor = System.Windows.Forms.Cursors.Default;
             this.DeleteImageBtn5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.DeleteImageBtn5.Location = new System.Drawing.Point(482, 705);
+            this.DeleteImageBtn5.Location = new System.Drawing.Point(482, 808);
             this.DeleteImageBtn5.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteImageBtn5.Name = "DeleteImageBtn5";
             this.DeleteImageBtn5.Size = new System.Drawing.Size(96, 30);
@@ -386,7 +386,7 @@ namespace Calib
             // 
             this.DeleteImageBtn4.Cursor = System.Windows.Forms.Cursors.Default;
             this.DeleteImageBtn4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.DeleteImageBtn4.Location = new System.Drawing.Point(382, 705);
+            this.DeleteImageBtn4.Location = new System.Drawing.Point(382, 808);
             this.DeleteImageBtn4.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteImageBtn4.Name = "DeleteImageBtn4";
             this.DeleteImageBtn4.Size = new System.Drawing.Size(96, 30);
@@ -399,7 +399,7 @@ namespace Calib
             // 
             this.DeleteImageBtn3.Cursor = System.Windows.Forms.Cursors.Default;
             this.DeleteImageBtn3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.DeleteImageBtn3.Location = new System.Drawing.Point(282, 705);
+            this.DeleteImageBtn3.Location = new System.Drawing.Point(282, 808);
             this.DeleteImageBtn3.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteImageBtn3.Name = "DeleteImageBtn3";
             this.DeleteImageBtn3.Size = new System.Drawing.Size(96, 30);
@@ -412,7 +412,7 @@ namespace Calib
             // 
             this.DeleteImageBtn2.Cursor = System.Windows.Forms.Cursors.Default;
             this.DeleteImageBtn2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.DeleteImageBtn2.Location = new System.Drawing.Point(182, 705);
+            this.DeleteImageBtn2.Location = new System.Drawing.Point(182, 808);
             this.DeleteImageBtn2.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteImageBtn2.Name = "DeleteImageBtn2";
             this.DeleteImageBtn2.Size = new System.Drawing.Size(96, 30);
@@ -425,7 +425,7 @@ namespace Calib
             // 
             this.DeleteImageBtn1.Cursor = System.Windows.Forms.Cursors.Default;
             this.DeleteImageBtn1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.DeleteImageBtn1.Location = new System.Drawing.Point(82, 705);
+            this.DeleteImageBtn1.Location = new System.Drawing.Point(82, 808);
             this.DeleteImageBtn1.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteImageBtn1.Name = "DeleteImageBtn1";
             this.DeleteImageBtn1.Size = new System.Drawing.Size(96, 30);
@@ -465,7 +465,7 @@ namespace Calib
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 739);
+            this.label2.Location = new System.Drawing.Point(12, 842);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 17);
             this.label2.TabIndex = 254;
@@ -474,7 +474,7 @@ namespace Calib
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 756);
+            this.label3.Location = new System.Drawing.Point(12, 859);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 17);
             this.label3.TabIndex = 255;
@@ -482,42 +482,42 @@ namespace Calib
             // 
             // ol1text
             // 
-            this.ol1text.Location = new System.Drawing.Point(82, 746);
+            this.ol1text.Location = new System.Drawing.Point(82, 849);
             this.ol1text.Name = "ol1text";
             this.ol1text.Size = new System.Drawing.Size(96, 22);
             this.ol1text.TabIndex = 256;
             // 
             // ol2text
             // 
-            this.ol2text.Location = new System.Drawing.Point(182, 746);
+            this.ol2text.Location = new System.Drawing.Point(182, 849);
             this.ol2text.Name = "ol2text";
             this.ol2text.Size = new System.Drawing.Size(96, 22);
             this.ol2text.TabIndex = 257;
             // 
             // ol3text
             // 
-            this.ol3text.Location = new System.Drawing.Point(282, 746);
+            this.ol3text.Location = new System.Drawing.Point(282, 849);
             this.ol3text.Name = "ol3text";
             this.ol3text.Size = new System.Drawing.Size(96, 22);
             this.ol3text.TabIndex = 258;
             // 
             // ol4text
             // 
-            this.ol4text.Location = new System.Drawing.Point(382, 746);
+            this.ol4text.Location = new System.Drawing.Point(382, 849);
             this.ol4text.Name = "ol4text";
             this.ol4text.Size = new System.Drawing.Size(96, 22);
             this.ol4text.TabIndex = 259;
             // 
             // ol5text
             // 
-            this.ol5text.Location = new System.Drawing.Point(482, 746);
+            this.ol5text.Location = new System.Drawing.Point(482, 849);
             this.ol5text.Name = "ol5text";
             this.ol5text.Size = new System.Drawing.Size(96, 22);
             this.ol5text.TabIndex = 260;
             // 
             // ol6text
             // 
-            this.ol6text.Location = new System.Drawing.Point(582, 746);
+            this.ol6text.Location = new System.Drawing.Point(582, 849);
             this.ol6text.Name = "ol6text";
             this.ol6text.Size = new System.Drawing.Size(96, 22);
             this.ol6text.TabIndex = 261;
@@ -526,7 +526,7 @@ namespace Calib
             // 
             this.SelectMultiImageButton.Cursor = System.Windows.Forms.Cursors.Default;
             this.SelectMultiImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.SelectMultiImageButton.Location = new System.Drawing.Point(758, 671);
+            this.SelectMultiImageButton.Location = new System.Drawing.Point(974, 774);
             this.SelectMultiImageButton.Margin = new System.Windows.Forms.Padding(2);
             this.SelectMultiImageButton.Name = "SelectMultiImageButton";
             this.SelectMultiImageButton.Size = new System.Drawing.Size(101, 64);
@@ -540,7 +540,7 @@ namespace Calib
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1228, 872);
+            this.ClientSize = new System.Drawing.Size(1540, 1055);
             this.Controls.Add(this.SelectMultiImageButton);
             this.Controls.Add(this.ol6text);
             this.Controls.Add(this.ol5text);

@@ -374,9 +374,7 @@ D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\C
 D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Calib\obj\x64\Debug\Calib.exe
 D:\Visual Studio 2015\Projects\存图助手标准版v3.9 自动配置数据库\Calib\obj\x64\Debug\Calib.pdb
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\dll\x86\OpenCvSharpExtern.dll
-D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\dll\x86\opencv_videoio_ffmpeg455.dll
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\dll\x64\OpenCvSharpExtern.dll
-D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\dll\x64\opencv_videoio_ffmpeg455_64.dll
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\Calib.exe.config
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\Calib.exe
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\Calib.pdb
@@ -399,3 +397,16 @@ D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\obj\x64\Deb
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\obj\x64\Debug\Calib.csproj.CopyComplete
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\obj\x64\Debug\Calib.exe
 D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\obj\x64\Debug\Calib.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\dll\x86\opencv_videoio_ffmpeg4100.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\dll\x64\opencv_videoio_ffmpeg4100_64.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\OpenCvSharp.WpfExtensions.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\System.Drawing.Common.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\System.ValueTuple.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\OpenCvSharp.WpfExtensions.xml
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\System.Drawing.Common.pdb
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\System.Drawing.Common.xml
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\System.Memory.xml
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\System.ValueTuple.xml
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\obj\x64\Debug\Calib.exe.config
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\MathNet.Numerics.dll
+D:\Visual Studio 2015\Projects\存图助手标准版_Code Repo\Calib\bin\x64\Debug\MathNet.Numerics.xml
